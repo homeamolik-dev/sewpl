@@ -1,0 +1,152 @@
+{
+  "services": [
+    {
+      "id": "part-manufacturing",
+      "name": "Part Manufacturing",
+      "slug": "part-manufacturing",
+      "shortDescription": "Complete precision part manufacturing solutions using advanced CNC technology.",
+      "description": "Our Part Manufacturing service delivers high-precision components using state-of-the-art CNC machinery. From prototype to production, we handle projects of all sizes with consistent quality and on-time delivery.",
+      "icon": "cog",
+      "processes": [
+        {
+          "name": "Turning",
+          "description": "Precision turning operations for cylindrical components using CNC lathes with tight tolerances up to IT6 grade."
+        },
+        {
+          "name": "Milling",
+          "description": "3-axis and 5-axis milling for complex geometries, pockets, and contours on various materials."
+        },
+        {
+          "name": "Drilling",
+          "description": "High-precision drilling operations including deep hole drilling, step drilling, and counter boring."
+        },
+        {
+          "name": "Tapping",
+          "description": "Thread cutting for internal threads using CNC rigid tapping and form tapping methods."
+        },
+        {
+          "name": "VMC Operations",
+          "description": "Multi-operation machining on Vertical Machining Centers for complete parts in single setups."
+        },
+        {
+          "name": "CNC Lathe",
+          "description": "Advanced turning operations with live tooling capability for complex turned-milled parts."
+        }
+      ],
+      "capabilities": [
+        "Prototype development",
+        "Small batch production",
+        "High-volume manufacturing",
+        "Multi-material machining",
+        "Tight tolerance work (±0.01mm)",
+        "Surface finishing options"
+      ]
+    },
+    {
+      "id": "machine-manufacturing",
+      "name": "Machine Manufacturing",
+      "slug": "machine-manufacturing",
+      "shortDescription": "Custom machine design and manufacturing for industrial automation needs.",
+      "description": "We design and manufacture custom industrial machines tailored to your specific production requirements. Our engineering team works closely with clients from concept to commissioning.",
+      "icon": "factory",
+      "processes": [
+        {
+          "name": "Design Engineering",
+          "description": "Complete machine design using CAD/CAM software with FEA analysis for optimal performance."
+        },
+        {
+          "name": "Fabrication",
+          "description": "Precision fabrication of machine structures using quality materials and processes."
+        },
+        {
+          "name": "Assembly",
+          "description": "Expert assembly of mechanical, electrical, and pneumatic systems."
+        },
+        {
+          "name": "Testing",
+          "description": "Comprehensive testing and validation before delivery to ensure specifications are met."
+        }
+      ],
+      "capabilities": [
+        "Special Purpose Machines (SPM)",
+        "Assembly automation",
+        "Testing fixtures",
+        "Material handling systems",
+        "Retrofit and upgrades",
+        "Turnkey solutions"
+      ]
+    },
+    {
+      "id": "maintenance-support",
+      "name": "Maintenance & Support",
+      "slug": "maintenance-support",
+      "shortDescription": "Comprehensive maintenance services to keep your machines running at peak efficiency.",
+      "description": "Our maintenance services ensure your machinery operates at optimal efficiency. We offer preventive maintenance programs, emergency repairs, and spare parts support.",
+      "icon": "wrench",
+      "processes": [
+        {
+          "name": "Preventive Maintenance",
+          "description": "Scheduled maintenance programs to prevent unexpected breakdowns and extend machine life."
+        },
+        {
+          "name": "Breakdown Support",
+          "description": "Rapid response for emergency repairs to minimize production downtime."
+        },
+        {
+          "name": "Spare Parts",
+          "description": "Genuine spare parts supply with inventory management support."
+        },
+        {
+          "name": "Training",
+          "description": "Operator and maintenance training for your team."
+        }
+      ],
+      "capabilities": [
+        "24/7 emergency support",
+        "Annual maintenance contracts",
+        "Remote diagnostics",
+        "On-site service",
+        "Spare parts inventory",
+        "Technical training"
+      ]
+    }
+  ],
+  "facility": {
+    "description": "Our state-of-the-art manufacturing facility is equipped with modern CNC machines, quality inspection equipment, and skilled workforce to deliver precision engineering solutions.",
+    "highlights": [
+      "10,000 sq.ft. manufacturing area",
+      "Climate-controlled inspection room",
+      "Modern CNC machines",
+      "Experienced engineering team",
+      "Quality management system",
+      "On-time delivery commitment"
+    ],
+    "images": [
+      {
+        "src": "/images/facility/facility-1.jpg",
+        "alt": "CNC Machine Shop Floor",
+        "caption": "Our CNC machining area with latest equipment"
+      },
+      {
+        "src": "/images/facility/facility-2.jpg",
+        "alt": "Quality Inspection Area",
+        "caption": "Precision measurement and quality control"
+      },
+      {
+        "src": "/images/facility/facility-3.jpg",
+        "alt": "Assembly Section",
+        "caption": "Machine assembly and testing bay"
+      },
+      {
+        "src": "/images/facility/facility-4.jpg",
+        "alt": "Tool Room",
+        "caption": "Well-equipped tool room for fixtures and jigs"
+      },
+      {
+        "src": "/images/facility/facility-5.jpg",
+        "alt": "Raw Material Storage",
+        "caption": "Organized material storage area"
+      }
+    ]
+  }
+}

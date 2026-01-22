@@ -1,0 +1,310 @@
+{
+  "products": [
+    {
+      "id": "cnc-lathe-001",
+      "name": "CNC Lathe Machine - Heavy Duty",
+      "slug": "cnc-lathe-heavy-duty",
+      "category": "CNC Lathe",
+      "shortDescription": "High-precision CNC lathe for heavy-duty turning operations with advanced control systems.",
+      "description": "Our Heavy Duty CNC Lathe Machine is engineered for maximum precision and reliability in demanding industrial environments. Featuring a robust cast iron bed construction, this machine delivers exceptional rigidity and vibration dampening for superior surface finishes. The advanced CNC control system allows for complex part programming with ease, while the powerful spindle motor handles both rough cutting and fine finishing operations with equal proficiency.",
+      "specifications": {
+        "Max Turning Diameter": "500mm",
+        "Max Turning Length": "1000mm",
+        "Spindle Speed": "50-3000 RPM",
+        "Spindle Power": "15 kW",
+        "Tool Stations": "12",
+        "Control System": "FANUC 0i-TF",
+        "Positioning Accuracy": "0.005mm",
+        "Repeatability": "0.003mm"
+      },
+      "features": [
+        "Rigid cast iron bed construction",
+        "High-precision linear guideways",
+        "Automatic tool changer",
+        "Coolant system with filtration",
+        "Safety interlocks and guards",
+        "Remote diagnostics capability"
+      ],
+      "images": [
+        "/images/products/cnc-lathe-1.jpg",
+        "/images/products/cnc-lathe-2.jpg",
+        "/images/products/cnc-lathe-3.jpg"
+      ],
+      "price": "Contact for Quote",
+      "inStock": true,
+      "featured": true
+    },
+    {
+      "id": "vmc-001",
+      "name": "Vertical Machining Center - 3 Axis",
+      "slug": "vmc-3-axis",
+      "category": "VMC",
+      "shortDescription": "Versatile 3-axis VMC for precision milling, drilling, and tapping operations.",
+      "description": "The 3-Axis Vertical Machining Center combines versatility with precision for a wide range of machining applications. Designed for both prototype development and production runs, this VMC features rapid traverse rates and quick tool change times to minimize cycle times. The rigid column and base design ensures accuracy even during aggressive cutting operations.",
+      "specifications": {
+        "Table Size": "1000 x 500mm",
+        "X/Y/Z Travel": "800/500/500mm",
+        "Spindle Speed": "100-12000 RPM",
+        "Spindle Power": "11 kW",
+        "Tool Magazine": "24 tools",
+        "Rapid Traverse": "36 m/min",
+        "Control System": "FANUC 0i-MF",
+        "Table Load Capacity": "800 kg"
+      },
+      "features": [
+        "BT40 spindle taper",
+        "Automatic tool length measurement",
+        "Through-spindle coolant",
+        "Chip conveyor system",
+        "Work light and camera system",
+        "Energy-efficient servo motors"
+      ],
+      "images": [
+        "/images/products/vmc-1.jpg",
+        "/images/products/vmc-2.jpg",
+        "/images/products/vmc-3.jpg"
+      ],
+      "price": "Contact for Quote",
+      "inStock": true,
+      "featured": true
+    },
+    {
+      "id": "vmc-002",
+      "name": "Vertical Machining Center - 5 Axis",
+      "slug": "vmc-5-axis",
+      "category": "VMC",
+      "shortDescription": "Advanced 5-axis VMC for complex geometries and multi-face machining in single setup.",
+      "description": "Our 5-Axis Vertical Machining Center represents the pinnacle of machining technology, enabling the production of complex parts in a single setup. The simultaneous 5-axis motion capability allows for machining of intricate geometries, undercuts, and compound angles that would be impossible on conventional machines. Ideal for aerospace, medical, and automotive components.",
+      "specifications": {
+        "Table Size": "600 x 500mm",
+        "X/Y/Z Travel": "650/520/475mm",
+        "A-Axis Rotation": "-120° to +30°",
+        "C-Axis Rotation": "360° continuous",
+        "Spindle Speed": "100-15000 RPM",
+        "Spindle Power": "18.5 kW",
+        "Tool Magazine": "32 tools",
+        "Control System": "FANUC 31i-B5"
+      },
+      "features": [
+        "Direct drive rotary axes",
+        "High-speed spindle with ceramic bearings",
+        "Advanced collision detection",
+        "3D tool compensation",
+        "Thermal compensation system",
+        "Probing system included"
+      ],
+      "images": [
+        "/images/products/vmc-5axis-1.jpg",
+        "/images/products/vmc-5axis-2.jpg",
+        "/images/products/vmc-5axis-3.jpg"
+      ],
+      "price": "Contact for Quote",
+      "inStock": true,
+      "featured": true
+    },
+    {
+      "id": "drilling-001",
+      "name": "Multi-Spindle Drilling Machine",
+      "slug": "multi-spindle-drilling",
+      "category": "Drilling Machines",
+      "shortDescription": "High-production drilling machine with multiple spindles for batch manufacturing.",
+      "description": "The Multi-Spindle Drilling Machine is designed for high-volume production environments where multiple holes need to be drilled simultaneously. With adjustable spindle positions and variable speed control, this machine offers flexibility without sacrificing productivity. The heavy-duty construction ensures long-term accuracy and reliability.",
+      "specifications": {
+        "Number of Spindles": "6 (adjustable)",
+        "Drilling Capacity": "Up to 25mm",
+        "Spindle Speed Range": "150-3000 RPM",
+        "Spindle Motors": "1.5 kW each",
+        "Table Size": "800 x 600mm",
+        "Z-Axis Travel": "200mm",
+        "Minimum Spindle Distance": "50mm",
+        "Power Supply": "415V, 3-Phase"
+      },
+      "features": [
+        "Adjustable spindle head positions",
+        "Quick-change drill chuck system",
+        "Programmable depth control",
+        "Automatic lubrication system",
+        "Safety guards with interlocks",
+        "Foot pedal operation option"
+      ],
+      "images": [
+        "/images/products/drilling-1.jpg",
+        "/images/products/drilling-2.jpg"
+      ],
+      "price": "Contact for Quote",
+      "inStock": true,
+      "featured": false
+    },
+    {
+      "id": "tapping-001",
+      "name": "Automatic Tapping Machine",
+      "slug": "automatic-tapping-machine",
+      "category": "Tapping Machines",
+      "shortDescription": "Precision automatic tapping machine for consistent thread quality.",
+      "description": "Our Automatic Tapping Machine delivers consistent, high-quality threads with minimal operator intervention. The torque-sensing technology prevents tap breakage and ensures perfect threads every time. Suitable for both blind and through holes across a range of materials.",
+      "specifications": {
+        "Tapping Capacity": "M3-M16",
+        "Spindle Speed": "100-2000 RPM",
+        "Arm Reach": "1000mm",
+        "Vertical Travel": "200mm",
+        "Motor Power": "1.5 kW",
+        "Torque Control": "Electronic",
+        "Thread Depth Control": "Programmable",
+        "Cycle Counter": "Digital display"
+      },
+      "features": [
+        "Torque-limiting clutch",
+        "Automatic reverse at depth",
+        "Multiple tapping arm positions",
+        "Quick-change tap holders",
+        "Tapping fluid dispenser",
+        "Tap breakage detection"
+      ],
+      "images": [
+        "/images/products/tapping-1.jpg",
+        "/images/products/tapping-2.jpg"
+      ],
+      "price": "Contact for Quote",
+      "inStock": true,
+      "featured": false
+    },
+    {
+      "id": "milling-001",
+      "name": "Universal Milling Machine",
+      "slug": "universal-milling-machine",
+      "category": "Milling Machines",
+      "shortDescription": "Versatile universal milling machine for horizontal and vertical operations.",
+      "description": "The Universal Milling Machine offers unmatched versatility with its ability to perform both horizontal and vertical milling operations. The swiveling head and rotary table enable complex angular machining, making it ideal for tool rooms, job shops, and educational institutions.",
+      "specifications": {
+        "Table Size": "1400 x 320mm",
+        "X/Y/Z Travel": "900/320/420mm",
+        "Spindle Speeds": "45-1500 RPM (18 steps)",
+        "Spindle Taper": "ISO 40",
+        "Motor Power": "5.5 kW",
+        "Head Swivel": "±45°",
+        "Table Swivel": "±45°",
+        "Power Feed": "X, Y, Z axes"
+      },
+      "features": [
+        "Hardened and ground table",
+        "One-shot lubrication system",
+        "Digital readout compatible",
+        "Coolant system included",
+        "Variable speed option available",
+        "Dividing head accessory"
+      ],
+      "images": [
+        "/images/products/milling-1.jpg",
+        "/images/products/milling-2.jpg",
+        "/images/products/milling-3.jpg"
+      ],
+      "price": "Contact for Quote",
+      "inStock": true,
+      "featured": false
+    },
+    {
+      "id": "turning-001",
+      "name": "Precision Turning Center",
+      "slug": "precision-turning-center",
+      "category": "CNC Lathe",
+      "shortDescription": "Compact CNC turning center for high-precision small parts manufacturing.",
+      "description": "The Precision Turning Center is specifically designed for small parts manufacturing requiring tight tolerances. Its compact footprint makes it ideal for facilities with limited floor space, while the advanced control system and high-speed spindle ensure exceptional productivity and accuracy.",
+      "specifications": {
+        "Max Turning Diameter": "200mm",
+        "Max Turning Length": "300mm",
+        "Spindle Speed": "100-6000 RPM",
+        "Spindle Power": "7.5 kW",
+        "Tool Stations": "8",
+        "Bar Capacity": "42mm",
+        "Control System": "FANUC 0i-TF",
+        "Positioning Accuracy": "0.003mm"
+      },
+      "features": [
+        "Gang-type tool post",
+        "Parts catcher included",
+        "Bar feeder compatible",
+        "High-pressure coolant system",
+        "Compact footprint design",
+        "Quick-change tooling system"
+      ],
+      "images": [
+        "/images/products/turning-1.jpg",
+        "/images/products/turning-2.jpg"
+      ],
+      "price": "Contact for Quote",
+      "inStock": true,
+      "featured": true
+    },
+    {
+      "id": "spms-001",
+      "name": "Special Purpose Machine - Assembly",
+      "slug": "spm-assembly",
+      "category": "Special Purpose Machines",
+      "shortDescription": "Custom-designed assembly machine for automated production lines.",
+      "description": "Our Special Purpose Assembly Machine is custom-engineered to meet your specific production requirements. From initial concept to final commissioning, our team works closely with you to develop a solution that optimizes your assembly process, reduces cycle times, and ensures consistent quality.",
+      "specifications": {
+        "Cycle Time": "As per requirement",
+        "Stations": "Customizable",
+        "Automation Level": "Semi to Fully Automatic",
+        "Integration": "PLC-based control",
+        "Safety": "CE compliant",
+        "Utilities": "As per design",
+        "Footprint": "Custom",
+        "Production Rate": "As per requirement"
+      },
+      "features": [
+        "Custom engineering design",
+        "Modular construction",
+        "HMI touch screen interface",
+        "Data logging capability",
+        "Remote monitoring option",
+        "Comprehensive training included"
+      ],
+      "images": [
+        "/images/products/spm-1.jpg",
+        "/images/products/spm-2.jpg"
+      ],
+      "price": "Contact for Quote",
+      "inStock": false,
+      "featured": false
+    }
+  ],
+  "categories": [
+    {
+      "id": "cnc-lathe",
+      "name": "CNC Lathe",
+      "slug": "cnc-lathe",
+      "description": "Computer-controlled turning machines for precision cylindrical parts"
+    },
+    {
+      "id": "vmc",
+      "name": "VMC",
+      "slug": "vmc",
+      "description": "Vertical Machining Centers for milling, drilling, and complex operations"
+    },
+    {
+      "id": "drilling",
+      "name": "Drilling Machines",
+      "slug": "drilling-machines",
+      "description": "Single and multi-spindle drilling solutions for production"
+    },
+    {
+      "id": "tapping",
+      "name": "Tapping Machines",
+      "slug": "tapping-machines",
+      "description": "Automatic and manual tapping solutions for thread creation"
+    },
+    {
+      "id": "milling",
+      "name": "Milling Machines",
+      "slug": "milling-machines",
+      "description": "Universal and vertical milling machines for versatile machining"
+    },
+    {
+      "id": "spm",
+      "name": "Special Purpose Machines",
+      "slug": "special-purpose-machines",
+      "description": "Custom-engineered machines for specific manufacturing needs"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "name": "SAVE Engineering Works Pvt. Ltd.",
+  "shortName": "SEWPL",
+  "tagline": "Precision Engineering Solutions",
+  "description": "SAVE Engineering Works Pvt. Ltd. is a leading provider of precision engineering solutions, specializing in CNC machining, custom machine manufacturing, and industrial automation. With decades of experience and a commitment to quality, we deliver excellence in every project.",
+  "founded": "1995",
+  "about": {
+    "mission": "To deliver precision engineering solutions that exceed customer expectations through innovation, quality, and reliability.",
+    "vision": "To be the preferred partner for precision manufacturing and custom machine solutions in the industry.",
+    "values": [
+      {
+        "title": "Quality",
+        "description": "We maintain the highest standards of quality in every product and service we deliver."
+      },
+      {
+        "title": "Innovation",
+        "description": "We continuously invest in new technologies and processes to serve our customers better."
+      },
+      {
+        "title": "Integrity",
+        "description": "We conduct our business with honesty, transparency, and ethical practices."
+      },
+      {
+        "title": "Customer Focus",
+        "description": "Our customers' success is our success. We go the extra mile to meet their needs."
+      }
+    ],
+    "stats": [
+      { "value": "25+", "label": "Years Experience" },
+      { "value": "500+", "label": "Projects Completed" },
+      { "value": "100+", "label": "Happy Clients" },
+      { "value": "50+", "label": "Team Members" }
+    ]
+  },
+  "contact": {
+    "address": {
+      "line1": "Plot No. 123, Industrial Area",
+      "line2": "Phase II, Sector 5",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "pincode": "400001",
+      "country": "India"
+    },
+    "phone": [
+      "+91 22 1234 5678",
+      "+91 98765 43210"
+    ],
+    "email": {
+      "general": "info@sewpl.com",
+      "sales": "sales@sewpl.com",
+      "accounts": "accounts@sewpl.com",
+      "ceo": "ceo@sewpl.com",
+      "services": "services@sewpl.com",
+      "manufacturing": "manufacturing@sewpl.com"
+    },
+    "workingHours": {
+      "weekdays": "9:00 AM - 6:00 PM",
+      "saturday": "9:00 AM - 2:00 PM",
+      "sunday": "Closed"
+    },
+    "googleMapsEmbed": "<!-- Replace with actual Google Maps embed URL -->",
+    "googleMapsLink": "https://maps.google.com/?q=Mumbai,Maharashtra,India"
+  },
+  "social": {
+    "linkedin": "https://linkedin.com/company/sewpl",
+    "facebook": "https://facebook.com/sewpl",
+    "twitter": "https://twitter.com/sewpl",
+    "instagram": "https://instagram.com/sewpl"
+  }
+}
