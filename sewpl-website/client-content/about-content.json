@@ -1,0 +1,44 @@
+{
+  "hero": {
+    "eyebrow": "About Us",
+    "titlePrefix": "Engineering Excellence Since",
+    "supportingText": "We pride ourselves on delivering precision engineering solutions that help our clients achieve their manufacturing goals. Our team combines decades of experience with cutting-edge technology to provide exceptional results. Be it any part to be made or different types of machines to be manufactured and assembled, we can accomplish it.",
+    "imageLabel": "Company Facility Image"
+  },
+  "missionSection": {
+    "missionTitle": "Our Mission",
+    "visionTitle": "Our Vision"
+  },
+  "valuesSection": {
+    "eyebrow": "Our Values",
+    "title": "What Drives Us",
+    "description": "Our core values guide every decision we make and every project we undertake"
+  },
+  "whyChooseUsSection": {
+    "eyebrow": "Why Choose Us",
+    "title": "Your Trusted Engineering Partner",
+    "imageLabel": "Quality Certification Image",
+    "items": [
+      {
+        "title": "Experienced Team",
+        "description": "Skilled professionals with decades of combined experience in precision engineering."
+      },
+      {
+        "title": "Modern Equipment",
+        "description": "State-of-the-art CNC machines and quality inspection equipment."
+      },
+      {
+        "title": "Quality Assurance",
+        "description": "Rigorous quality control processes ensuring consistent, reliable results."
+      },
+      {
+        "title": "On-Time Delivery",
+        "description": "Committed to meeting deadlines without compromising on quality."
+      },
+      {
+        "title": "Competitive Pricing",
+        "description": "Fair pricing with transparent quotations and no hidden costs."
+      }
+    ]
+  }
+}

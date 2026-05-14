@@ -9,10 +9,22 @@ import AnimatedSection from '@/components/AnimatedSection';
 import productsData from '@/data/products.json';
 import servicesData from '@/data/services.json';
 import companyData from '@/data/company.json';
-
-const featuredProducts = productsData.products.filter(p => p.featured).slice(0, 4);
+import homeContent from '@/data/home-content.json';
+import { useContentData } from '@/hooks/useContentData';
 
 export default function Home() {
+  const content = useContentData({
+    'products.json': productsData,
+    'services.json': servicesData,
+    'company.json': companyData,
+    'home-content.json': homeContent,
+  });
+  const liveProductsData = content['products.json'];
+  const liveServicesData = content['services.json'];
+  const liveCompanyData = content['company.json'];
+  const liveHomeContent = content['home-content.json'];
+  const featuredProducts = liveProductsData.products.filter((product) => product.featured).slice(0, 4);
+
   return (
     <>
       <section className="relative bg-gradient-to-br from-slate-50 to-slate-100 overflow-hidden">
@@ -22,29 +34,49 @@ export default function Home() {
               <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }}>
                 <span className="inline-flex items-center gap-2 px-3 py-1 bg-slate-200 text-slate-700 text-sm font-medium rounded-full mb-6">
                   <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                  Trusted Since {companyData.founded}
+                  {liveHomeContent.hero.badgePrefix} {liveCompanyData.founded}
                 </span>
               </motion.div>
 
-              <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }} className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight mb-6">
-                Precision Engineering <span className="text-slate-500">Solutions</span>
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight mb-6"
+              >
+                {liveHomeContent.hero.title} <span className="text-slate-500">{liveHomeContent.hero.highlightedTitle}</span>
               </motion.h1>
 
-              <motion.p initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }} className="text-lg text-slate-600 mb-8 max-w-xl">
-                From CNC machining to custom machine manufacturing, we deliver excellence in every project. Your partner for quality, innovation, and reliability.
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.2 }}
+                className="text-lg text-slate-600 mb-8 max-w-xl"
+              >
+                {liveHomeContent.hero.description}
               </motion.p>
 
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3 }} className="flex flex-col sm:flex-row gap-4">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.3 }}
+                className="flex flex-col sm:flex-row gap-4"
+              >
                 <Link href="/products" className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-slate-800 text-white font-medium rounded-lg hover:bg-slate-700 transition-colors">
-                  Explore Products <ArrowRight className="w-4 h-4" />
+                  {liveHomeContent.hero.primaryButtonLabel} <ArrowRight className="w-4 h-4" />
                 </Link>
                 <Link href="/contact" className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-slate-800 font-medium rounded-lg border border-slate-300 hover:bg-slate-50 transition-colors">
-                  Get a Quote
+                  {liveHomeContent.hero.secondaryButtonLabel}
                 </Link>
               </motion.div>
 
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.4 }} className="flex flex-wrap gap-6 mt-10 pt-10 border-t border-slate-200">
-                {companyData.about.stats.slice(0, 3).map((stat, index) => (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.4 }}
+                className="flex flex-wrap gap-6 mt-10 pt-10 border-t border-slate-200"
+              >
+                {liveCompanyData.about.stats.slice(0, 3).map((stat, index) => (
                   <div key={index}>
                     <p className="text-2xl font-bold text-slate-900">{stat.value}</p>
                     <p className="text-sm text-slate-500">{stat.label}</p>
@@ -58,8 +90,8 @@ export default function Home() {
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center text-slate-400">
                     <Factory className="w-24 h-24 mx-auto mb-4 text-slate-300" />
-                    <p className="text-sm">Hero Image</p>
-                    <p className="text-xs text-slate-400">CNC Machine / Factory</p>
+                    <p className="text-sm">{liveHomeContent.hero.imageLabel}</p>
+                    <p className="text-xs text-slate-400">{liveHomeContent.hero.imageCaption}</p>
                   </div>
                 </div>
                 <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg">
@@ -68,8 +100,8 @@ export default function Home() {
                       <CheckCircle className="w-5 h-5 text-green-600" />
                     </div>
                     <div>
-                      <p className="font-medium text-slate-900 text-sm">ISO 9001:2015 Certified</p>
-                      <p className="text-xs text-slate-500">Quality Management System</p>
+                      <p className="font-medium text-slate-900 text-sm">{liveHomeContent.hero.certificationTitle}</p>
+                      <p className="text-xs text-slate-500">{liveHomeContent.hero.certificationDescription}</p>
                     </div>
                   </div>
                 </div>
@@ -83,13 +115,13 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <div className="text-center max-w-2xl mx-auto mb-12">
-              <span className="text-sm font-medium text-slate-500 uppercase tracking-wider">What We Do</span>
-              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mt-2 mb-4">Our Services</h2>
-              <p className="text-slate-600">Comprehensive engineering solutions tailored to your manufacturing needs</p>
+              <span className="text-sm font-medium text-slate-500 uppercase tracking-wider">{liveHomeContent.servicesSection.eyebrow}</span>
+              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mt-2 mb-4">{liveHomeContent.servicesSection.title}</h2>
+              <p className="text-slate-600">{liveHomeContent.servicesSection.description}</p>
             </div>
           </AnimatedSection>
           <div className="grid md:grid-cols-3 gap-6">
-            {servicesData.services.map((service, index) => (
+            {liveServicesData.services.map((service, index) => (
               <ServiceCard key={service.id} service={service} index={index} />
             ))}
           </div>
@@ -101,11 +133,11 @@ export default function Home() {
           <AnimatedSection>
             <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
               <div>
-                <span className="text-sm font-medium text-slate-500 uppercase tracking-wider">Products</span>
-                <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mt-2">Featured Machines</h2>
+                <span className="text-sm font-medium text-slate-500 uppercase tracking-wider">{liveHomeContent.featuredProductsSection.eyebrow}</span>
+                <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mt-2">{liveHomeContent.featuredProductsSection.title}</h2>
               </div>
               <Link href="/products" className="inline-flex items-center gap-2 text-slate-600 hover:text-slate-900 font-medium transition-colors">
-                View All Products <ArrowRight className="w-4 h-4" />
+                {liveHomeContent.featuredProductsSection.viewAllLabel} <ArrowRight className="w-4 h-4" />
               </Link>
             </div>
           </AnimatedSection>
@@ -121,11 +153,11 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <AnimatedSection>
-              <span className="text-sm font-medium text-slate-500 uppercase tracking-wider">Our Capabilities</span>
-              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mt-2 mb-6">Part Manufacturing Excellence</h2>
-              <p className="text-slate-600 mb-8">Our state-of-the-art facility is equipped with advanced CNC machines and skilled professionals.</p>
+              <span className="text-sm font-medium text-slate-500 uppercase tracking-wider">{liveHomeContent.capabilitiesSection.eyebrow}</span>
+              <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mt-2 mb-6">{liveHomeContent.capabilitiesSection.title}</h2>
+              <p className="text-slate-600 mb-8">{liveHomeContent.capabilitiesSection.description}</p>
               <div className="grid sm:grid-cols-2 gap-4">
-                {['Turning', 'Milling', 'Drilling', 'Tapping', 'VMC Operations', 'CNC Lathe'].map((capability, index) => (
+                {liveHomeContent.capabilitiesSection.items.map((capability, index) => (
                   <div key={index} className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
                     <div className="w-8 h-8 bg-slate-200 rounded-lg flex items-center justify-center">
                       <Cog className="w-4 h-4 text-slate-600" />
@@ -135,17 +167,17 @@ export default function Home() {
                 ))}
               </div>
               <Link href="/services" className="inline-flex items-center gap-2 mt-8 text-slate-800 font-medium hover:text-slate-600 transition-colors">
-                Learn More About Our Services <ArrowRight className="w-4 h-4" />
+                {liveHomeContent.capabilitiesSection.linkLabel} <ArrowRight className="w-4 h-4" />
               </Link>
             </AnimatedSection>
             <AnimatedSection delay={0.2}>
               <div className="relative">
                 <div className="aspect-[4/3] bg-slate-200 rounded-2xl overflow-hidden flex items-center justify-center">
-                  <p className="text-slate-400">Manufacturing Process Image</p>
+                  <p className="text-slate-400">{liveHomeContent.capabilitiesSection.imagePlaceholder}</p>
                 </div>
                 <div className="absolute -bottom-6 -right-6 bg-slate-800 text-white p-6 rounded-xl shadow-xl max-w-xs">
-                  <p className="text-2xl font-bold mb-1">±0.01mm</p>
-                  <p className="text-slate-300 text-sm">Precision Tolerance</p>
+                  <p className="text-2xl font-bold mb-1">{liveHomeContent.capabilitiesSection.precisionValue}</p>
+                  <p className="text-slate-300 text-sm">{liveHomeContent.capabilitiesSection.precisionLabel}</p>
                 </div>
               </div>
             </AnimatedSection>
@@ -157,14 +189,14 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <div className="text-center max-w-3xl mx-auto">
-              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">Ready to Start Your Project?</h2>
-              <p className="text-slate-300 text-lg mb-8">Get in touch with our team to discuss your requirements. We offer competitive pricing and fast turnaround times.</p>
+              <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">{liveHomeContent.ctaSection.title}</h2>
+              <p className="text-slate-300 text-lg mb-8">{liveHomeContent.ctaSection.description}</p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link href="/contact" className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-white text-slate-900 font-medium rounded-lg hover:bg-slate-100 transition-colors">
-                  <Phone className="w-4 h-4" /> Contact Us
+                  <Phone className="w-4 h-4" /> {liveHomeContent.ctaSection.primaryButtonLabel}
                 </Link>
-                <a href={"tel:" + companyData.contact.phone[0]} className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-slate-800 text-white font-medium rounded-lg border border-slate-700 hover:bg-slate-700 transition-colors">
-                  {companyData.contact.phone[0]}
+                <a href={`tel:${liveCompanyData.contact.phone[0]}`} className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-slate-800 text-white font-medium rounded-lg border border-slate-700 hover:bg-slate-700 transition-colors">
+                  {liveCompanyData.contact.phone[0]}
                 </a>
               </div>
             </div>

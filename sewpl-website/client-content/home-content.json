@@ -1,0 +1,46 @@
+{
+  "hero": {
+    "badgePrefix": "Trusted Since",
+    "title": "Save Engineering works Private Limited",
+    "highlightedTitle": "Precision Tool Room and Machine Manufacturing",
+    "description": "Save Engineering Works Private limited (SEWPL) is an ISO 9000:2015 Certified Company that has a precise Tool room, which makes components for various industries from defence to automobile. SEWPL is also a leading Machine manufacturer of precise metal working machines like, Double Disc Grinders, Flat lapping machines, Roll forming and other Special purpose Machines",
+    "primaryButtonLabel": "Explore Products",
+    "secondaryButtonLabel": "Explore Services",
+    "imageLabel": "Hero Image",
+    "imageCaption": "CNC Machine / Factory",
+    "certificationTitle": "ISO 9001:2015 Certified",
+    "certificationDescription": "Quality Management System"
+  },
+  "servicesSection": {
+    "eyebrow": "What We Do",
+    "title": "Our Services",
+    "description": "Comprehensive engineering solutions tailored to your manufacturing needs"
+  },
+  "featuredProductsSection": {
+    "eyebrow": "Products",
+    "title": "Featured Machines",
+    "viewAllLabel": "View All Products"
+  },
+  "capabilitiesSection": {
+    "eyebrow": "Our Capabilities",
+    "title": "Elaborate Tool Room",
+    "description": "Our facility has eveything one would need to manufacture simple to complex components. Following are the list of machines present here.",
+    "items": [
+      "Lathe machines",
+      "Milling machines",
+      "Drilling Machines",
+      "Wire Cut Machines",
+      "VMC 4 axis",
+      "CNC Lathe"
+    ],
+    "linkLabel": "Learn More About Our Services",
+    "imagePlaceholder": "Manufacturing Process Image",
+    "precisionValue": "+/-0.01mm",
+    "precisionLabel": "Precision Tolerance"
+  },
+  "ctaSection": {
+    "title": "Ready to Start Your Project?",
+    "description": "Get in touch with our team to discuss your requirements. We offer competitive pricing and fast turnaround times.",
+    "primaryButtonLabel": "Contact Us"
+  }
+}

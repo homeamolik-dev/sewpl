@@ -1,0 +1,21 @@
+{
+  "hero": {
+    "eyebrow": "Contact Us",
+    "title": "Get in Touch",
+    "description": "Have a question or need a quote? We are here to help."
+  },
+  "formSection": {
+    "title": "Send us a Message"
+  },
+  "infoSection": {
+    "title": "Contact Information"
+  },
+  "departmentsSection": {
+    "title": "Department Contacts"
+  },
+  "mapSection": {
+    "title": "Our Location",
+    "placeholderTitle": "Google Maps Embed",
+    "placeholderDescription": "Replace with actual embed code"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "fields": {
+    "name": {
+      "label": "Full Name *",
+      "placeholder": "FirstName LastName"
+    },
+    "email": {
+      "label": "Email Address *",
+      "placeholder": "Email@company.com"
+    },
+    "phone": {
+      "label": "Phone Number",
+      "placeholder": "+91 98765 43210"
+    },
+    "company": {
+      "label": "Company Name",
+      "placeholder": "Your Company Ltd."
+    },
+    "subject": {
+      "label": "Subject *",
+      "placeholder": "Select a subject",
+      "options": [
+        "Product Inquiry",
+        "Service Request",
+        "Quote Request",
+        "Technical Support",
+        "General Inquiry"
+      ]
+    },
+    "message": {
+      "label": "Message *",
+      "placeholder": "Tell us about your requirements..."
+    }
+  },
+  "statusMessages": {
+    "success": "Thank you! Your message has been sent successfully. We'll get back to you soon.",
+    "defaultError": "Failed to send message"
+  },
+  "buttons": {
+    "idle": "Send Message",
+    "loading": "Sending..."
+  }
+}

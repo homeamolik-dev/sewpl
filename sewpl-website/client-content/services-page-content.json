@@ -1,0 +1,14 @@
+{
+  "hero": {
+    "eyebrow": "Our Services",
+    "title": "Versatile Precision Tool Room",
+    "description": "Our expansive precision tool room is here to meet all your manufacturing needs ."
+  },
+  "facilitySection": {
+    "title": "Our Facility"
+  },
+  "serviceSection": {
+    "processesTitle": "Processes",
+    "capabilitiesTitle": "Capabilities"
+  }
+}

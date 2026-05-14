@@ -1,0 +1,46 @@
+{
+  "metadata": {
+    "title": "SAVE Engineering Works Pvt. Ltd. | Precision Engineering Solutions",
+    "description": "Leading provider of precision engineering solutions - CNC machining, custom machine manufacturing, and industrial automation."
+  },
+  "branding": {
+    "logoLetter": "S",
+    "shortName": "SEWPL",
+    "logoSubtitle": "Engineering Works",
+    "footerSummary": "Delivering precision engineering solutions since"
+  },
+  "navigation": {
+    "mainLinks": [
+      { "label": "Home", "href": "/" },
+      { "label": "About", "href": "/about" },
+      { "label": "Services", "href": "/services" },
+      { "label": "Contact", "href": "/contact" }
+    ],
+    "productsLabel": "Products",
+    "allProductsLabel": "All Products",
+    "quoteButtonLabel": "Get Quote"
+  },
+  "footer": {
+    "quickLinksTitle": "Quick Links",
+    "productsTitle": "Products",
+    "servicesTitle": "Services",
+    "contactTitle": "Contact Us",
+    "productViewAllLabel": "View All ->",
+    "serviceLinks": [
+      { "label": "Part Manufacturing", "href": "/services#part-manufacturing" },
+      { "label": "Machine Manufacturing", "href": "/services#machine-manufacturing" },
+      { "label": "Maintenance & Support", "href": "/services#maintenance-support" }
+    ],
+    "policyLinks": [
+      { "label": "Privacy Policy", "href": "/privacy" },
+      { "label": "Terms of Service", "href": "/terms" }
+    ],
+    "copyrightText": "All rights reserved."
+  },
+  "sharedLabels": {
+    "address": "Address",
+    "phone": "Phone",
+    "email": "Email",
+    "workingHours": "Working Hours"
+  }
+}

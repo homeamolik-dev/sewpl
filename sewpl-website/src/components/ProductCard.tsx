@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
@@ -23,6 +22,9 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product, index = 0 }: ProductCardProps) {
+  const primaryMedia = product.images.find(Boolean);
+  const isVideo = primaryMedia ? /\.(mp4|webm|mov)$/i.test(primaryMedia) : false;
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -34,7 +36,14 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
         <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-lg hover:border-slate-300 transition-all duration-300">
           {/* Image Container */}
           <div className="relative aspect-[4/3] bg-slate-100 overflow-hidden">
-            <div className="absolute inset-0 flex items-center justify-center">
+            {primaryMedia ? (
+              isVideo ? (
+                <video src={primaryMedia} className="absolute inset-0 h-full w-full object-cover" muted playsInline />
+              ) : (
+                <img src={primaryMedia} alt={product.name} className="absolute inset-0 h-full w-full object-cover" />
+              )
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center">
               <div className="text-slate-400 text-sm">
                 {/* Placeholder for product image */}
                 <svg className="w-16 h-16 mx-auto mb-2 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -43,6 +52,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
                 Product Image
               </div>
             </div>
+            )}
 
             {/* Category Badge */}
             <div className="absolute top-3 left-3">

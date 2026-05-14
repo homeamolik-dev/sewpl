@@ -1,17 +1,12 @@
 ﻿import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-
-const inter = Inter({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+import siteGlobal from "@/data/site-global.json";
 
 export const metadata: Metadata = {
-  title: "SAVE Engineering Works Pvt. Ltd. | Precision Engineering Solutions",
-  description: "Leading provider of precision engineering solutions - CNC machining, custom machine manufacturing, and industrial automation.",
+  title: siteGlobal.metadata.title,
+  description: siteGlobal.metadata.description,
 };
 
 export default function RootLayout({
@@ -21,7 +16,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} antialiased`}>
+      <body className="antialiased">
         <Navbar />
         <main className="min-h-screen pt-16">
           {children}

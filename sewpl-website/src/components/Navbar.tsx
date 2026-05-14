@@ -6,23 +6,36 @@ import { usePathname } from 'next/navigation';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import productsData from '@/data/products.json';
+import siteGlobal from '@/data/site-global.json';
+import { useContentData } from '@/hooks/useContentData';
 
-const navigation = [
-  { name: 'Home', href: '/' },
-  { name: 'About', href: '/about' },
-  { name: 'Services', href: '/services' },
-  {
-    name: 'Products',
-    href: '/products',
-    children: productsData.categories.map(cat => ({
-      name: cat.name,
-      href: `/products?category=${cat.slug}`
-    }))
-  },
-  { name: 'Contact', href: '/contact' },
-];
+type NavigationItem = {
+  name: string;
+  href: string;
+  children?: {
+    name: string;
+    href: string;
+  }[];
+};
 
 export default function Navbar() {
+  const content = useContentData({
+    'products.json': productsData,
+    'site-global.json': siteGlobal,
+  });
+  const liveProductsData = content['products.json'];
+  const liveSiteGlobal = content['site-global.json'];
+  const navigation: NavigationItem[] = [
+    ...liveSiteGlobal.navigation.mainLinks.map((item) => ({ name: item.label, href: item.href })),
+    {
+      name: liveSiteGlobal.navigation.productsLabel,
+      href: '/products',
+      children: liveProductsData.categories.map(cat => ({
+        name: cat.name,
+        href: `/products?category=${cat.slug}`
+      }))
+    },
+  ];
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -49,11 +62,11 @@ export default function Navbar() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2">
             <div className="w-10 h-10 bg-slate-800 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-lg">S</span>
+              <span className="text-white font-bold text-lg">{liveSiteGlobal.branding.logoLetter}</span>
             </div>
             <div className="hidden sm:block">
-              <p className="font-bold text-slate-900 text-lg leading-tight">SEWPL</p>
-              <p className="text-xs text-slate-500 leading-tight">Engineering Works</p>
+              <p className="font-bold text-slate-900 text-lg leading-tight">{liveSiteGlobal.branding.shortName}</p>
+              <p className="text-xs text-slate-500 leading-tight">{liveSiteGlobal.branding.logoSubtitle}</p>
             </div>
           </Link>
 
@@ -92,7 +105,7 @@ export default function Navbar() {
                             href="/products"
                             className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors"
                           >
-                            All Products
+                            {liveSiteGlobal.navigation.allProductsLabel}
                           </Link>
                           <div className="h-px bg-slate-100 my-1" />
                           {item.children.map((child) => (
@@ -130,7 +143,7 @@ export default function Navbar() {
               href="/contact"
               className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-slate-800 rounded-lg hover:bg-slate-700 transition-colors"
             >
-              Get Quote
+              {liveSiteGlobal.navigation.quoteButtonLabel}
             </Link>
           </div>
 
@@ -190,7 +203,7 @@ export default function Navbar() {
                     onClick={() => setMobileMenuOpen(false)}
                     className="block w-full text-center px-4 py-2 text-sm font-medium text-white bg-slate-800 rounded-lg hover:bg-slate-700 transition-colors"
                   >
-                    Get Quote
+                    {liveSiteGlobal.navigation.quoteButtonLabel}
                   </Link>
                 </div>
               </div>

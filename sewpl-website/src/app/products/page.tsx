@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { Search, Filter, X } from 'lucide-react';
 import ProductCard from '@/components/ProductCard';
 import productsData from '@/data/products.json';
+import { useContentData } from '@/hooks/useContentData';
 
 function getButtonClass(isActive: boolean): string {
   return 'px-4 py-2 rounded-lg text-sm font-medium transition-colors ' + 
@@ -14,6 +15,8 @@ function getButtonClass(isActive: boolean): string {
 
 
 function ProductsContent() {
+  const content = useContentData({ 'products.json': productsData });
+  const liveProductsData = content['products.json'];
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get('category');
 
@@ -22,14 +25,14 @@ function ProductsContent() {
   const [showFilters, setShowFilters] = useState(false);
 
   const filteredProducts = useMemo(() => {
-    return productsData.products.filter(product => {
+    return liveProductsData.products.filter(product => {
       const matchesSearch = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                            product.shortDescription.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesCategory = selectedCategory === 'all' ||
-                             productsData.categories.find(c => c.slug === selectedCategory)?.name === product.category;
+                             liveProductsData.categories.find(c => c.slug === selectedCategory)?.name === product.category;
       return matchesSearch && matchesCategory;
     });
-  }, [searchTerm, selectedCategory]);
+  }, [liveProductsData, searchTerm, selectedCategory]);
 
   return (
     <>
@@ -45,7 +48,7 @@ function ProductsContent() {
             </button>
             <div className="hidden sm:flex gap-2 flex-wrap">
               <button onClick={() => setSelectedCategory('all')} className={getButtonClass(selectedCategory === 'all')}>All</button>
-              {productsData.categories.map(category => (
+              {liveProductsData.categories.map(category => (
                 <button key={category.id} onClick={() => setSelectedCategory(category.slug)} className={getButtonClass(selectedCategory === category.slug)}>{category.name}</button>
               ))}
             </div>
@@ -53,7 +56,7 @@ function ProductsContent() {
           {showFilters && (
             <div className="sm:hidden mt-4 flex gap-2 flex-wrap">
               <button onClick={() => setSelectedCategory('all')} className={getButtonClass(selectedCategory === 'all')}>All</button>
-              {productsData.categories.map(category => (
+              {liveProductsData.categories.map(category => (
                 <button key={category.id} onClick={() => setSelectedCategory(category.slug)} className={getButtonClass(selectedCategory === category.slug)}>{category.name}</button>
               ))}
             </div>
