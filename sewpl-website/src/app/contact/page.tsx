@@ -9,6 +9,13 @@ import contactPageContent from '@/data/contact-page-content.json';
 import siteGlobal from '@/data/site-global.json';
 import { useContentData } from '@/hooks/useContentData';
 
+function getMapEmbedSrc(embed: string) {
+  const trimmed = embed.trim();
+  if (!trimmed || trimmed.startsWith('<!--')) return '';
+  const srcMatch = trimmed.match(/src=["']([^"']+)["']/i);
+  return srcMatch?.[1] || trimmed;
+}
+
 export default function ContactPage() {
   const content = useContentData({
     'company.json': companyData,
@@ -18,6 +25,7 @@ export default function ContactPage() {
   const liveCompanyData = content['company.json'];
   const liveContactPageContent = content['contact-page-content.json'];
   const liveSiteGlobal = content['site-global.json'];
+  const mapEmbedSrc = getMapEmbedSrc(liveCompanyData.contact.googleMapsEmbed);
   const departments = [
     { name: 'Sales', email: liveCompanyData.contact.email.sales, icon: Users },
     { name: 'Accounts', email: liveCompanyData.contact.email.accounts, icon: Users },
@@ -137,12 +145,25 @@ export default function ContactPage() {
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection>
             <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">{liveContactPageContent.mapSection.title}</h2>
-            <div className="aspect-[21/9] bg-slate-200 rounded-2xl flex items-center justify-center">
-              <div className="text-center text-slate-400">
-                <MapPin className="w-12 h-12 mx-auto mb-2" />
-                <p>{liveContactPageContent.mapSection.placeholderTitle}</p>
-                <p className="text-sm">{liveContactPageContent.mapSection.placeholderDescription}</p>
-              </div>
+            <div className="aspect-[21/9] bg-slate-200 rounded-2xl overflow-hidden">
+              {mapEmbedSrc ? (
+                <iframe
+                  src={mapEmbedSrc}
+                  title="Company location map"
+                  className="h-full w-full border-0"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                />
+              ) : (
+                <a href={liveCompanyData.contact.googleMapsLink} target="_blank" rel="noopener noreferrer" className="flex h-full items-center justify-center">
+                  <div className="text-center text-slate-400">
+                    <MapPin className="w-12 h-12 mx-auto mb-2" />
+                    <p>{liveContactPageContent.mapSection.placeholderTitle}</p>
+                    <p className="text-sm">{liveContactPageContent.mapSection.placeholderDescription}</p>
+                  </div>
+                </a>
+              )}
             </div>
           </AnimatedSection>
         </div>

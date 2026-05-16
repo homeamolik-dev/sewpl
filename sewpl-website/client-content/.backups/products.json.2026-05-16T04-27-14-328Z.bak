@@ -21,7 +21,11 @@
       "features": [
         "test"
       ],
-      "images": [],
+      "images": [
+        "/uploads/whatsapp-image-2024-09-05-at-10-10-48-am-1778904708167.jpg",
+        "/uploads/whatsapp-image-2025-11-26-at-12-52-09-pm-1778904698588.jpg",
+        "/uploads/whatsapp-image-2025-11-26-at-12-52-09-pm-1778904698588.jpg"
+      ],
       "price": "Contact for Quote",
       "inStock": true,
       "featured": true

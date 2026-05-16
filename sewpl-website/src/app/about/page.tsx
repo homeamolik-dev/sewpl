@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { Target, Eye, Award, Users, CheckCircle } from 'lucide-react';
 import AnimatedSection from '@/components/AnimatedSection';
+import EditableMedia from '@/components/EditableMedia';
 import companyData from '@/data/company.json';
 import aboutContent from '@/data/about-content.json';
 import { useContentData } from '@/hooks/useContentData';
@@ -38,7 +39,10 @@ export default function AboutPage() {
 
             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.2 }}>
               <div className="aspect-[4/3] bg-slate-200 rounded-2xl overflow-hidden relative">
-                <div className="absolute inset-0 flex items-center justify-center">
+                {liveAboutContent.hero.mediaUrl ? (
+                  <EditableMedia src={liveAboutContent.hero.mediaUrl} alt={liveAboutContent.hero.imageLabel} className="absolute inset-0 h-full w-full object-cover" />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center text-slate-400">
                     <svg className="w-20 h-20 mx-auto mb-3 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -46,6 +50,7 @@ export default function AboutPage() {
                     <p className="text-sm">{liveAboutContent.hero.imageLabel}</p>
                   </div>
                 </div>
+                )}
               </div>
             </motion.div>
           </div>
@@ -127,7 +132,10 @@ export default function AboutPage() {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <AnimatedSection>
               <div className="aspect-square bg-slate-200 rounded-2xl overflow-hidden relative">
-                <div className="absolute inset-0 flex items-center justify-center">
+                {liveAboutContent.whyChooseUsSection.mediaUrl ? (
+                  <EditableMedia src={liveAboutContent.whyChooseUsSection.mediaUrl} alt={liveAboutContent.whyChooseUsSection.imageLabel} className="absolute inset-0 h-full w-full object-cover" />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center text-slate-400">
                     <svg className="w-20 h-20 mx-auto mb-3 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
@@ -135,6 +143,7 @@ export default function AboutPage() {
                     <p className="text-sm">{liveAboutContent.whyChooseUsSection.imageLabel}</p>
                   </div>
                 </div>
+                )}
               </div>
             </AnimatedSection>
 

@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, CheckCircle, Phone } from 'lucide-react';
 import { readContentFile } from '@/lib/content-store';
+import ProductMediaCarousel from '@/components/ProductMediaCarousel';
 
 type Product = {
   id: string;
@@ -42,8 +43,6 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
   const productsData = await readContentFile<ProductsContent>('products.json');
   const companyData = await readContentFile<CompanyContent>('company.json');
   const product = productsData.products.find(p => p.slug === slug);
-  const primaryMedia = product?.images.find(Boolean);
-  const isVideo = primaryMedia ? /\.(mp4|webm|mov)$/i.test(primaryMedia) : false;
 
   if (!product) {
     notFound();
@@ -62,17 +61,7 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
       <section className="py-12 bg-white">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12">
-            <div className="aspect-square bg-slate-100 rounded-2xl flex items-center justify-center overflow-hidden">
-              {primaryMedia ? (
-                isVideo ? (
-                  <video src={primaryMedia} className="h-full w-full object-cover" controls />
-                ) : (
-                  <img src={primaryMedia} alt={product.name} className="h-full w-full object-cover" />
-                )
-              ) : (
-                <p className="text-slate-400">Product Image</p>
-              )}
-            </div>
+            <ProductMediaCarousel media={product.images} productName={product.name} />
 
             <div>
               <span className="inline-block px-3 py-1 bg-slate-100 text-slate-700 text-sm font-medium rounded-full mb-4">{product.category}</span>

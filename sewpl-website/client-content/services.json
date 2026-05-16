@@ -6,6 +6,7 @@
       "slug": "part-manufacturing",
       "shortDescription": "Complete precision part manufacturing solutions using advanced CNC technology.",
       "description": "Our Part Manufacturing service delivers high-precision components using state-of-the-art CNC machinery. From prototype to production, we handle projects of all sizes with consistent quality and on-time delivery. This is supported by high precision measuring instruments and equipments.",
+      "mediaUrl": "/uploads/whatsapp-image-2025-11-26-at-12-52-09-pm-1778904698588.jpg",
       "icon": "cog",
       "Machining Facilities": [
         {
@@ -48,6 +49,7 @@
       "slug": "machine-manufacturing",
       "shortDescription": "Custom machine design and manufacturing for industrial automation needs.",
       "description": "We design and manufacture custom industrial machines tailored to your specific production requirements. Our engineering team works closely with clients from concept to commissioning.",
+      "mediaUrl": "",
       "icon": "factory",
       "processes": [
         {
@@ -84,6 +86,7 @@
       "slug": "maintenance-support",
       "shortDescription": "Comprehensive maintenance services to keep your machines running at peak efficiency.",
       "description": "Our maintenance services ensure your machinery operates at optimal efficiency. We offer preventive maintenance programs, emergency repairs, and spare parts support.",
+      "mediaUrl": "",
       "icon": "wrench",
       "processes": [
         {

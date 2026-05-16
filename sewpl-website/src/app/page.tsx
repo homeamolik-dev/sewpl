@@ -6,6 +6,7 @@ import { ArrowRight, CheckCircle, Cog, Factory, Phone } from 'lucide-react';
 import ProductCard from '@/components/ProductCard';
 import ServiceCard from '@/components/ServiceCard';
 import AnimatedSection from '@/components/AnimatedSection';
+import EditableMedia from '@/components/EditableMedia';
 import productsData from '@/data/products.json';
 import servicesData from '@/data/services.json';
 import companyData from '@/data/company.json';
@@ -42,9 +43,10 @@ export default function Home() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
-                className="text-4xl sm:text-5xl lg:text-6xl font-bold text-slate-900 leading-tight mb-6"
+                className="font-bold text-slate-900 leading-tight mb-6"
               >
-                {liveHomeContent.hero.title} <span className="text-slate-500">{liveHomeContent.hero.highlightedTitle}</span>
+                <span className="block text-2xl sm:text-3xl lg:text-[2.35rem]">{liveHomeContent.hero.title}</span>
+                <span className="block text-2xl sm:text-3xl lg:text-[2.35rem] text-slate-500">{liveHomeContent.hero.highlightedTitle}</span>
               </motion.h1>
 
               <motion.p
@@ -87,13 +89,17 @@ export default function Home() {
 
             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.6, delay: 0.2 }} className="relative">
               <div className="aspect-square bg-slate-200 rounded-2xl overflow-hidden relative">
-                <div className="absolute inset-0 flex items-center justify-center">
+                {liveHomeContent.hero.mediaUrl ? (
+                  <EditableMedia src={liveHomeContent.hero.mediaUrl} alt={liveHomeContent.hero.imageCaption || liveHomeContent.hero.imageLabel} className="absolute inset-0 h-full w-full object-cover" />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center text-slate-400">
                     <Factory className="w-24 h-24 mx-auto mb-4 text-slate-300" />
                     <p className="text-sm">{liveHomeContent.hero.imageLabel}</p>
                     <p className="text-xs text-slate-400">{liveHomeContent.hero.imageCaption}</p>
                   </div>
                 </div>
+                )}
                 <div className="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur-sm rounded-xl p-4 shadow-lg">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center">
@@ -173,11 +179,11 @@ export default function Home() {
             <AnimatedSection delay={0.2}>
               <div className="relative">
                 <div className="aspect-[4/3] bg-slate-200 rounded-2xl overflow-hidden flex items-center justify-center">
-                  <p className="text-slate-400">{liveHomeContent.capabilitiesSection.imagePlaceholder}</p>
-                </div>
-                <div className="absolute -bottom-6 -right-6 bg-slate-800 text-white p-6 rounded-xl shadow-xl max-w-xs">
-                  <p className="text-2xl font-bold mb-1">{liveHomeContent.capabilitiesSection.precisionValue}</p>
-                  <p className="text-slate-300 text-sm">{liveHomeContent.capabilitiesSection.precisionLabel}</p>
+                  {liveHomeContent.capabilitiesSection.mediaUrl ? (
+                    <EditableMedia src={liveHomeContent.capabilitiesSection.mediaUrl} alt={liveHomeContent.capabilitiesSection.imagePlaceholder} />
+                  ) : (
+                    <p className="text-slate-400">{liveHomeContent.capabilitiesSection.imagePlaceholder}</p>
+                  )}
                 </div>
               </div>
             </AnimatedSection>

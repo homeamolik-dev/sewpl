@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Cog, Factory, Wrench, ArrowRight } from 'lucide-react';
+import EditableMedia from './EditableMedia';
 
 interface Service {
   id: string;
@@ -10,6 +11,7 @@ interface Service {
   slug: string;
   shortDescription: string;
   icon: string;
+  mediaUrl?: string;
 }
 
 interface ServiceCardProps {
@@ -35,10 +37,15 @@ export default function ServiceCard({ service, index = 0 }: ServiceCardProps) {
     >
       <Link href={`/services#${service.slug}`} className="group block h-full">
         <div className="h-full bg-white border border-slate-200 rounded-2xl p-6 hover:shadow-lg hover:border-slate-300 transition-all duration-300">
-          {/* Icon */}
-          <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-slate-800 transition-colors">
-            <Icon className="w-6 h-6 text-slate-600 group-hover:text-white transition-colors" />
-          </div>
+          {service.mediaUrl ? (
+            <div className="-m-6 mb-5 aspect-[16/10] overflow-hidden rounded-t-2xl bg-slate-100">
+              <EditableMedia src={service.mediaUrl} alt={service.name} />
+            </div>
+          ) : (
+            <div className="w-12 h-12 bg-slate-100 rounded-xl flex items-center justify-center mb-4 group-hover:bg-slate-800 transition-colors">
+              <Icon className="w-6 h-6 text-slate-600 group-hover:text-white transition-colors" />
+            </div>
+          )}
 
           {/* Content */}
           <h3 className="font-semibold text-lg text-slate-900 mb-2">

@@ -3,7 +3,8 @@
     "eyebrow": "About Us",
     "titlePrefix": "Engineering Excellence Since",
     "supportingText": "We pride ourselves on delivering precision engineering solutions that help our clients achieve their manufacturing goals. Our team combines decades of experience with cutting-edge technology to provide exceptional results. Be it any part to be made or different types of machines to be manufactured and assembled, we can accomplish it.",
-    "imageLabel": "Company Facility Image"
+    "imageLabel": "Company Facility Image",
+    "mediaUrl": ""
   },
   "missionSection": {
     "missionTitle": "Our Mission",
@@ -18,6 +19,7 @@
     "eyebrow": "Why Choose Us",
     "title": "Your Trusted Engineering Partner",
     "imageLabel": "Quality Certification Image",
+    "mediaUrl": "",
     "items": [
       {
         "title": "Experienced Team",

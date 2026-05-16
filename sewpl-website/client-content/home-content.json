@@ -8,6 +8,7 @@
     "secondaryButtonLabel": "Explore Services",
     "imageLabel": "Hero Image",
     "imageCaption": "CNC Machine / Factory",
+    "mediaUrl": "",
     "certificationTitle": "ISO 9001:2015 Certified",
     "certificationDescription": "Quality Management System"
   },
@@ -35,6 +36,7 @@
     ],
     "linkLabel": "Learn More About Our Services",
     "imagePlaceholder": "Manufacturing Process Image",
+    "mediaUrl": "",
     "precisionValue": "+/-0.01mm",
     "precisionLabel": "Precision Tolerance"
   },

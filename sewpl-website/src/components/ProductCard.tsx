@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import EditableMedia from './EditableMedia';
 
 interface Product {
   id: string;
@@ -23,7 +24,16 @@ interface ProductCardProps {
 
 export default function ProductCard({ product, index = 0 }: ProductCardProps) {
   const primaryMedia = product.images.find(Boolean);
-  const isVideo = primaryMedia ? /\.(mp4|webm|mov)$/i.test(primaryMedia) : false;
+  const placeholder = (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="text-slate-400 text-sm">
+        <svg className="w-16 h-16 mx-auto mb-2 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        Product Image
+      </div>
+    </div>
+  );
 
   return (
     <motion.div
@@ -36,23 +46,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
         <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-lg hover:border-slate-300 transition-all duration-300">
           {/* Image Container */}
           <div className="relative aspect-[4/3] bg-slate-100 overflow-hidden">
-            {primaryMedia ? (
-              isVideo ? (
-                <video src={primaryMedia} className="absolute inset-0 h-full w-full object-cover" muted playsInline />
-              ) : (
-                <img src={primaryMedia} alt={product.name} className="absolute inset-0 h-full w-full object-cover" />
-              )
-            ) : (
-              <div className="absolute inset-0 flex items-center justify-center">
-              <div className="text-slate-400 text-sm">
-                {/* Placeholder for product image */}
-                <svg className="w-16 h-16 mx-auto mb-2 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                </svg>
-                Product Image
-              </div>
-            </div>
-            )}
+            {primaryMedia ? <EditableMedia src={primaryMedia} alt={product.name} className="absolute inset-0 h-full w-full object-cover" fallback={placeholder} /> : placeholder}
 
             {/* Category Badge */}
             <div className="absolute top-3 left-3">

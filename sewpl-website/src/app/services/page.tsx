@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion';
 import { CheckCircle } from 'lucide-react';
 import AnimatedSection from '@/components/AnimatedSection';
+import EditableMedia from '@/components/EditableMedia';
 import FacilityCarousel from '@/components/FacilityCarousel';
 import servicesData from '@/data/services.json';
 import servicesPageContent from '@/data/services-page-content.json';
@@ -16,6 +17,7 @@ type ServiceProcess = {
 type ServiceWithClientFields = {
   processes?: ServiceProcess[];
   'Machining Facilities'?: ServiceProcess[];
+  mediaUrl?: string;
 };
 
 export default function ServicesPage() {
@@ -66,33 +68,43 @@ export default function ServicesPage() {
             <section key={service.id} id={service.slug} className={index % 2 === 0 ? 'py-20 bg-slate-50' : 'py-20 bg-white'}>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <AnimatedSection>
-                  <div className="max-w-3xl mx-auto">
-                    <h2 className="text-3xl font-bold text-slate-900 mb-4">{service.name}</h2>
-                    <p className="text-slate-600 mb-8">{service.description}</p>
+                  <div className={service.mediaUrl ? 'grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start' : 'max-w-3xl mx-auto'}>
+                    <div>
+                      <h2 className="text-3xl font-bold text-slate-900 mb-4">{service.name}</h2>
+                      <p className="text-slate-600 mb-8">{service.description}</p>
 
-                    {serviceProcesses && (
-                      <div className="mb-8">
-                        <h3 className="text-xl font-semibold text-slate-900 mb-4">{liveServicesPageContent.serviceSection.processesTitle}</h3>
-                        <div className="grid sm:grid-cols-2 gap-4">
-                          {serviceProcesses.map((process, processIndex) => (
-                            <div key={processIndex} className="bg-white border border-slate-200 rounded-xl p-4">
-                              <h4 className="font-semibold text-slate-900 mb-2">{process.name}</h4>
-                              <p className="text-sm text-slate-500">{process.description}</p>
-                            </div>
-                          ))}
+                      {serviceProcesses && (
+                        <div className="mb-8">
+                          <h3 className="text-xl font-semibold text-slate-900 mb-4">{liveServicesPageContent.serviceSection.processesTitle}</h3>
+                          <div className="grid sm:grid-cols-2 gap-4">
+                            {serviceProcesses.map((process, processIndex) => (
+                              <div key={processIndex} className="bg-white border border-slate-200 rounded-xl p-4">
+                                <h4 className="font-semibold text-slate-900 mb-2">{process.name}</h4>
+                                <p className="text-sm text-slate-500">{process.description}</p>
+                              </div>
+                            ))}
+                          </div>
                         </div>
-                      </div>
-                    )}
+                      )}
 
-                    {service.capabilities && (
-                      <div>
-                        <h3 className="text-xl font-semibold text-slate-900 mb-4">{liveServicesPageContent.serviceSection.capabilitiesTitle}</h3>
-                        <div className="flex flex-wrap gap-2">
-                          {service.capabilities.map((capability, capabilityIndex) => (
-                            <span key={capabilityIndex} className="px-3 py-1 bg-slate-200 text-slate-700 text-sm rounded-full">
-                              {capability}
-                            </span>
-                          ))}
+                      {service.capabilities && (
+                        <div>
+                          <h3 className="text-xl font-semibold text-slate-900 mb-4">{liveServicesPageContent.serviceSection.capabilitiesTitle}</h3>
+                          <div className="flex flex-wrap gap-2">
+                            {service.capabilities.map((capability, capabilityIndex) => (
+                              <span key={capabilityIndex} className="px-3 py-1 bg-slate-200 text-slate-700 text-sm rounded-full">
+                                {capability}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+
+                    {service.mediaUrl && (
+                      <div className="overflow-hidden rounded-2xl bg-slate-100 lg:sticky lg:top-24">
+                        <div className="aspect-[4/3]">
+                          <EditableMedia src={service.mediaUrl} alt={service.name} />
                         </div>
                       </div>
                     )}

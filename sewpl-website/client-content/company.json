@@ -3,7 +3,7 @@
   "shortName": "SEWPL",
   "tagline": "Precision Engineering Solutions",
   "description": "SAVE Engineering Works Pvt. Ltd. is a leading provider of precision engineering solutions, specializing in CNC machining, custom machine manufacturing, and industrial automation. With decades of experience and a commitment to quality, we deliver excellence in every project.",
-  "founded": "2010",
+  "founded": "20100",
   "about": {
     "mission": "To deliver precision engineering solutions that exceed customer expectations through innovation, quality, and reliability.",
     "vision": "To be the preferred partner for precision manufacturing and custom machine solutions in the industry.",
@@ -19,17 +19,29 @@
       {
         "title": "Integrity",
         "description": "We conduct our business with honesty, transparency, and ethical practices."
-       },
+      },
       {
         "title": "Customer Focus",
         "description": "Our customers' success is our success. We go the extra mile to meet their needs."
       }
     ],
     "stats": [
-      { "value": "25+", "label": "Years Experience" },
-      { "value": "200+", "label": "Projects Completed" },
-      { "value": "75+", "label": "Happy Clients" },
-      { "value": "15+", "label": "Team Members" }
+      {
+        "value": "25+",
+        "label": "Years Experience"
+      },
+      {
+        "value": "200+",
+        "label": "Projects Completed"
+      },
+      {
+        "value": "75+",
+        "label": "Happy Clients"
+      },
+      {
+        "value": "15+",
+        "label": "Team Members"
+      }
     ]
   },
   "contact": {
