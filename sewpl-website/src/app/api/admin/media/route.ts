@@ -1,8 +1,7 @@
-import { mkdir, writeFile } from 'fs/promises';
 import path from 'path';
 import { NextResponse } from 'next/server';
 import { isAdminAuthenticated } from '@/lib/admin-auth';
-import { listUploadedMedia } from '@/lib/content-store';
+import { listUploadedMedia, uploadMediaFile } from '@/lib/content-store';
 
 export const dynamic = 'force-dynamic';
 
@@ -58,17 +57,14 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: `${rule.type === 'image' ? 'Image' : 'Video'} uploads are limited to ${limit}` }, { status: 400 });
   }
 
-  const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-  await mkdir(uploadDir, { recursive: true });
-
   const fileName = `${safeBaseName(file.name)}-${Date.now()}${rule.ext}`;
   const bytes = Buffer.from(await file.arrayBuffer());
-  await writeFile(path.join(uploadDir, fileName), bytes);
+  const url = await uploadMediaFile(fileName, bytes, file.type);
 
   return NextResponse.json({
     media: {
       name: fileName,
-      url: `/uploads/${fileName}`,
+      url,
       type: rule.type,
       size: file.size,
       modifiedAt: new Date().toISOString(),
