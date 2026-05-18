@@ -20,7 +20,7 @@ const projectRoot = process.cwd();
 const dataDir = path.join(projectRoot, 'src', 'data');
 const clientContentDir = path.join(projectRoot, 'client-content');
 const backupDir = path.join(projectRoot, 'client-content', '.backups');
-const blobContentPath = 'content/site-content.json';
+const blobContentManifestPath = 'content/manifest.json';
 const blobUploadPrefix = 'uploads/';
 
 function hasBlobStorage() {
@@ -59,7 +59,17 @@ export async function readAllContent() {
     const localContent = await readAllLocalContent();
 
     try {
-      const blob = await get(blobContentPath, { access: 'private', useCache: false });
+      const manifestBlob = await get(blobContentManifestPath, { access: 'public' });
+      if (!manifestBlob || manifestBlob.statusCode !== 200) {
+        return localContent;
+      }
+
+      const manifest = JSON.parse(await new Response(manifestBlob.stream).text()) as { contentPath?: string };
+      if (!manifest.contentPath) {
+        return localContent;
+      }
+
+      const blob = await get(manifest.contentPath, { access: 'public' });
 
       if (blob?.statusCode === 200) {
         const raw = await new Response(blob.stream).text();
@@ -85,9 +95,17 @@ export async function writeContentFile(fileName: ContentFileName, value: unknown
       ...currentContent,
       [fileName]: value,
     };
+    const version = Date.now();
+    const contentPath = `content/site-content-${version}.json`;
 
-    await put(blobContentPath, JSON.stringify(nextContent, null, 2), {
-      access: 'private',
+    await put(contentPath, JSON.stringify(nextContent, null, 2), {
+      access: 'public',
+      contentType: 'application/json',
+      cacheControlMaxAge: 60,
+    });
+
+    await put(blobContentManifestPath, JSON.stringify({ contentPath, updatedAt: new Date().toISOString() }, null, 2), {
+      access: 'public',
       allowOverwrite: true,
       contentType: 'application/json',
       cacheControlMaxAge: 60,
