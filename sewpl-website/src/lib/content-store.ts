@@ -59,7 +59,7 @@ export async function readAllContent() {
     const localContent = await readAllLocalContent();
 
     try {
-      const blob = await get(blobContentPath, { access: 'public' });
+      const blob = await get(blobContentPath, { access: 'private', useCache: false });
 
       if (blob?.statusCode === 200) {
         const raw = await new Response(blob.stream).text();
@@ -87,9 +87,10 @@ export async function writeContentFile(fileName: ContentFileName, value: unknown
     };
 
     await put(blobContentPath, JSON.stringify(nextContent, null, 2), {
-      access: 'public',
+      access: 'private',
       allowOverwrite: true,
       contentType: 'application/json',
+      cacheControlMaxAge: 60,
     });
     return;
   }
