@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, useEffect, useMemo, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import {
   Check,
   ChevronDown,
@@ -118,6 +118,43 @@ type CompanyContent = {
     googleMapsLink: string;
   };
   social: Record<string, string>;
+};
+
+type HomeContent = {
+  hero: Record<string, string>;
+  servicesSection: Record<string, string>;
+  featuredProductsSection: Record<string, string>;
+  capabilitiesSection: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    items: string[];
+    linkLabel: string;
+    imagePlaceholder: string;
+    mediaUrl: string;
+    precisionValue: string;
+    precisionLabel: string;
+  };
+  ctaSection: Record<string, string>;
+};
+
+type AboutContent = {
+  hero: {
+    eyebrow: string;
+    titlePrefix: string;
+    supportingText: string;
+    imageLabel: string;
+    mediaUrl: string;
+  };
+  missionSection: Record<string, string>;
+  valuesSection: Record<string, string>;
+  whyChooseUsSection: {
+    eyebrow: string;
+    title: string;
+    imageLabel: string;
+    mediaUrl: string;
+    items: { title: string; description: string }[];
+  };
 };
 
 const FILE_LABELS: Record<string, string> = {
@@ -573,9 +610,10 @@ export default function AdminPage() {
   const servicesContent = content['services.json'] as ServicesContent | undefined;
   const selectedService = servicesContent?.services.find((service) => service.id === selectedServiceId) ?? servicesContent?.services[0];
   const companyContent = content['company.json'] as CompanyContent | undefined;
+  const homeContent = content['home-content.json'] as HomeContent | undefined;
+  const aboutContent = content['about-content.json'] as AboutContent | undefined;
 
   const selectedFileValue = content[selectedFile];
-  const pageFileOptions = useMemo(() => files.filter((file) => !['products.json', 'services.json', 'company.json'].includes(file)), [files]);
   const advancedFileOptions = files;
 
   async function loadAdminData() {
@@ -692,6 +730,20 @@ export default function AdminPage() {
     }));
   }
 
+  function updateHome(nextHomeContent: HomeContent) {
+    setContent((previous) => ({
+      ...previous,
+      'home-content.json': nextHomeContent as unknown as JsonValue,
+    }));
+  }
+
+  function updateAbout(nextAboutContent: AboutContent) {
+    setContent((previous) => ({
+      ...previous,
+      'about-content.json': nextAboutContent as unknown as JsonValue,
+    }));
+  }
+
   function updateProduct(productId: string, patch: Partial<Product>) {
     if (!productsContent) return;
     updateProducts({
@@ -786,12 +838,138 @@ export default function AdminPage() {
 	          ))}
 	        </div>
 
-	        {(tab === 'pages' || tab === 'advanced') && (
+	        {tab === 'pages' && homeContent && aboutContent && (
+            <div className="space-y-6">
+              <section className="rounded-xl border border-slate-200 bg-white p-5">
+                <div className="mb-5 flex flex-col gap-3 border-b border-slate-200 pb-5 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <h2 className="text-xl font-bold text-slate-950">Homepage</h2>
+                    <p className="text-sm text-slate-500">Hero, section headings, capabilities list, media, and call-to-action.</p>
+                  </div>
+                  <button type="button" onClick={() => saveFile('home-content.json', homeContent as unknown as JsonValue)} disabled={saving} className="inline-flex items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-60">
+                    {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />} Save homepage
+                  </button>
+                </div>
+
+                <div className="grid gap-6 lg:grid-cols-2">
+                  <div className="rounded-lg border border-slate-200 p-4">
+                    <h3 className="mb-4 font-semibold text-slate-950">Hero</h3>
+                    <div className="space-y-3">
+                      {['badgePrefix', 'title', 'highlightedTitle', 'description', 'primaryButtonLabel', 'secondaryButtonLabel', 'imageLabel', 'imageCaption', 'certificationTitle', 'certificationDescription'].map((key) => (
+                        <label key={key} className="block text-sm font-medium text-slate-700">
+                          {key}
+                          <textarea value={homeContent.hero[key] || ''} onChange={(event) => updateHome({ ...homeContent, hero: { ...homeContent.hero, [key]: event.target.value } })} rows={key === 'description' ? 4 : 1} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" />
+                        </label>
+                      ))}
+                      <MediaField label="Hero image/video" value={homeContent.hero.mediaUrl || ''} media={media} uploading={uploading} onUpload={uploadFile} onChange={(mediaUrl) => updateHome({ ...homeContent, hero: { ...homeContent.hero, mediaUrl } })} />
+                    </div>
+                  </div>
+
+                  <div className="space-y-6">
+                    <div className="rounded-lg border border-slate-200 p-4">
+                      <h3 className="mb-4 font-semibold text-slate-950">Services Section</h3>
+                      {['eyebrow', 'title', 'description'].map((key) => (
+                        <label key={key} className="mb-3 block text-sm font-medium text-slate-700">
+                          {key}
+                          <input value={homeContent.servicesSection[key] || ''} onChange={(event) => updateHome({ ...homeContent, servicesSection: { ...homeContent.servicesSection, [key]: event.target.value } })} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" />
+                        </label>
+                      ))}
+                    </div>
+                    <div className="rounded-lg border border-slate-200 p-4">
+                      <h3 className="mb-4 font-semibold text-slate-950">Featured Products Section</h3>
+                      {['eyebrow', 'title', 'viewAllLabel'].map((key) => (
+                        <label key={key} className="mb-3 block text-sm font-medium text-slate-700">
+                          {key}
+                          <input value={homeContent.featuredProductsSection[key] || ''} onChange={(event) => updateHome({ ...homeContent, featuredProductsSection: { ...homeContent.featuredProductsSection, [key]: event.target.value } })} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" />
+                        </label>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6 grid gap-6 lg:grid-cols-2">
+                  <div className="rounded-lg border border-slate-200 p-4">
+                    <h3 className="mb-4 font-semibold text-slate-950">Capabilities Section</h3>
+                    {['eyebrow', 'title', 'description', 'linkLabel', 'imagePlaceholder'].map((key) => (
+                      <label key={key} className="mb-3 block text-sm font-medium text-slate-700">
+                        {key}
+                        <textarea value={String(homeContent.capabilitiesSection[key as keyof typeof homeContent.capabilitiesSection] || '')} onChange={(event) => updateHome({ ...homeContent, capabilitiesSection: { ...homeContent.capabilitiesSection, [key]: event.target.value } })} rows={key === 'description' ? 3 : 1} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" />
+                      </label>
+                    ))}
+                    <TextListEditor title="Capability items" items={homeContent.capabilitiesSection.items} onChange={(items) => updateHome({ ...homeContent, capabilitiesSection: { ...homeContent.capabilitiesSection, items } })} addLabel="Add capability" />
+                    <div className="mt-4">
+                      <MediaField label="Capabilities image/video" value={homeContent.capabilitiesSection.mediaUrl || ''} media={media} uploading={uploading} onUpload={uploadFile} onChange={(mediaUrl) => updateHome({ ...homeContent, capabilitiesSection: { ...homeContent.capabilitiesSection, mediaUrl } })} />
+                    </div>
+                  </div>
+
+                  <div className="rounded-lg border border-slate-200 p-4">
+                    <h3 className="mb-4 font-semibold text-slate-950">Call To Action</h3>
+                    {['title', 'description', 'primaryButtonLabel'].map((key) => (
+                      <label key={key} className="mb-3 block text-sm font-medium text-slate-700">
+                        {key}
+                        <textarea value={homeContent.ctaSection[key] || ''} onChange={(event) => updateHome({ ...homeContent, ctaSection: { ...homeContent.ctaSection, [key]: event.target.value } })} rows={key === 'description' ? 3 : 1} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" />
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              </section>
+
+              <section className="rounded-xl border border-slate-200 bg-white p-5">
+                <div className="mb-5 flex flex-col gap-3 border-b border-slate-200 pb-5 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <h2 className="text-xl font-bold text-slate-950">About Page</h2>
+                    <p className="text-sm text-slate-500">Hero text, page media, section headings, and why-choose-us cards.</p>
+                  </div>
+                  <button type="button" onClick={() => saveFile('about-content.json', aboutContent as unknown as JsonValue)} disabled={saving} className="inline-flex items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-60">
+                    {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />} Save about page
+                  </button>
+                </div>
+
+                <div className="grid gap-6 lg:grid-cols-2">
+                  <div className="rounded-lg border border-slate-200 p-4">
+                    <h3 className="mb-4 font-semibold text-slate-950">Hero</h3>
+                    {['eyebrow', 'titlePrefix', 'supportingText', 'imageLabel'].map((key) => (
+                      <label key={key} className="mb-3 block text-sm font-medium text-slate-700">
+                        {key}
+                        <textarea value={aboutContent.hero[key as keyof typeof aboutContent.hero] || ''} onChange={(event) => updateAbout({ ...aboutContent, hero: { ...aboutContent.hero, [key]: event.target.value } })} rows={key === 'supportingText' ? 4 : 1} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" />
+                      </label>
+                    ))}
+                    <MediaField label="About hero image/video" value={aboutContent.hero.mediaUrl || ''} media={media} uploading={uploading} onUpload={uploadFile} onChange={(mediaUrl) => updateAbout({ ...aboutContent, hero: { ...aboutContent.hero, mediaUrl } })} />
+                  </div>
+
+                  <div className="space-y-6">
+                    <KeyValueEditor title="Mission/Vision Labels" keyLabel="Field" valueLabel="Text" items={aboutContent.missionSection} onChange={(missionSection) => updateAbout({ ...aboutContent, missionSection })} />
+                    <KeyValueEditor title="Values Section Labels" keyLabel="Field" valueLabel="Text" items={aboutContent.valuesSection} onChange={(valuesSection) => updateAbout({ ...aboutContent, valuesSection })} />
+                  </div>
+                </div>
+
+                <div className="mt-6 rounded-lg border border-slate-200 p-4">
+                  <h3 className="mb-4 font-semibold text-slate-950">Why Choose Us</h3>
+                  <div className="grid gap-4 lg:grid-cols-2">
+                    {['eyebrow', 'title', 'imageLabel'].map((key) => (
+                      <label key={key} className="block text-sm font-medium text-slate-700">
+                        {key}
+                        <input value={String(aboutContent.whyChooseUsSection[key as keyof typeof aboutContent.whyChooseUsSection] || '')} onChange={(event) => updateAbout({ ...aboutContent, whyChooseUsSection: { ...aboutContent.whyChooseUsSection, [key]: event.target.value } })} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" />
+                      </label>
+                    ))}
+                  </div>
+                  <div className="mt-4">
+                    <MediaField label="Why choose us image/video" value={aboutContent.whyChooseUsSection.mediaUrl || ''} media={media} uploading={uploading} onUpload={uploadFile} onChange={(mediaUrl) => updateAbout({ ...aboutContent, whyChooseUsSection: { ...aboutContent.whyChooseUsSection, mediaUrl } })} />
+                  </div>
+                  <div className="mt-4">
+                    <ProcessEditor title="Why choose us cards" items={aboutContent.whyChooseUsSection.items.map((item) => ({ name: item.title, description: item.description }))} onChange={(items) => updateAbout({ ...aboutContent, whyChooseUsSection: { ...aboutContent.whyChooseUsSection, items: items.map((item) => ({ title: item.name, description: item.description })) } })} />
+                  </div>
+                </div>
+              </section>
+            </div>
+          )}
+
+	        {tab === 'advanced' && (
 	          <div className="grid gap-6 lg:grid-cols-[280px_1fr]">
 	            <aside className="rounded-xl border border-slate-200 bg-white p-3">
-                <h2 className="mb-3 px-3 text-sm font-semibold text-slate-900">{tab === 'pages' ? 'Page Copy' : 'All Data Files'}</h2>
+                <h2 className="mb-3 px-3 text-sm font-semibold text-slate-900">All Data Files</h2>
 	              <div className="space-y-1">
-	                {(tab === 'pages' ? pageFileOptions : advancedFileOptions).map((file) => (
+	                {advancedFileOptions.map((file) => (
                   <button key={file} onClick={() => setSelectedFile(file)} className={`block w-full rounded-lg px-3 py-2 text-left text-sm ${selectedFile === file ? 'bg-slate-900 font-medium text-white' : 'text-slate-700 hover:bg-slate-50'}`}>
                     {FILE_LABELS[file] || file}
                   </button>
@@ -809,38 +987,9 @@ export default function AdminPage() {
                 </button>
               </div>
               {selectedFileValue && <JsonEditor value={selectedFileValue} onChange={updateSelectedFile} label={FILE_LABELS[selectedFile] || selectedFile} />}
-              {['home-content.json', 'about-content.json', 'services.json'].includes(selectedFile) && (
-                <div className="mt-6 rounded-xl border border-slate-200 bg-white p-4">
-                  <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                    <div>
-                      <h3 className="font-semibold text-slate-950">Page media fields</h3>
-                      <p className="mt-1 text-sm text-slate-500">
-                        Upload a photo or video here, copy its URL, then paste it into a `mediaUrl` field on this page.
-                      </p>
-                    </div>
-                    <label className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white">
-                      {uploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />} Upload
-                      <input type="file" accept="image/*,video/mp4,video/webm,video/quicktime" className="hidden" onChange={(event) => event.target.files?.[0] && uploadFile(event.target.files[0])} />
-                    </label>
-                  </div>
-                  {media.length > 0 && (
-                    <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                      {media.slice(0, 6).map((item) => (
-                        <div key={item.url} className="rounded-lg border border-slate-200 p-3">
-                          <p className="line-clamp-1 text-sm font-medium text-slate-900">{item.name}</p>
-                          <p className="mt-1 break-all text-xs text-slate-500">{item.url}</p>
-                          <button type="button" onClick={() => navigator.clipboard.writeText(item.url)} className="mt-3 inline-flex items-center gap-2 rounded-md bg-slate-100 px-2 py-1 text-xs font-medium text-slate-700 hover:bg-slate-200">
-                            <Check className="h-3 w-3" /> Copy URL
-                          </button>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
-            </section>
-          </div>
-        )}
+	            </section>
+	          </div>
+	        )}
 
         {tab === 'products' && productsContent && (
           <div className="space-y-6">
