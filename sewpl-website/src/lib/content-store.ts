@@ -214,6 +214,19 @@ export async function uploadMediaFile(fileName: string, bytes: Buffer, contentTy
 
 export async function deleteUploadedMedia(url: string) {
   if (hasBlobStorage()) {
+    const pathname = (() => {
+      if (url.startsWith(blobUploadPrefix)) return url;
+      try {
+        return new URL(url).pathname.replace(/^\/+/, '');
+      } catch {
+        return '';
+      }
+    })();
+
+    if (!pathname.includes(blobUploadPrefix)) {
+      throw new Error('Only uploaded media can be deleted');
+    }
+
     await del(url);
     return;
   }

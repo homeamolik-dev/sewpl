@@ -1,6 +1,6 @@
 'use client';
 
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useEffect, useRef, useState } from 'react';
 import {
   Check,
   ChevronDown,
@@ -218,16 +218,6 @@ function findMediaUsages(content: ContentMap, targetUrl: string) {
 
   Object.entries(content).forEach(([fileName, value]) => visit(value, [FILE_LABELS[fileName] || fileName]));
   return matches;
-}
-
-function buildEntriesWithRenamedKey(entries: [string, string][], index: number, nextKey: string) {
-  if (entries.some(([entryKey], entryIndex) => entryIndex !== index && entryKey === nextKey)) {
-    return null;
-  }
-
-  return entries.map(([entryKey, entryValue], entryIndex) => (
-    entryIndex === index ? [nextKey, entryValue] : [entryKey, entryValue]
-  )) as [string, string][];
 }
 
 function emptyCategory(index: number) {
@@ -488,47 +478,73 @@ function KeyValueEditor({
   valueLabel: string;
   onChange: (items: Record<string, string>) => void;
 }) {
-  const entries = Object.entries(items);
+  const idCounter = useRef(0);
+  const [rows, setRows] = useState(() => Object.entries(items).map(([key, value], index) => ({
+    id: `initial-${index}`,
+    key,
+    value,
+  })));
+
+  function commit(nextRows: typeof rows) {
+    const nextItems = Object.fromEntries(
+      nextRows
+        .map((row) => [row.key.trim(), row.value] as const)
+        .filter(([key]) => key.length > 0),
+    );
+    onChange(nextItems);
+  }
+
+  function updateRows(updater: (current: typeof rows) => typeof rows) {
+    setRows((current) => {
+      const nextRows = updater(current);
+      commit(nextRows);
+      return nextRows;
+    });
+  }
+
   return (
     <div className="rounded-lg border border-slate-200 p-4">
       <div className="mb-3 flex items-center justify-between gap-3">
         <h3 className="font-semibold text-slate-950">{title}</h3>
-        <button type="button" onClick={() => onChange({ ...items, [uniqueObjectKey(items)]: '' })} className="inline-flex items-center gap-2 rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700">
+        <button type="button" onClick={() => updateRows((current) => {
+          const currentItems = Object.fromEntries(current.map((row) => [row.key, row.value]));
+          return [...current, { id: `added-${Date.now()}-${idCounter.current++}`, key: uniqueObjectKey(currentItems), value: '' }];
+        })} className="inline-flex items-center gap-2 rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700">
           <Plus className="h-4 w-4" /> Add row
         </button>
       </div>
       <div className="space-y-3">
-        {entries.map(([key, value], index) => (
-          <div key={index} className="rounded-lg border border-slate-200 bg-slate-50 p-3">
+        {rows.map((row) => {
+          const duplicateKey = row.key.trim().length > 0 && rows.some((item) => item.id !== row.id && item.key.trim() === row.key.trim());
+          return (
+          <div key={row.id} className="rounded-lg border border-slate-200 bg-slate-50 p-3">
             <div className="grid gap-3 lg:grid-cols-2">
               <label className="block min-w-0 text-xs font-medium text-slate-500">
                 {keyLabel}
                 <input
-                  value={key}
-                  onChange={(event) => {
-                    const nextEntries = buildEntriesWithRenamedKey(entries, index, event.target.value);
-                    if (!nextEntries) return;
-                    onChange(Object.fromEntries(nextEntries));
-                  }}
-                  className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900"
+                  value={row.key}
+                  onChange={(event) => updateRows((current) => current.map((item) => item.id === row.id ? { ...item, key: event.target.value } : item))}
+                  className={`mt-1 w-full rounded-lg border bg-white px-3 py-2 text-sm text-slate-900 ${duplicateKey ? 'border-red-300' : 'border-slate-300'}`}
                   placeholder={keyLabel}
                 />
+                {duplicateKey && <span className="mt-1 block text-xs text-red-600">Duplicate names overwrite each other. Rename this row.</span>}
               </label>
               <label className="block min-w-0 text-xs font-medium text-slate-500">
                 {valueLabel}
                 <input
-                  value={value}
-                  onChange={(event) => onChange({ ...items, [key]: event.target.value })}
+                  value={row.value}
+                  onChange={(event) => updateRows((current) => current.map((item) => item.id === row.id ? { ...item, value: event.target.value } : item))}
                   className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900"
                   placeholder={valueLabel}
                 />
               </label>
             </div>
-            <button type="button" onClick={() => onChange(Object.fromEntries(entries.filter((_, entryIndex) => entryIndex !== index)))} className="mt-3 inline-flex h-10 items-center gap-2 rounded-lg border border-red-200 bg-white px-3 text-sm font-medium text-red-700 hover:bg-red-50">
+            <button type="button" onClick={() => updateRows((current) => current.filter((item) => item.id !== row.id))} className="mt-3 inline-flex h-10 items-center gap-2 rounded-lg border border-red-200 bg-white px-3 text-sm font-medium text-red-700 hover:bg-red-50">
               <Trash2 className="h-4 w-4" /> Delete row
             </button>
           </div>
-        ))}
+        );
+        })}
       </div>
     </div>
   );
@@ -576,6 +592,9 @@ function MediaField({
   onChange,
   onUpload,
   onRemove,
+  onDeleteMedia,
+  deletingMediaUrl = '',
+  getUsageCount,
 }: {
   label: string;
   value: string;
@@ -584,6 +603,9 @@ function MediaField({
   onChange: (value: string) => void;
   onUpload: (file: File) => Promise<string | undefined>;
   onRemove?: () => void;
+  onDeleteMedia?: (item: UploadedMedia) => void;
+  deletingMediaUrl?: string;
+  getUsageCount?: (url: string) => number;
 }) {
   const [showLibrary, setShowLibrary] = useState(false);
 
@@ -606,7 +628,7 @@ function MediaField({
             {showLibrary ? 'Hide library' : 'Choose existing'}
           </button>
           <button type="button" onClick={() => onChange('')} disabled={!value} className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-50 disabled:opacity-50">
-            Clear
+            Clear field
           </button>
           {onRemove && (
             <button type="button" onClick={onRemove} className="inline-flex items-center justify-center gap-2 rounded-lg border border-red-200 bg-white px-3 py-2 text-sm font-medium text-red-700 hover:bg-red-50">
@@ -619,10 +641,22 @@ function MediaField({
       {showLibrary && media.length > 0 && (
         <div className="mt-3 grid max-h-80 gap-2 overflow-auto pr-1 sm:grid-cols-2 lg:grid-cols-3">
           {media.map((item) => (
-            <button key={item.url} type="button" onClick={() => onChange(item.url)} className={`rounded-lg border p-2 text-left text-xs ${value === item.url ? 'border-slate-900 bg-slate-100' : 'border-slate-200 hover:bg-slate-50'}`}>
-              <span className="line-clamp-1 font-medium text-slate-900">{item.name}</span>
-              <span className="mt-1 block break-all text-slate-500">{item.url}</span>
-            </button>
+            <div key={item.url} className={`rounded-lg border p-2 text-xs ${value === item.url ? 'border-slate-900 bg-slate-100' : 'border-slate-200'}`}>
+              <button type="button" onClick={() => onChange(item.url)} className="block w-full text-left">
+                <span className="line-clamp-1 font-medium text-slate-900">{item.name}</span>
+                <span className="mt-1 block break-all text-slate-500">{item.url}</span>
+              </button>
+              <div className="mt-2 flex flex-wrap items-center gap-2">
+                {typeof getUsageCount === 'function' && getUsageCount(item.url) > 0 && (
+                  <span className="text-amber-700">Used in {getUsageCount(item.url)} field(s)</span>
+                )}
+                {onDeleteMedia && (
+                  <button type="button" onClick={() => onDeleteMedia(item)} disabled={deletingMediaUrl === item.url} className="inline-flex items-center gap-1 rounded-md border border-red-200 bg-white px-2 py-1 font-medium text-red-700 hover:bg-red-50 disabled:opacity-50">
+                    {deletingMediaUrl === item.url ? <Loader2 className="h-3 w-3 animate-spin" /> : <Trash2 className="h-3 w-3" />} Delete file
+                  </button>
+                )}
+              </div>
+            </div>
           ))}
         </div>
       )}
@@ -741,6 +775,17 @@ export default function AdminPage() {
     setStatus(`Saved ${FILE_LABELS[fileName] || fileName}. Public pages will use the updated content.`);
   }
 
+  async function saveServicesContent() {
+    if (!servicesContent) return;
+    const emptySlideIndex = servicesContent.facility.images.findIndex((image) => !image.src.trim());
+    if (emptySlideIndex !== -1) {
+      setStatus(`Facility carousel slide ${emptySlideIndex + 1} has no media. Choose a file or delete that slide before saving.`);
+      return;
+    }
+
+    await saveFile('services.json', servicesContent as unknown as JsonValue);
+  }
+
   function updateSelectedFile(path: (string | number)[], value: JsonValue) {
     setContent((previous) => ({
       ...previous,
@@ -755,11 +800,33 @@ export default function AdminPage() {
     }));
   }
 
+  function updateProductsFromCurrent(updater: (current: ProductsContent) => ProductsContent) {
+    setContent((previous) => {
+      const current = previous['products.json'] as unknown as ProductsContent | undefined;
+      if (!current) return previous;
+      return {
+        ...previous,
+        'products.json': updater(current) as unknown as JsonValue,
+      };
+    });
+  }
+
   function updateServices(nextServicesContent: ServicesContent) {
     setContent((previous) => ({
       ...previous,
       'services.json': nextServicesContent as unknown as JsonValue,
     }));
+  }
+
+  function updateServicesFromCurrent(updater: (current: ServicesContent) => ServicesContent) {
+    setContent((previous) => {
+      const current = previous['services.json'] as unknown as ServicesContent | undefined;
+      if (!current) return previous;
+      return {
+        ...previous,
+        'services.json': updater(current) as unknown as JsonValue,
+      };
+    });
   }
 
   function updateService(serviceId: string, patch: Partial<ServiceItem>) {
@@ -792,11 +859,10 @@ export default function AdminPage() {
   }
 
   function updateProduct(productId: string, patch: Partial<Product>) {
-    if (!productsContent) return;
-    updateProducts({
-      ...productsContent,
-      products: productsContent.products.map((product) => (product.id === productId ? { ...product, ...patch } : product)),
-    });
+    updateProductsFromCurrent((current) => ({
+      ...current,
+      products: current.products.map((product) => (product.id === productId ? { ...product, ...patch } : product)),
+    }));
   }
 
   async function uploadFile(file: File, attachToProductId?: string) {
@@ -814,9 +880,13 @@ export default function AdminPage() {
     }
 
     setMedia((previous) => [data.media, ...previous]);
-    if (attachToProductId && productsContent) {
-      const product = productsContent.products.find((item) => item.id === attachToProductId);
-      updateProduct(attachToProductId, { images: [...(product?.images ?? []), data.media.url] });
+    if (attachToProductId) {
+      updateProductsFromCurrent((current) => ({
+        ...current,
+        products: current.products.map((product) => (
+          product.id === attachToProductId ? { ...product, images: [...(product.images ?? []), data.media.url] } : product
+        )),
+      }));
       setStatus('Uploaded and attached media. Save products to publish it.');
       return data.media.url as string;
     }
@@ -935,7 +1005,7 @@ export default function AdminPage() {
                           <textarea value={homeContent.hero[key] || ''} onChange={(event) => updateHome({ ...homeContent, hero: { ...homeContent.hero, [key]: event.target.value } })} rows={key === 'description' ? 4 : 1} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" />
                         </label>
                       ))}
-                      <MediaField label="Hero image/video" value={homeContent.hero.mediaUrl || ''} media={media} uploading={uploading} onUpload={uploadFile} onChange={(mediaUrl) => updateHome({ ...homeContent, hero: { ...homeContent.hero, mediaUrl } })} />
+                      <MediaField label="Hero image/video" value={homeContent.hero.mediaUrl || ''} media={media} uploading={uploading} onUpload={uploadFile} onChange={(mediaUrl) => updateHome({ ...homeContent, hero: { ...homeContent.hero, mediaUrl } })} onDeleteMedia={deleteMediaItem} deletingMediaUrl={deletingMediaUrl} getUsageCount={(url) => findMediaUsages(content, url).length} />
                     </div>
                   </div>
 
@@ -972,7 +1042,7 @@ export default function AdminPage() {
                     ))}
                     <TextListEditor title="Capability items" items={homeContent.capabilitiesSection.items} onChange={(items) => updateHome({ ...homeContent, capabilitiesSection: { ...homeContent.capabilitiesSection, items } })} addLabel="Add capability" />
                     <div className="mt-4">
-                      <MediaField label="Capabilities image/video" value={homeContent.capabilitiesSection.mediaUrl || ''} media={media} uploading={uploading} onUpload={uploadFile} onChange={(mediaUrl) => updateHome({ ...homeContent, capabilitiesSection: { ...homeContent.capabilitiesSection, mediaUrl } })} />
+                      <MediaField label="Capabilities image/video" value={homeContent.capabilitiesSection.mediaUrl || ''} media={media} uploading={uploading} onUpload={uploadFile} onChange={(mediaUrl) => updateHome({ ...homeContent, capabilitiesSection: { ...homeContent.capabilitiesSection, mediaUrl } })} onDeleteMedia={deleteMediaItem} deletingMediaUrl={deletingMediaUrl} getUsageCount={(url) => findMediaUsages(content, url).length} />
                     </div>
                   </div>
 
@@ -1008,7 +1078,7 @@ export default function AdminPage() {
                         <textarea value={aboutContent.hero[key as keyof typeof aboutContent.hero] || ''} onChange={(event) => updateAbout({ ...aboutContent, hero: { ...aboutContent.hero, [key]: event.target.value } })} rows={key === 'supportingText' ? 4 : 1} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" />
                       </label>
                     ))}
-                    <MediaField label="About hero image/video" value={aboutContent.hero.mediaUrl || ''} media={media} uploading={uploading} onUpload={uploadFile} onChange={(mediaUrl) => updateAbout({ ...aboutContent, hero: { ...aboutContent.hero, mediaUrl } })} />
+                    <MediaField label="About hero image/video" value={aboutContent.hero.mediaUrl || ''} media={media} uploading={uploading} onUpload={uploadFile} onChange={(mediaUrl) => updateAbout({ ...aboutContent, hero: { ...aboutContent.hero, mediaUrl } })} onDeleteMedia={deleteMediaItem} deletingMediaUrl={deletingMediaUrl} getUsageCount={(url) => findMediaUsages(content, url).length} />
                   </div>
 
                   <div className="space-y-6">
@@ -1028,7 +1098,7 @@ export default function AdminPage() {
                     ))}
                   </div>
                   <div className="mt-4">
-                    <MediaField label="Why choose us image/video" value={aboutContent.whyChooseUsSection.mediaUrl || ''} media={media} uploading={uploading} onUpload={uploadFile} onChange={(mediaUrl) => updateAbout({ ...aboutContent, whyChooseUsSection: { ...aboutContent.whyChooseUsSection, mediaUrl } })} />
+                    <MediaField label="Why choose us image/video" value={aboutContent.whyChooseUsSection.mediaUrl || ''} media={media} uploading={uploading} onUpload={uploadFile} onChange={(mediaUrl) => updateAbout({ ...aboutContent, whyChooseUsSection: { ...aboutContent.whyChooseUsSection, mediaUrl } })} onDeleteMedia={deleteMediaItem} deletingMediaUrl={deletingMediaUrl} getUsageCount={(url) => findMediaUsages(content, url).length} />
                   </div>
                   <div className="mt-4">
                     <ProcessEditor title="Why choose us cards" items={aboutContent.whyChooseUsSection.items.map((item) => ({ name: item.title, description: item.description }))} onChange={(items) => updateAbout({ ...aboutContent, whyChooseUsSection: { ...aboutContent.whyChooseUsSection, items: items.map((item) => ({ title: item.name, description: item.description })) } })} />
@@ -1160,15 +1230,18 @@ export default function AdminPage() {
                           media={media}
 	                          uploading={uploading}
 	                          onUpload={uploadFile}
-	                          onChange={(value) => updateProduct(selectedProduct.id, { images: selectedProduct.images.map((item, itemIndex) => itemIndex === index ? value : item) })}
-                            onRemove={() => updateProduct(selectedProduct.id, { images: selectedProduct.images.filter((_, itemIndex) => itemIndex !== index) })}
+	                          onChange={(value) => updateProductsFromCurrent((current) => ({ ...current, products: current.products.map((product) => product.id === selectedProduct.id ? { ...product, images: product.images.map((item, itemIndex) => itemIndex === index ? value : item) } : product) }))}
+                            onRemove={() => updateProductsFromCurrent((current) => ({ ...current, products: current.products.map((product) => product.id === selectedProduct.id ? { ...product, images: product.images.filter((_, itemIndex) => itemIndex !== index) } : product) }))}
+                            onDeleteMedia={deleteMediaItem}
+                            deletingMediaUrl={deletingMediaUrl}
+                            getUsageCount={(url) => findMediaUsages(content, url).length}
 	                        />
                       ))}
-                      <button type="button" onClick={() => updateProduct(selectedProduct.id, { images: [...selectedProduct.images, ''] })} className="inline-flex items-center gap-2 rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700"><Plus className="h-4 w-4" /> Add another image/video</button>
+                      <button type="button" onClick={() => updateProductsFromCurrent((current) => ({ ...current, products: current.products.map((product) => product.id === selectedProduct.id ? { ...product, images: [...product.images, ''] } : product) }))} className="inline-flex items-center gap-2 rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700"><Plus className="h-4 w-4" /> Add another image/video</button>
                     </div>
 
 	                  <div className="grid gap-4">
-	                    <KeyValueEditor title="Specifications" keyLabel="Specification" valueLabel="Value" items={selectedProduct.specifications} onChange={(specifications) => updateProduct(selectedProduct.id, { specifications })} />
+	                    <KeyValueEditor key={`specifications-${selectedProduct.id}`} title="Specifications" keyLabel="Specification" valueLabel="Value" items={selectedProduct.specifications} onChange={(specifications) => updateProduct(selectedProduct.id, { specifications })} />
 	                    <TextListEditor title="Features" items={selectedProduct.features} onChange={(features) => updateProduct(selectedProduct.id, { features })} addLabel="Add feature" />
 	                  </div>
 
@@ -1252,7 +1325,7 @@ export default function AdminPage() {
                   <h2 className="font-semibold text-amber-950">Services save together</h2>
                   <p className="mt-1 text-sm text-amber-800">Edit service cards, service detail sections, capabilities, facility carousel photos, and highlights here. Click save after changing anything.</p>
                 </div>
-                <button type="button" onClick={() => saveFile('services.json', servicesContent as unknown as JsonValue)} disabled={saving} className="inline-flex items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-60">
+                <button type="button" onClick={saveServicesContent} disabled={saving} className="inline-flex items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-60">
                   {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />} Save services
                 </button>
               </div>
@@ -1264,7 +1337,7 @@ export default function AdminPage() {
                   <h2 className="font-bold text-slate-950">Service Cards</h2>
                   <button type="button" onClick={() => {
                     const service = emptyService(servicesContent.services.length);
-                    updateServices({ ...servicesContent, services: [...servicesContent.services, service] });
+                    updateServicesFromCurrent((current) => ({ ...current, services: [...current.services, service] }));
                     setSelectedServiceId(service.id);
                   }} className="rounded-lg bg-slate-900 p-2 text-white" title="Add service">
                     <Plus className="h-4 w-4" />
@@ -1288,7 +1361,7 @@ export default function AdminPage() {
                         <h2 className="text-xl font-bold text-slate-950">Edit Service</h2>
                         <p className="text-sm text-slate-500">This controls the homepage service card and the services page section.</p>
                       </div>
-                      <button type="button" onClick={() => saveFile('services.json', servicesContent as unknown as JsonValue)} disabled={saving} className="inline-flex items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-60">
+                      <button type="button" onClick={saveServicesContent} disabled={saving} className="inline-flex items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-60">
                         {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />} Save service
                       </button>
                     </div>
@@ -1300,7 +1373,7 @@ export default function AdminPage() {
                     <label className="block text-sm font-medium text-slate-700">Short description<textarea value={selectedService.shortDescription} onChange={(event) => updateService(selectedService.id, { shortDescription: event.target.value })} rows={2} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" /></label>
                     <label className="block text-sm font-medium text-slate-700">Full description<textarea value={selectedService.description} onChange={(event) => updateService(selectedService.id, { description: event.target.value })} rows={5} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" /></label>
 
-	                    <MediaField label="Service photo/video" value={selectedService.mediaUrl || ''} media={media} uploading={uploading} onUpload={uploadFile} onChange={(mediaUrl) => updateService(selectedService.id, { mediaUrl })} />
+	                    <MediaField label="Service photo/video" value={selectedService.mediaUrl || ''} media={media} uploading={uploading} onUpload={uploadFile} onChange={(mediaUrl) => updateService(selectedService.id, { mediaUrl })} onDeleteMedia={deleteMediaItem} deletingMediaUrl={deletingMediaUrl} getUsageCount={(url) => findMediaUsages(content, url).length} />
 
 	                    <div className="grid gap-4 md:grid-cols-2">
 	                      <ProcessEditor title="Processes / machining facilities" items={selectedService.processes ?? selectedService['Machining Facilities'] ?? []} onChange={(items) => updateService(selectedService.id, selectedService['Machining Facilities'] ? { 'Machining Facilities': items } : { processes: items })} />
@@ -1310,12 +1383,12 @@ export default function AdminPage() {
                     <div className="flex flex-wrap gap-2 border-t border-slate-200 pt-5">
                       <button type="button" onClick={() => {
                         const duplicated = { ...clone(selectedService), id: `${selectedService.id}-copy-${Date.now()}`, name: `${selectedService.name} Copy`, slug: `${selectedService.slug}-copy-${Date.now()}` };
-                        updateServices({ ...servicesContent, services: [...servicesContent.services, duplicated] });
+                        updateServicesFromCurrent((current) => ({ ...current, services: [...current.services, duplicated] }));
                         setSelectedServiceId(duplicated.id);
                       }} className="inline-flex items-center gap-2 rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700"><Copy className="h-4 w-4" /> Duplicate</button>
                       <button type="button" onClick={() => {
                         const remaining = servicesContent.services.filter((service) => service.id !== selectedService.id);
-                        updateServices({ ...servicesContent, services: remaining });
+                        updateServicesFromCurrent((current) => ({ ...current, services: current.services.filter((service) => service.id !== selectedService.id) }));
                         setSelectedServiceId(remaining[0]?.id || '');
                       }} className="inline-flex items-center gap-2 rounded-lg border border-red-200 px-3 py-2 text-sm font-medium text-red-700 hover:bg-red-50"><Trash2 className="h-4 w-4" /> Delete service</button>
                     </div>
@@ -1330,17 +1403,17 @@ export default function AdminPage() {
                   <h2 className="text-xl font-bold text-slate-950">Facility Section</h2>
                   <p className="text-sm text-slate-500">Controls the facility carousel, highlights, and facility text on the services page.</p>
                 </div>
-                <button type="button" onClick={() => saveFile('services.json', servicesContent as unknown as JsonValue)} disabled={saving} className="inline-flex items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-60">
+                <button type="button" onClick={saveServicesContent} disabled={saving} className="inline-flex items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-60">
                   {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />} Save facility
                 </button>
               </div>
-              <label className="block text-sm font-medium text-slate-700">Facility description<textarea value={servicesContent.facility.description} onChange={(event) => updateServices({ ...servicesContent, facility: { ...servicesContent.facility, description: event.target.value } })} rows={4} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" /></label>
+              <label className="block text-sm font-medium text-slate-700">Facility description<textarea value={servicesContent.facility.description} onChange={(event) => updateServicesFromCurrent((current) => ({ ...current, facility: { ...current.facility, description: event.target.value } }))} rows={4} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" /></label>
 	              <div className="mt-5 grid gap-4 lg:grid-cols-2">
-	                <TextListEditor title="Highlights" items={servicesContent.facility.highlights} onChange={(highlights) => updateServices({ ...servicesContent, facility: { ...servicesContent.facility, highlights } })} addLabel="Add highlight" />
+	                <TextListEditor title="Highlights" items={servicesContent.facility.highlights} onChange={(highlights) => updateServicesFromCurrent((current) => ({ ...current, facility: { ...current.facility, highlights } }))} addLabel="Add highlight" />
                   <div className="rounded-lg border border-slate-200 p-4">
                     <div className="mb-3 flex items-center justify-between gap-3">
                       <h3 className="font-semibold text-slate-950">Carousel images/videos</h3>
-                      <button type="button" onClick={() => updateServices({ ...servicesContent, facility: { ...servicesContent.facility, images: [...servicesContent.facility.images, { src: '', alt: '', caption: '' }] } })} className="inline-flex items-center gap-2 rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700">
+                      <button type="button" onClick={() => updateServicesFromCurrent((current) => ({ ...current, facility: { ...current.facility, images: [...current.facility.images, { src: '', alt: '', caption: '' }] } }))} className="inline-flex items-center gap-2 rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700">
                         <Plus className="h-4 w-4" /> Add slide
                       </button>
                     </div>
@@ -1348,13 +1421,13 @@ export default function AdminPage() {
                       {servicesContent.facility.images.map((image, index) => (
                         <div key={index} className="rounded-lg border border-slate-200 bg-slate-50 p-3">
                           <div className="mb-3 flex justify-end">
-                            <button type="button" onClick={() => updateServices({ ...servicesContent, facility: { ...servicesContent.facility, images: servicesContent.facility.images.filter((_, itemIndex) => itemIndex !== index) } })} className="rounded-lg p-2 text-red-600 hover:bg-red-50">
+                            <button type="button" onClick={() => updateServicesFromCurrent((current) => ({ ...current, facility: { ...current.facility, images: current.facility.images.filter((_, itemIndex) => itemIndex !== index) } }))} className="rounded-lg p-2 text-red-600 hover:bg-red-50">
                               <Trash2 className="h-4 w-4" />
                             </button>
                           </div>
-                          <MediaField label={`Slide ${index + 1} media`} value={image.src} media={media} uploading={uploading} onUpload={uploadFile} onChange={(src) => updateServices({ ...servicesContent, facility: { ...servicesContent.facility, images: servicesContent.facility.images.map((item, itemIndex) => itemIndex === index ? { ...item, src } : item) } })} />
-                          <label className="mt-3 block text-sm font-medium text-slate-700">Alt text<input value={image.alt} onChange={(event) => updateServices({ ...servicesContent, facility: { ...servicesContent.facility, images: servicesContent.facility.images.map((item, itemIndex) => itemIndex === index ? { ...item, alt: event.target.value } : item) } })} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" /></label>
-                          <label className="mt-3 block text-sm font-medium text-slate-700">Caption<input value={image.caption} onChange={(event) => updateServices({ ...servicesContent, facility: { ...servicesContent.facility, images: servicesContent.facility.images.map((item, itemIndex) => itemIndex === index ? { ...item, caption: event.target.value } : item) } })} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" /></label>
+                          <MediaField label={`Slide ${index + 1} media`} value={image.src} media={media} uploading={uploading} onUpload={uploadFile} onChange={(src) => updateServicesFromCurrent((current) => ({ ...current, facility: { ...current.facility, images: current.facility.images.map((item, itemIndex) => itemIndex === index ? { ...item, src } : item) } }))} onDeleteMedia={deleteMediaItem} deletingMediaUrl={deletingMediaUrl} getUsageCount={(url) => findMediaUsages(content, url).length} />
+                          <label className="mt-3 block text-sm font-medium text-slate-700">Alt text<input value={image.alt} onChange={(event) => updateServicesFromCurrent((current) => ({ ...current, facility: { ...current.facility, images: current.facility.images.map((item, itemIndex) => itemIndex === index ? { ...item, alt: event.target.value } : item) } }))} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" /></label>
+                          <label className="mt-3 block text-sm font-medium text-slate-700">Caption<input value={image.caption} onChange={(event) => updateServicesFromCurrent((current) => ({ ...current, facility: { ...current.facility, images: current.facility.images.map((item, itemIndex) => itemIndex === index ? { ...item, caption: event.target.value } : item) } }))} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" /></label>
                         </div>
                       ))}
                     </div>
@@ -1439,7 +1512,11 @@ export default function AdminPage() {
               </div>
               <label className="inline-flex cursor-pointer items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white">
                 {uploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />} Upload media
-                <input type="file" accept="image/*,video/mp4,video/webm,video/quicktime" className="hidden" onChange={(event) => event.target.files?.[0] && uploadFile(event.target.files[0])} />
+                <input type="file" accept="image/*,video/mp4,video/webm,video/quicktime" className="hidden" onChange={async (event) => {
+                  const file = event.target.files?.[0];
+                  if (file) await uploadFile(file);
+                  event.target.value = '';
+                }} />
               </label>
             </div>
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
