@@ -14,14 +14,12 @@ function getButtonClass(isActive: boolean): string {
 }
 
 
-function ProductsContent() {
+function ProductsList({ initialCategory }: { initialCategory: string }) {
   const content = useContentData({ 'products.json': productsData });
   const liveProductsData = content['products.json'];
-  const searchParams = useSearchParams();
-  const categoryParam = searchParams.get('category');
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState(categoryParam || 'all');
+  const [selectedCategory, setSelectedCategory] = useState(initialCategory);
   const [showFilters, setShowFilters] = useState(false);
 
   const filteredProducts = useMemo(() => {
@@ -87,6 +85,12 @@ function ProductsContent() {
       </section>
     </>
   );
+}
+
+function ProductsContent() {
+  const searchParams = useSearchParams();
+  const initialCategory = searchParams.get('category') || 'all';
+  return <ProductsList key={initialCategory} initialCategory={initialCategory} />;
 }
 
 function ProductsLoading() {

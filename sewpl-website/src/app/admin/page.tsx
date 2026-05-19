@@ -185,9 +185,49 @@ function slugify(value: string) {
     .replace(/^-+|-+$/g, '') || 'item';
 }
 
+function uniqueObjectKey(items: Record<string, string>, base = 'New field') {
+  if (!(base in items)) return base;
+  let index = 2;
+  while (`${base} ${index}` in items) index += 1;
+  return `${base} ${index}`;
+}
+
 function formatBytes(size: number) {
   if (size < 1024 * 1024) return `${Math.round(size / 1024)} KB`;
   return `${(size / 1024 / 1024).toFixed(1)} MB`;
+}
+
+function findMediaUsages(content: ContentMap, targetUrl: string) {
+  const matches: string[] = [];
+
+  function visit(value: JsonValue, path: string[]) {
+    if (value === targetUrl) {
+      matches.push(path.join(' > '));
+      return;
+    }
+
+    if (Array.isArray(value)) {
+      value.forEach((item, index) => visit(item, [...path, String(index + 1)]));
+      return;
+    }
+
+    if (isRecord(value)) {
+      Object.entries(value).forEach(([key, item]) => visit(item, [...path, key]));
+    }
+  }
+
+  Object.entries(content).forEach(([fileName, value]) => visit(value, [FILE_LABELS[fileName] || fileName]));
+  return matches;
+}
+
+function buildEntriesWithRenamedKey(entries: [string, string][], index: number, nextKey: string) {
+  if (entries.some(([entryKey], entryIndex) => entryIndex !== index && entryKey === nextKey)) {
+    return null;
+  }
+
+  return entries.map(([entryKey, entryValue], entryIndex) => (
+    entryIndex === index ? [nextKey, entryValue] : [entryKey, entryValue]
+  )) as [string, string][];
 }
 
 function emptyCategory(index: number) {
@@ -453,20 +493,21 @@ function KeyValueEditor({
     <div className="rounded-lg border border-slate-200 p-4">
       <div className="mb-3 flex items-center justify-between gap-3">
         <h3 className="font-semibold text-slate-950">{title}</h3>
-        <button type="button" onClick={() => onChange({ ...items, 'New field': '' })} className="inline-flex items-center gap-2 rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700">
+        <button type="button" onClick={() => onChange({ ...items, [uniqueObjectKey(items)]: '' })} className="inline-flex items-center gap-2 rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700">
           <Plus className="h-4 w-4" /> Add row
         </button>
       </div>
       <div className="space-y-3">
         {entries.map(([key, value], index) => (
-          <div key={`${key}-${index}`} className="rounded-lg border border-slate-200 bg-slate-50 p-3">
+          <div key={index} className="rounded-lg border border-slate-200 bg-slate-50 p-3">
             <div className="grid gap-3 lg:grid-cols-2">
               <label className="block min-w-0 text-xs font-medium text-slate-500">
                 {keyLabel}
                 <input
                   value={key}
                   onChange={(event) => {
-                    const nextEntries = entries.map(([entryKey, entryValue], entryIndex) => entryIndex === index ? [event.target.value, entryValue] : [entryKey, entryValue]);
+                    const nextEntries = buildEntriesWithRenamedKey(entries, index, event.target.value);
+                    if (!nextEntries) return;
                     onChange(Object.fromEntries(nextEntries));
                   }}
                   className="mt-1 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900"
@@ -576,8 +617,8 @@ function MediaField({
       </div>
       <input value={value} onChange={(event) => onChange(event.target.value)} placeholder="/uploads/photo.jpg" className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm" />
       {showLibrary && media.length > 0 && (
-        <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
-          {media.slice(0, 9).map((item) => (
+        <div className="mt-3 grid max-h-80 gap-2 overflow-auto pr-1 sm:grid-cols-2 lg:grid-cols-3">
+          {media.map((item) => (
             <button key={item.url} type="button" onClick={() => onChange(item.url)} className={`rounded-lg border p-2 text-left text-xs ${value === item.url ? 'border-slate-900 bg-slate-100' : 'border-slate-200 hover:bg-slate-50'}`}>
               <span className="line-clamp-1 font-medium text-slate-900">{item.name}</span>
               <span className="mt-1 block break-all text-slate-500">{item.url}</span>
@@ -604,6 +645,7 @@ export default function AdminPage() {
   const [status, setStatus] = useState('');
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [deletingMediaUrl, setDeletingMediaUrl] = useState('');
 
   const productsContent = content['products.json'] as ProductsContent | undefined;
   const selectedProduct = productsContent?.products.find((product) => product.id === selectedProductId) ?? productsContent?.products[0];
@@ -618,7 +660,7 @@ export default function AdminPage() {
 
   async function loadAdminData() {
     const response = await fetch('/api/admin/content', { cache: 'no-store' });
-    if (!response.ok) return;
+    if (!response.ok) return null;
     const data = await response.json();
     setFiles(data.files);
     setContent(data.content);
@@ -626,6 +668,7 @@ export default function AdminPage() {
     const services = (data.content['services.json'] as ServicesContent | undefined)?.services ?? [];
     setSelectedProductId((current) => current || products[0]?.id || '');
     setSelectedServiceId((current) => current || services[0]?.id || '');
+    return data.content as ContentMap;
   }
 
   async function loadMedia() {
@@ -690,7 +733,11 @@ export default function AdminPage() {
       return;
     }
 
-    await loadAdminData();
+    const refreshedContent = await loadAdminData();
+    if (refreshedContent && JSON.stringify(refreshedContent[fileName]) !== JSON.stringify(value)) {
+      setStatus(`Saved ${FILE_LABELS[fileName] || fileName}, but the refreshed content did not match. Check Vercel Blob/cache setup before trusting the public page.`);
+      return;
+    }
     setStatus(`Saved ${FILE_LABELS[fileName] || fileName}. Public pages will use the updated content.`);
   }
 
@@ -775,6 +822,33 @@ export default function AdminPage() {
     }
     setStatus('Media uploaded');
     return data.media.url as string;
+  }
+
+  async function deleteMediaItem(item: UploadedMedia) {
+    const usages = findMediaUsages(content, item.url);
+    const warning = usages.length > 0
+      ? `This media is used in ${usages.length} place(s):\n${usages.slice(0, 6).join('\n')}${usages.length > 6 ? '\n...' : ''}\n\nDeleting it may leave broken images/videos unless you replace those fields first. Delete anyway?`
+      : `Delete ${item.name} from the media library?`;
+
+    if (!window.confirm(warning)) return;
+
+    setDeletingMediaUrl(item.url);
+    setStatus('');
+    const response = await fetch('/api/admin/media', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ url: item.url }),
+    });
+    const data = await response.json().catch(() => ({}));
+    setDeletingMediaUrl('');
+
+    if (!response.ok) {
+      setStatus(data.error || 'Could not delete media');
+      return;
+    }
+
+    setMedia((previous) => previous.filter((mediaItem) => mediaItem.url !== item.url));
+    setStatus(`Deleted ${item.name}`);
   }
 
   if (checkingAuth) {
@@ -1080,7 +1154,7 @@ export default function AdminPage() {
 	                  <div className="space-y-4">
                       {selectedProduct.images.map((image, index) => (
                         <MediaField
-                          key={`${image}-${index}`}
+                          key={index}
                           label={`Product image/video ${index + 1}`}
                           value={image}
                           media={media}
@@ -1380,9 +1454,17 @@ export default function AdminPage() {
                       <span className="line-clamp-1">{item.name}</span>
                     </div>
                     <p className="text-xs text-slate-500">{formatBytes(item.size)}</p>
-                    <button type="button" onClick={() => navigator.clipboard.writeText(item.url)} className="inline-flex items-center gap-2 rounded-lg bg-slate-100 px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-200">
-                      <Check className="h-3 w-3" /> Copy URL
-                    </button>
+                    {findMediaUsages(content, item.url).length > 0 && (
+                      <p className="text-xs text-amber-700">Used in {findMediaUsages(content, item.url).length} field(s)</p>
+                    )}
+                    <div className="flex flex-wrap gap-2">
+                      <button type="button" onClick={() => navigator.clipboard.writeText(item.url)} className="inline-flex items-center gap-2 rounded-lg bg-slate-100 px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-200">
+                        <Check className="h-3 w-3" /> Copy URL
+                      </button>
+                      <button type="button" onClick={() => deleteMediaItem(item)} disabled={deletingMediaUrl === item.url} className="inline-flex items-center gap-2 rounded-lg border border-red-200 px-3 py-2 text-xs font-medium text-red-700 hover:bg-red-50 disabled:opacity-50">
+                        {deletingMediaUrl === item.url ? <Loader2 className="h-3 w-3 animate-spin" /> : <Trash2 className="h-3 w-3" />} Delete
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}

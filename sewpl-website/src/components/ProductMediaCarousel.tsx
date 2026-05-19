@@ -30,6 +30,11 @@ export default function ProductMediaCarousel({ media, productName }: ProductMedi
 
   useEffect(() => {
     if (!emblaApi) return;
+    emblaApi.reInit({ loop: items.length > 1, align: 'start' });
+  }, [emblaApi, items.length]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
     emblaApi.on('select', onSelect);
     emblaApi.on('reInit', onSelect);
     queueMicrotask(onSelect);

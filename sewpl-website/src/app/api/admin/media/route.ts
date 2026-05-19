@@ -1,7 +1,7 @@
 import path from 'path';
 import { NextResponse } from 'next/server';
 import { isAdminAuthenticated } from '@/lib/admin-auth';
-import { listUploadedMedia, uploadMediaFile } from '@/lib/content-store';
+import { deleteUploadedMedia, listUploadedMedia, uploadMediaFile } from '@/lib/content-store';
 
 export const dynamic = 'force-dynamic';
 
@@ -70,4 +70,28 @@ export async function POST(request: Request) {
       modifiedAt: new Date().toISOString(),
     },
   });
+}
+
+export async function DELETE(request: Request) {
+  if (!(await isAdminAuthenticated())) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+  }
+
+  const body = await request.json().catch(() => null);
+  const url = typeof body?.url === 'string' ? body.url : '';
+
+  if (!url) {
+    return NextResponse.json({ error: 'Missing media URL' }, { status: 400 });
+  }
+
+  try {
+    await deleteUploadedMedia(url);
+  } catch (error) {
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : 'Could not delete media' },
+      { status: 400 },
+    );
+  }
+
+  return NextResponse.json({ ok: true });
 }

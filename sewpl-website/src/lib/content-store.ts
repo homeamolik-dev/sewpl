@@ -1,5 +1,5 @@
-import { mkdir, readFile, readdir, writeFile } from 'fs/promises';
-import { get, list, put } from '@vercel/blob';
+import { mkdir, readFile, readdir, unlink, writeFile } from 'fs/promises';
+import { del, get, list, put } from '@vercel/blob';
 import path from 'path';
 
 export const CONTENT_FILES = [
@@ -136,8 +136,16 @@ export type UploadedMedia = {
 
 export async function listUploadedMedia(): Promise<UploadedMedia[]> {
   if (hasBlobStorage()) {
-    const blobs = await list({ prefix: blobUploadPrefix });
-    return blobs.blobs
+    const blobs = [];
+    let cursor: string | undefined;
+
+    do {
+      const page = await list({ prefix: blobUploadPrefix, cursor });
+      blobs.push(...page.blobs);
+      cursor = page.hasMore ? page.cursor : undefined;
+    } while (cursor);
+
+    return blobs
       .map((blob) => {
         const ext = path.extname(blob.pathname).toLowerCase();
         const type: UploadedMedia['type'] = ['.jpg', '.jpeg', '.png', '.webp', '.gif', '.svg'].includes(ext)
@@ -202,4 +210,26 @@ export async function uploadMediaFile(fileName: string, bytes: Buffer, contentTy
   await mkdir(uploadDir, { recursive: true });
   await writeFile(path.join(uploadDir, fileName), bytes);
   return `/uploads/${fileName}`;
+}
+
+export async function deleteUploadedMedia(url: string) {
+  if (hasBlobStorage()) {
+    await del(url);
+    return;
+  }
+
+  if (!url.startsWith('/uploads/')) {
+    throw new Error('Only uploaded media can be deleted');
+  }
+
+  const uploadDir = path.join(projectRoot, 'public', 'uploads');
+  const fileName = path.basename(url);
+  const target = path.resolve(uploadDir, fileName);
+  const root = path.resolve(uploadDir);
+
+  if (!target.startsWith(`${root}${path.sep}`)) {
+    throw new Error('Invalid media path');
+  }
+
+  await unlink(target);
 }

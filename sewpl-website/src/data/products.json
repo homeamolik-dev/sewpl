@@ -15,13 +15,21 @@
         "Tool Stations": "12",
         "Control System": "FANUC 0i-TF",
         "Positioning Accuracy": "0.005mm",
-        "Repeatability": "0.003mm",
-        "New field": ""
+        "Repeatability": "0.003mm"
       },
       "features": [
-        "test"
+        "Rigid cast iron bed construction",
+        "Advanced CNC control system",
+        "High torque spindle motor",
+        "Automatic lubrication system",
+        "Precision linear guideways",
+        "Operator-friendly safety enclosure"
       ],
-      "images": [],
+      "images": [
+        "/images/products/cnc-lathe-1.jpg",
+        "/images/products/cnc-lathe-2.jpg",
+        "/images/products/cnc-lathe-3.jpg"
+      ],
       "price": "Contact for Quote",
       "inStock": true,
       "featured": true
@@ -259,159 +267,6 @@
       "price": "Contact for Quote",
       "inStock": false,
       "featured": false
-    },
-    {
-      "id": "cnc-lathe-001-copy-1778904553669",
-      "name": "CNC Lathe Machine - Heavy Duty Copy",
-      "slug": "cnc-lathe-heavy-duty-copy-1778904553669",
-      "category": "CNC Lathe",
-      "shortDescription": "High-precision CNC lathe for heavy-duty turning operations with advanced control systems.",
-      "description": "Our Heavy Duty CNC Lathe Machine is engineered for maximum precision and reliability in demanding industrial environments. Featuring a robust cast iron bed construction, this machine delivers exceptional rigidity and vibration dampening for superior surface finishes. The advanced CNC control system allows for complex part programming with ease, while the powerful spindle motor handles both rough cutting and fine finishing operations with equal proficiency.",
-      "specifications": {
-        "Max Turning Diameter": "500mm",
-        "Max Turning Length": "1000mm",
-        "Spindle Speed": "50-3000 RPM",
-        "Spindle Power": "15 kW",
-        "Tool Stations": "12",
-        "Control System": "FANUC 0i-TF",
-        "Positioning Accuracy": "0.005mm",
-        "Repeatability": "0.003mm",
-        "New field": ""
-      },
-      "features": [
-        "test"
-      ],
-      "images": [
-        "/images/products/cnc-lathe-1.jpg",
-        "/images/products/cnc-lathe-2.jpg",
-        "/images/products/cnc-lathe-3.jpg"
-      ],
-      "price": "Contact for Quote",
-      "inStock": true,
-      "featured": true
-    },
-    {
-      "id": "cnc-lathe-001-copy-1778904553669-copy-1778904554620",
-      "name": "CNC Lathe Machine - Heavy Duty Copy Copy",
-      "slug": "cnc-lathe-heavy-duty-copy-1778904553669-copy-1778904554620",
-      "category": "CNC Lathe",
-      "shortDescription": "High-precision CNC lathe for heavy-duty turning operations with advanced control systems.",
-      "description": "Our Heavy Duty CNC Lathe Machine is engineered for maximum precision and reliability in demanding industrial environments. Featuring a robust cast iron bed construction, this machine delivers exceptional rigidity and vibration dampening for superior surface finishes. The advanced CNC control system allows for complex part programming with ease, while the powerful spindle motor handles both rough cutting and fine finishing operations with equal proficiency.",
-      "specifications": {
-        "Max Turning Diameter": "500mm",
-        "Max Turning Length": "1000mm",
-        "Spindle Speed": "50-3000 RPM",
-        "Spindle Power": "15 kW",
-        "Tool Stations": "12",
-        "Control System": "FANUC 0i-TF",
-        "Positioning Accuracy": "0.005mm",
-        "Repeatability": "0.003mm",
-        "New field": ""
-      },
-      "features": [
-        "test"
-      ],
-      "images": [
-        "/images/products/cnc-lathe-1.jpg",
-        "/images/products/cnc-lathe-2.jpg",
-        "/images/products/cnc-lathe-3.jpg"
-      ],
-      "price": "Contact for Quote",
-      "inStock": true,
-      "featured": true
-    },
-    {
-      "id": "cnc-lathe-001-copy-1778904553669-copy-1778904554620-copy-1778904556883",
-      "name": "CNC Lathe Machine - Heavy Duty Copy Copy Copy",
-      "slug": "cnc-lathe-heavy-duty-copy-1778904553669-copy-1778904554620-copy-1778904556883",
-      "category": "CNC Lathe",
-      "shortDescription": "High-precision CNC lathe for heavy-duty turning operations with advanced control systems.",
-      "description": "Our Heavy Duty CNC Lathe Machine is engineered for maximum precision and reliability in demanding industrial environments. Featuring a robust cast iron bed construction, this machine delivers exceptional rigidity and vibration dampening for superior surface finishes. The advanced CNC control system allows for complex part programming with ease, while the powerful spindle motor handles both rough cutting and fine finishing operations with equal proficiency.",
-      "specifications": {
-        "Max Turning Diameter": "500mm",
-        "Max Turning Length": "1000mm",
-        "Spindle Speed": "50-3000 RPM",
-        "Spindle Power": "15 kW",
-        "Tool Stations": "12",
-        "Control System": "FANUC 0i-TF",
-        "Positioning Accuracy": "0.005mm",
-        "Repeatability": "0.003mm",
-        "New field": ""
-      },
-      "features": [
-        "test"
-      ],
-      "images": [
-        "/images/products/cnc-lathe-1.jpg",
-        "/images/products/cnc-lathe-2.jpg",
-        "/images/products/cnc-lathe-3.jpg"
-      ],
-      "price": "Contact for Quote",
-      "inStock": true,
-      "featured": true
-    },
-    {
-      "id": "cnc-lathe-001-copy-1778904553669-copy-1778904554620-copy-1778904556883-copy-1778904565866",
-      "name": "CNC Lathe Machine - Heavy Duty Copy Copy Copy Copy",
-      "slug": "cnc-lathe-heavy-duty-copy-1778904553669-copy-1778904554620-copy-1778904556883-copy-1778904565866",
-      "category": "CNC Lathe",
-      "shortDescription": "High-precision CNC lathe for heavy-duty turning operations with advanced control systems.",
-      "description": "Our Heavy Duty CNC Lathe Machine is engineered for maximum precision and reliability in demanding industrial environments. Featuring a robust cast iron bed construction, this machine delivers exceptional rigidity and vibration dampening for superior surface finishes. The advanced CNC control system allows for complex part programming with ease, while the powerful spindle motor handles both rough cutting and fine finishing operations with equal proficiency.",
-      "specifications": {
-        "Max Turning Diameter": "500mm",
-        "Max Turning Length": "1000mm",
-        "Spindle Speed": "50-3000 RPM",
-        "Spindle Power": "15 kW",
-        "Tool Stations": "12",
-        "Control System": "FANUC 0i-TF",
-        "Positioning Accuracy": "0.005mm",
-        "Repeatability": "0.003mm",
-        "New field": ""
-      },
-      "features": [
-        "test"
-      ],
-      "images": [
-        "/images/products/cnc-lathe-1.jpg",
-        "/images/products/cnc-lathe-2.jpg",
-        "/images/products/cnc-lathe-3.jpg"
-      ],
-      "price": "Contact for Quote",
-      "inStock": true,
-      "featured": true
-    },
-    {
-      "id": "tapping-001-copy-1778904584678",
-      "name": "Automatic Tapping Machine Copy",
-      "slug": "automatic-tapping-machine-copy-1778904584678",
-      "category": "Tapping Machines",
-      "shortDescription": "Precision automatic tapping machine for consistent thread quality.",
-      "description": "Our Automatic Tapping Machine delivers consistent, high-quality threads with minimal operator intervention. The torque-sensing technology prevents tap breakage and ensures perfect threads every time. Suitable for both blind and through holes across a range of materials.",
-      "specifications": {
-        "Tapping Capacity": "M3-M16",
-        "Spindle Speed": "100-2000 RPM",
-        "Arm Reach": "1000mm",
-        "Vertical Travel": "200mm",
-        "Motor Power": "1.5 kW",
-        "Torque Control": "Electronic",
-        "Thread Depth Control": "Programmable",
-        "Cycle Counter": "Digital display"
-      },
-      "features": [
-        "Torque-limiting clutch",
-        "Automatic reverse at depth",
-        "Multiple tapping arm positions",
-        "Quick-change tap holders",
-        "Tapping fluid dispenser",
-        "Tap breakage detection"
-      ],
-      "images": [
-        "/images/products/tapping-1.jpg",
-        "/images/products/tapping-2.jpg"
-      ],
-      "price": "Contact for Quote",
-      "inStock": true,
-      "featured": false
     }
   ],
   "categories": [
@@ -438,6 +293,18 @@
       "name": "Special Purpose Machines",
       "slug": "special-purpose-machines",
       "description": "Custom-engineered machines for specific manufacturing needs"
+    },
+    {
+      "id": "drilling",
+      "name": "Drilling Machines",
+      "slug": "drilling-machines",
+      "description": "Multi-spindle and production drilling machines for precise hole-making"
+    },
+    {
+      "id": "tapping",
+      "name": "Tapping Machines",
+      "slug": "tapping-machines",
+      "description": "Automatic tapping machines for consistent thread production"
     }
   ]
 }

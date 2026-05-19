@@ -17,6 +17,7 @@ interface FacilityCarouselProps {
 }
 
 export default function FacilityCarousel({ images }: FacilityCarouselProps) {
+  const carouselImages = images.filter((image) => image.src);
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'center' });
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
@@ -31,6 +32,11 @@ export default function FacilityCarousel({ images }: FacilityCarouselProps) {
     setCanScrollPrev(emblaApi.canScrollPrev());
     setCanScrollNext(emblaApi.canScrollNext());
   }, [emblaApi]);
+
+  useEffect(() => {
+    if (!emblaApi) return;
+    emblaApi.reInit();
+  }, [emblaApi, carouselImages.length]);
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -52,12 +58,22 @@ export default function FacilityCarousel({ images }: FacilityCarouselProps) {
     return () => clearInterval(interval);
   }, [emblaApi]);
 
+  if (carouselImages.length === 0) {
+    return (
+      <div className="relative aspect-[16/9] overflow-hidden rounded-2xl bg-slate-100 md:aspect-[21/9]">
+        <div className="absolute inset-0 flex items-center justify-center text-sm text-slate-400">
+          Facility media
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="relative">
       {/* Main Carousel */}
       <div className="overflow-hidden rounded-2xl" ref={emblaRef}>
         <div className="flex">
-          {images.map((image, index) => (
+          {carouselImages.map((image, index) => (
             <div
               key={index}
               className="flex-[0_0_100%] min-w-0 relative aspect-[16/9] md:aspect-[21/9]"
@@ -123,7 +139,7 @@ export default function FacilityCarousel({ images }: FacilityCarouselProps) {
 
       {/* Dots Indicator */}
       <div className="flex justify-center gap-2 mt-4">
-        {images.map((_, index) => (
+        {carouselImages.map((_, index) => (
           <button
             key={index}
             onClick={() => emblaApi?.scrollTo(index)}
