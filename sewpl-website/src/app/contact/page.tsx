@@ -16,6 +16,13 @@ function getMapEmbedSrc(embed: string) {
   return srcMatch?.[1] || trimmed;
 }
 
+function labelFromKey(key: string) {
+  return key
+    .replace(/([a-z])([A-Z])/g, '$1 $2')
+    .replace(/[-_]+/g, ' ')
+    .replace(/\b\w/g, (letter) => letter.toUpperCase());
+}
+
 export default function ContactPage() {
   const content = useContentData({
     'company.json': companyData,
@@ -26,13 +33,10 @@ export default function ContactPage() {
   const liveContactPageContent = content['contact-page-content.json'];
   const liveSiteGlobal = content['site-global.json'];
   const mapEmbedSrc = getMapEmbedSrc(liveCompanyData.contact.googleMapsEmbed);
-  const departments = [
-    { name: 'Sales', email: liveCompanyData.contact.email.sales, icon: Users },
-    { name: 'Accounts', email: liveCompanyData.contact.email.accounts, icon: Users },
-    { name: 'CEO Office', email: liveCompanyData.contact.email.ceo, icon: Users },
-    { name: 'Services', email: liveCompanyData.contact.email.services, icon: Users },
-    { name: 'Manufacturing', email: liveCompanyData.contact.email.manufacturing, icon: Users },
-  ];
+  const departments = Object.entries(liveCompanyData.contact.email)
+    .filter(([key, email]) => key !== 'general' && Boolean(email))
+    .map(([key, email]) => ({ name: labelFromKey(key), email, icon: Users }));
+  const workingHours = Object.entries(liveCompanyData.contact.workingHours).filter(([, hours]) => Boolean(hours));
 
   return (
     <>
@@ -106,11 +110,11 @@ export default function ContactPage() {
                     </div>
                     <div>
                       <p className="font-medium text-slate-900">{liveSiteGlobal.sharedLabels.workingHours}</p>
-                      <p className="text-slate-600 text-sm">
-                        Mon-Fri: {liveCompanyData.contact.workingHours.weekdays}<br />
-                        Saturday: {liveCompanyData.contact.workingHours.saturday}<br />
-                        Sunday: {liveCompanyData.contact.workingHours.sunday}
-                      </p>
+                      <div className="text-slate-600 text-sm">
+                        {workingHours.map(([day, hours]) => (
+                          <p key={day}>{labelFromKey(day)}: {hours}</p>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -125,8 +129,8 @@ export default function ContactPage() {
           <AnimatedSection>
             <h2 className="text-2xl font-bold text-slate-900 mb-8 text-center">{liveContactPageContent.departmentsSection.title}</h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {departments.map((department, index) => (
-                <a key={index} href={`mailto:${department.email}`} className="flex items-center gap-4 p-4 bg-white border border-slate-200 rounded-xl hover:shadow-md hover:border-slate-300 transition-all">
+              {departments.map((department) => (
+                <a key={department.name} href={`mailto:${department.email}`} className="flex items-center gap-4 p-4 bg-white border border-slate-200 rounded-xl hover:shadow-md hover:border-slate-300 transition-all">
                   <div className="w-10 h-10 bg-slate-100 rounded-lg flex items-center justify-center">
                     <department.icon className="w-5 h-5 text-slate-600" />
                   </div>

@@ -20,7 +20,8 @@
   "featuredProductsSection": {
     "eyebrow": "Products",
     "title": "Featured Machines",
-    "viewAllLabel": "View All Products"
+    "viewAllLabel": "View All Products",
+    "featuredCount": "4"
   },
   "capabilitiesSection": {
     "eyebrow": "Our Capabilities",

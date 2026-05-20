@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Mail, Phone, MapPin, Linkedin, Facebook, Twitter, Instagram } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, Facebook, Twitter, Instagram, Globe } from 'lucide-react';
 import companyData from '@/data/company.json';
 import productsData from '@/data/products.json';
 import siteGlobal from '@/data/site-global.json';
@@ -60,13 +60,14 @@ export default function Footer() {
 
             <div className="flex gap-3">
               {Object.entries(liveCompanyData.social).map(([key, url]) => {
-                const Icon = socialIcons[key as keyof typeof socialIcons];
-                return Icon ? (
+                const Icon = socialIcons[key as keyof typeof socialIcons] || Globe;
+                return url ? (
                   <a
                     key={key}
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
+                    aria-label={key}
                     className="w-9 h-9 bg-slate-800 rounded-lg flex items-center justify-center hover:bg-slate-700 transition-colors"
                   >
                     <Icon className="w-4 h-4 text-slate-400" />

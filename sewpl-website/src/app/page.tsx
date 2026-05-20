@@ -24,7 +24,10 @@ export default function Home() {
   const liveServicesData = content['services.json'];
   const liveCompanyData = content['company.json'];
   const liveHomeContent = content['home-content.json'];
-  const featuredProducts = liveProductsData.products.filter((product) => product.featured).slice(0, 4);
+  const featuredCount = Number(liveHomeContent.featuredProductsSection.featuredCount || 4);
+  const featuredProducts = liveProductsData.products
+    .filter((product) => product.featured)
+    .slice(0, Number.isFinite(featuredCount) && featuredCount > 0 ? featuredCount : 4);
 
   return (
     <>
