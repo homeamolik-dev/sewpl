@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Quality inspection area</title>
+  <desc id="desc">Illustrated temperature controlled inspection room with measuring tools.</desc>
+  <rect width="1600" height="900" fill="#f8fafc"/>
+  <path d="M0 650h1600v250H0z" fill="#dbe4ee"/>
+  <rect x="180" y="185" width="1240" height="420" rx="28" fill="#e2e8f0"/>
+  <rect x="250" y="250" width="430" height="270" rx="20" fill="#ffffff"/>
+  <rect x="305" y="310" width="320" height="28" rx="14" fill="#0f172a"/>
+  <rect x="305" y="375" width="260" height="28" rx="14" fill="#64748b"/>
+  <circle cx="1115" cy="382" r="140" fill="#c7d2fe"/>
+  <circle cx="1115" cy="382" r="94" fill="#ffffff"/>
+  <path d="M1115 288v94l70 46" fill="none" stroke="#1e293b" stroke-width="18" stroke-linecap="round"/>
+  <g transform="translate(270 620)">
+    <rect width="1060" height="86" rx="20" fill="#475569"/>
+    <rect x="80" y="-92" width="900" height="108" rx="16" fill="#94a3b8"/>
+    <circle cx="180" cy="-38" r="28" fill="#22c55e"/>
+    <circle cx="880" cy="-38" r="28" fill="#f97316"/>
+  </g>
+  <path d="M770 690l155-155 155 155" fill="none" stroke="#0f172a" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

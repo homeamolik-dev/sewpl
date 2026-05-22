@@ -26,9 +26,9 @@
         "Operator-friendly safety enclosure"
       ],
       "images": [
-        "/images/products/cnc-lathe-1.jpg",
-        "/images/products/cnc-lathe-2.jpg",
-        "/images/products/cnc-lathe-3.jpg"
+        "/images/products/cnc-lathe.svg",
+        "/images/products/turning.svg",
+        "/images/products/vmc.svg"
       ],
       "price": "Contact for Quote",
       "inStock": true,
@@ -60,9 +60,9 @@
         "Energy-efficient servo motors"
       ],
       "images": [
-        "/images/products/vmc-1.jpg",
-        "/images/products/vmc-2.jpg",
-        "/images/products/vmc-3.jpg"
+        "/images/products/vmc.svg",
+        "/images/products/milling.svg",
+        "/images/products/drilling.svg"
       ],
       "price": "Contact for Quote",
       "inStock": true,
@@ -94,9 +94,9 @@
         "Probing system included"
       ],
       "images": [
-        "/images/products/vmc-5axis-1.jpg",
-        "/images/products/vmc-5axis-2.jpg",
-        "/images/products/vmc-5axis-3.jpg"
+        "/images/products/vmc.svg",
+        "/images/products/spm.svg",
+        "/images/products/milling.svg"
       ],
       "price": "Contact for Quote",
       "inStock": true,
@@ -128,8 +128,8 @@
         "Foot pedal operation option"
       ],
       "images": [
-        "/images/products/drilling-1.jpg",
-        "/images/products/drilling-2.jpg"
+        "/images/products/drilling.svg",
+        "/images/products/tapping.svg"
       ],
       "price": "Contact for Quote",
       "inStock": true,
@@ -161,8 +161,8 @@
         "Tap breakage detection"
       ],
       "images": [
-        "/images/products/tapping-1.jpg",
-        "/images/products/tapping-2.jpg"
+        "/images/products/tapping.svg",
+        "/images/products/drilling.svg"
       ],
       "price": "Contact for Quote",
       "inStock": true,
@@ -194,9 +194,9 @@
         "Dividing head accessory"
       ],
       "images": [
-        "/images/products/milling-1.jpg",
-        "/images/products/milling-2.jpg",
-        "/images/products/milling-3.jpg"
+        "/images/products/milling.svg",
+        "/images/products/vmc.svg",
+        "/images/products/cnc-lathe.svg"
       ],
       "price": "Contact for Quote",
       "inStock": true,
@@ -228,8 +228,8 @@
         "Quick-change tooling system"
       ],
       "images": [
-        "/images/products/turning-1.jpg",
-        "/images/products/turning-2.jpg"
+        "/images/products/turning.svg",
+        "/images/products/cnc-lathe.svg"
       ],
       "price": "Contact for Quote",
       "inStock": true,
@@ -261,8 +261,8 @@
         "Comprehensive training included"
       ],
       "images": [
-        "/images/products/spm-1.jpg",
-        "/images/products/spm-2.jpg"
+        "/images/products/spm.svg",
+        "/images/products/vmc.svg"
       ],
       "price": "Contact for Quote",
       "inStock": false,

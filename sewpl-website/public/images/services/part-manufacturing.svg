@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" role="img" aria-labelledby="title desc">
+  <title id="title">Part manufacturing</title>
+  <desc id="desc">Illustrated precision metal part machining setup.</desc>
+  <rect width="1200" height="900" fill="#eef2f7"/>
+  <path d="M0 625h1200v275H0z" fill="#cbd5e1"/>
+  <rect x="175" y="145" width="850" height="545" rx="30" fill="#475569"/>
+  <rect x="260" y="230" width="430" height="260" rx="18" fill="#1f2937"/>
+  <rect x="315" y="285" width="320" height="150" rx="14" fill="#bfdbfe"/>
+  <rect x="760" y="230" width="165" height="260" rx="18" fill="#64748b"/>
+  <circle cx="842" cy="315" r="38" fill="#22c55e"/>
+  <circle cx="842" cy="420" r="38" fill="#f97316"/>
+  <rect x="295" y="565" width="610" height="54" rx="12" fill="#334155"/>
+  <path d="M380 745h440" stroke="#94a3b8" stroke-width="8" stroke-linecap="round" stroke-dasharray="24 28"/>
+</svg>

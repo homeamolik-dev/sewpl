@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Vertical machining center</title>
+  <desc id="desc">Illustrated vertical machining center.</desc>
+  <rect width="1200" height="1200" fill="#eef2f7"/>
+  <rect x="220" y="165" width="760" height="880" rx="42" fill="#475569"/>
+  <rect x="315" y="255" width="570" height="445" rx="28" fill="#64748b"/>
+  <rect x="395" y="335" width="410" height="245" rx="20" fill="#bae6fd"/>
+  <rect x="375" y="780" width="450" height="92" rx="18" fill="#0f172a"/>
+  <rect x="825" y="760" width="90" height="150" rx="18" fill="#f97316"/>
+  <circle cx="890" cy="245" r="34" fill="#22c55e"/>
+</svg>

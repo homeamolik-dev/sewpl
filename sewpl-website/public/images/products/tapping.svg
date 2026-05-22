@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 1200" role="img" aria-labelledby="title desc">
+  <title id="title">Automatic tapping machine</title>
+  <desc id="desc">Illustrated automatic tapping machine with articulated arm.</desc>
+  <rect width="1200" height="1200" fill="#f1f5f9"/>
+  <rect x="480" y="170" width="180" height="720" rx="32" fill="#475569"/>
+  <rect x="310" y="820" width="520" height="130" rx="26" fill="#0f172a"/>
+  <path d="M570 290h310v120H695v255H570z" fill="#64748b"/>
+  <circle cx="880" cy="350" r="72" fill="#334155"/>
+  <circle cx="880" cy="350" r="35" fill="#22c55e"/>
+  <path d="M695 665l120 135" stroke="#f97316" stroke-width="42" stroke-linecap="round"/>
+</svg>

@@ -6,7 +6,7 @@
       "slug": "part-manufacturing",
       "shortDescription": "Complete precision part manufacturing solutions using advanced CNC technology.",
       "description": "Our Part Manufacturing service delivers high-precision components using state-of-the-art CNC machinery. From prototype to production, we handle projects of all sizes with consistent quality and on-time delivery. This is supported by high precision measuring instruments and equipments.",
-      "mediaUrl": "/uploads/whatsapp-image-2025-11-26-at-12-52-09-pm-1778904698588.jpg",
+      "mediaUrl": "/images/services/part-manufacturing.svg",
       "icon": "cog",
       "Machining Facilities": [
         {
@@ -128,27 +128,27 @@
     ],
     "images": [
       {
-        "src": "/images/facility/facility-1.jpg",
+        "src": "/images/facility/facility-shop.svg",
         "alt": "CNC Machine Shop Floor",
         "caption": "Our CNC machining area with latest equipment"
       },
       {
-        "src": "/images/facility/facility-2.jpg",
+        "src": "/images/facility/inspection.svg",
         "alt": "Quality Inspection Area",
         "caption": "Precision measurement and quality control"
       },
       {
-        "src": "/images/facility/facility-3.jpg",
+        "src": "/images/facility/assembly.svg",
         "alt": "Assembly Section",
         "caption": "Machine assembly and testing bay"
       },
       {
-        "src": "/images/facility/facility-4.jpg",
+        "src": "/images/facility/tool-room.svg",
         "alt": "Tool Room",
         "caption": "Well-equipped tool room for fixtures and jigs"
       },
       {
-        "src": "/images/facility/facility-5.jpg",
+        "src": "/images/facility/material-storage.svg",
         "alt": "Raw Material Storage",
         "caption": "Organized material storage area"
       }

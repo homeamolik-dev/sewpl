@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">Tool room</title>
+  <desc id="desc">Illustrated precision tool room with fixtures and jigs.</desc>
+  <rect width="1600" height="900" fill="#f1f5f9"/>
+  <path d="M0 645h1600v255H0z" fill="#d6dde8"/>
+  <rect x="185" y="190" width="1230" height="420" rx="26" fill="#e2e8f0"/>
+  <g fill="#475569">
+    <rect x="285" y="280" width="240" height="250" rx="18"/>
+    <rect x="680" y="245" width="240" height="285" rx="18"/>
+    <rect x="1075" y="280" width="240" height="250" rx="18"/>
+  </g>
+  <g fill="#bae6fd">
+    <rect x="325" y="325" width="160" height="54" rx="10"/>
+    <rect x="720" y="300" width="160" height="54" rx="10"/>
+    <rect x="1115" y="325" width="160" height="54" rx="10"/>
+  </g>
+  <g fill="#94a3b8">
+    <rect x="325" y="430" width="160" height="20" rx="10"/>
+    <rect x="720" y="405" width="160" height="20" rx="10"/>
+    <rect x="1115" y="430" width="160" height="20" rx="10"/>
+  </g>
+  <path d="M345 715h910" stroke="#0f172a" stroke-width="18" stroke-linecap="round"/>
+  <path d="M430 715l80-95M1170 715l-80-95" stroke="#0f172a" stroke-width="16" stroke-linecap="round"/>
+</svg>
