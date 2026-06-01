@@ -55,6 +55,24 @@ async function readAllLocalContent() {
   return Object.fromEntries(entries) as Record<ContentFileName, unknown>;
 }
 
+function normalizeContent(content: Record<ContentFileName, unknown>) {
+  const siteGlobal = content['site-global.json'];
+
+  if (siteGlobal && typeof siteGlobal === 'object' && !Array.isArray(siteGlobal)) {
+    const globalContent = siteGlobal as {
+      navigation?: {
+        quoteButtonLabel?: string;
+      };
+    };
+
+    if (globalContent.navigation?.quoteButtonLabel === 'Get Quote') {
+      globalContent.navigation.quoteButtonLabel = 'Need help? Contact us!';
+    }
+  }
+
+  return content;
+}
+
 export async function readAllContent() {
   if (hasBlobStorage()) {
     const localContent = await readAllLocalContent();
@@ -74,16 +92,16 @@ export async function readAllContent() {
 
       if (blob?.statusCode === 200) {
         const raw = await new Response(blob.stream).text();
-        return { ...localContent, ...JSON.parse(raw) } as Record<ContentFileName, unknown>;
+        return normalizeContent({ ...localContent, ...JSON.parse(raw) } as Record<ContentFileName, unknown>);
       }
     } catch {
-      return localContent;
+      return normalizeContent(localContent);
     }
 
-    return localContent;
+    return normalizeContent(localContent);
   }
 
-  return readAllLocalContent();
+  return normalizeContent(await readAllLocalContent());
 }
 
 export async function writeContentFile(fileName: ContentFileName, value: unknown) {
