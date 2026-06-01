@@ -15,13 +15,13 @@ export function isVideoMedia(src?: string) {
 }
 
 export default function EditableMedia({ src, alt, className = 'h-full w-full object-cover', videoClassName = className, fallback = null }: EditableMediaProps) {
-  const [failed, setFailed] = useState(false);
+  const [failedSrc, setFailedSrc] = useState<string | null>(null);
 
-  if (!src || failed) return fallback;
+  if (!src || failedSrc === src) return fallback;
 
   if (isVideoMedia(src)) {
-    return <video src={src} className={videoClassName} autoPlay muted playsInline loop controls onError={() => setFailed(true)} />;
+    return <video src={src} className={videoClassName} autoPlay muted playsInline loop controls onError={() => setFailedSrc(src)} />;
   }
 
-  return <img src={src} alt={alt} className={className} onError={() => setFailed(true)} />;
+  return <img src={src} alt={alt} className={className} onError={() => setFailedSrc(src)} />;
 }

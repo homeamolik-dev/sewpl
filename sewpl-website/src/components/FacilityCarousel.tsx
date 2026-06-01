@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -17,7 +17,13 @@ interface FacilityCarouselProps {
 }
 
 export default function FacilityCarousel({ images }: FacilityCarouselProps) {
-  const carouselImages = images.filter((image) => image.src);
+  const carouselImages = useMemo(
+    () => images
+      .map((image) => ({ ...image, src: image.src.trim() }))
+      .filter((image) => image.src),
+    [images],
+  );
+  const imagesKey = carouselImages.map((image) => image.src).join('|');
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, align: 'center' });
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
@@ -28,15 +34,17 @@ export default function FacilityCarousel({ images }: FacilityCarouselProps) {
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
+    const isLooping = carouselImages.length > 1;
     setSelectedIndex(emblaApi.selectedScrollSnap());
-    setCanScrollPrev(emblaApi.canScrollPrev());
-    setCanScrollNext(emblaApi.canScrollNext());
-  }, [emblaApi]);
+    setCanScrollPrev(isLooping || emblaApi.canScrollPrev());
+    setCanScrollNext(isLooping || emblaApi.canScrollNext());
+  }, [emblaApi, carouselImages.length]);
 
   useEffect(() => {
     if (!emblaApi) return;
-    emblaApi.reInit();
-  }, [emblaApi, carouselImages.length]);
+    emblaApi.reInit({ loop: carouselImages.length > 1, align: 'center' });
+    queueMicrotask(onSelect);
+  }, [emblaApi, carouselImages.length, imagesKey, onSelect]);
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -47,16 +55,16 @@ export default function FacilityCarousel({ images }: FacilityCarouselProps) {
       emblaApi.off('select', onSelect);
       emblaApi.off('reInit', onSelect);
     };
-  }, [emblaApi, onSelect]);
+  }, [emblaApi, carouselImages.length, onSelect]);
 
   // Auto-play
   useEffect(() => {
-    if (!emblaApi) return;
+    if (!emblaApi || carouselImages.length < 2) return;
     const interval = setInterval(() => {
       emblaApi.scrollNext();
     }, 5000);
     return () => clearInterval(interval);
-  }, [emblaApi]);
+  }, [emblaApi, carouselImages.length]);
 
   if (carouselImages.length === 0) {
     return (
@@ -81,8 +89,9 @@ export default function FacilityCarousel({ images }: FacilityCarouselProps) {
               {image.src ? (
                 <EditableMedia
                   src={image.src}
-                  alt={image.alt}
-                  className="absolute inset-0 h-full w-full object-cover"
+                  alt={image.alt || image.caption || `Facility media ${index + 1}`}
+                  className="absolute inset-0 h-full w-full object-contain"
+                  videoClassName="absolute inset-0 h-full w-full object-contain"
                   fallback={
                     <div className="absolute inset-0 bg-slate-200 flex items-center justify-center">
                       <div className="text-center text-slate-400">

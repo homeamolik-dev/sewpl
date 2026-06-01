@@ -6,7 +6,7 @@
       "slug": "part-manufacturing",
       "shortDescription": "Complete precision part manufacturing solutions using advanced CNC technology.",
       "description": "Our Part Manufacturing service delivers high-precision components using state-of-the-art CNC machinery. From prototype to production, we handle projects of all sizes with consistent quality and on-time delivery. This is supported by high precision measuring instruments and equipments.",
-      "mediaUrl": "/images/services/part-manufacturing.svg",
+      "mediaUrl": "",
       "icon": "cog",
       "Machining Facilities": [
         {
@@ -15,7 +15,7 @@
         },
         {
           "name": "Milling",
-          "description": "Our milling machines are fitted with accurate DROs, these are a mix of heavy duty and regualr machines. With our special fixtures and specific tools, we can complete complex jobs with ease."
+          "description": "Our milling machines are fitted with accurate DROs. These are a mix of heavy-duty and regular machines. With our special fixtures and specific tools, we can complete complex jobs with ease."
         },
         {
           "name": "Drilling & Tapping",
@@ -26,12 +26,12 @@
           "description": "With a total of 3 wire cutting machines, we are able to make intricate components, using a 0.1mm wire, these parts are made with high precision."
         },
         {
-          "name": "VMC (Vertical Milling Center)",
+          "name": "VMC (Vertical Machining Center)",
           "description": "We have 2 VMCs, That are capable of handling complex jobs with high accuracy and in a shorter period of time, eliminating human error."
         },
         {
           "name": "CNC Lathe",
-          "description": "Our CNC lathe can handle any large batches of jobs that need to be made precisely, within a short time period, while mainting tight batch accuracies."
+          "description": "Our CNC lathe can handle large batches of jobs that need to be made precisely within a short time period, while maintaining tight batch accuracy."
         }
       ],
       "capabilities": [
@@ -39,7 +39,7 @@
         "Small batch production",
         "High-volume manufacturing",
         "Multi-material machining",
-        "Tight tolerance work (±0.01mm)",
+        "Tight tolerance work (+/-0.01mm)",
         "Surface finishing options"
       ]
     },
@@ -62,11 +62,11 @@
         },
         {
           "name": "Assembly",
-          "description": "Our trained team takes great care in the assembly line, making sure each part is well lubricated. Parts are manufactured keeping un mind, tight tolerances, which leads to smooth, hassle-free part and machine assembly. We make sure no dust and dirt gets in the main spinlde assemblies."
+          "description": "Our trained team takes great care in the assembly line, making sure each part is well lubricated. Parts are manufactured with tight tolerances in mind, which leads to smooth, hassle-free part and machine assembly. We make sure no dust or dirt gets into the main spindle assemblies."
         },
         {
           "name": "Testing",
-          "description": "All components and machines are checked throughly, after and before assembly, to ensure all parameters are met and no part/machines leaves our facility unless it is okayed by our Qaultiy control team."
+          "description": "All components and machines are checked thoroughly before and after assembly to ensure all parameters are met. No part or machine leaves our facility unless it is approved by our quality control team."
         }
       ],
       "capabilities": [
@@ -117,7 +117,7 @@
     }
   ],
   "facility": {
-    "description": "Our manufacturing facility is euipped with a large variey of machines, small to heavy duty, manual and CNC. Along with that, we have a clean, temperature controlled Quality control room, where we inspect components at various stages to ensure a high precsion, quality product, always.   .",
+    "description": "Our manufacturing facility is equipped with a large variety of machines, from small to heavy-duty, manual and CNC. Along with that, we have a clean, temperature-controlled quality control room where we inspect components at various stages to ensure a high-precision, quality product every time.",
     "highlights": [
       "8,000+ sq.ft. manufacturing area",
       "Temperature-controlled inspection room",

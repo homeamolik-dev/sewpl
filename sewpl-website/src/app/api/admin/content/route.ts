@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { isAdminAuthenticated } from '@/lib/admin-auth';
 import { CONTENT_FILES, isContentFileName, readAllContent, writeContentFile } from '@/lib/content-store';
+import { validateContentValue } from '@/lib/content-validation';
 
 export const dynamic = 'force-dynamic';
 
@@ -25,6 +26,11 @@ export async function PUT(request: Request) {
 
   if (!isContentFileName(fileName)) {
     return NextResponse.json({ error: 'Unknown content file' }, { status: 400 });
+  }
+
+  const validationError = validateContentValue(fileName, body?.value);
+  if (validationError) {
+    return NextResponse.json({ error: validationError }, { status: 400 });
   }
 
   try {

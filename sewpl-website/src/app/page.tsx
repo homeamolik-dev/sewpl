@@ -48,7 +48,7 @@ export default function Home() {
                 transition={{ duration: 0.5, delay: 0.1 }}
                 className="font-bold text-slate-900 leading-tight mb-6"
               >
-                <span className="block text-2xl sm:text-3xl lg:text-[2.35rem]">{liveHomeContent.hero.title}</span>
+                <span className="block text-2xl sm:whitespace-nowrap sm:text-[1.9rem] lg:text-[2.15rem]">{liveHomeContent.hero.title}</span>
                 <span className="block text-2xl sm:text-3xl lg:text-[2.35rem] text-slate-500">{liveHomeContent.hero.highlightedTitle}</span>
               </motion.h1>
 
@@ -131,7 +131,7 @@ export default function Home() {
           </AnimatedSection>
           <div className="grid md:grid-cols-3 gap-6">
             {liveServicesData.services.map((service, index) => (
-              <ServiceCard key={service.id} service={service} index={index} />
+              <ServiceCard key={service.id} service={service} index={index} linkLabel={liveHomeContent.servicesSection.cardLinkLabel || 'Learn More'} />
             ))}
           </div>
         </div>
@@ -152,7 +152,7 @@ export default function Home() {
           </AnimatedSection>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {featuredProducts.map((product, index) => (
-              <ProductCard key={product.id} product={product} index={index} />
+              <ProductCard key={product.id} product={product} index={index} viewDetailsLabel={liveHomeContent.featuredProductsSection.viewDetailsLabel || 'View Details'} />
             ))}
           </div>
         </div>

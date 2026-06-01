@@ -1,0 +1,4670 @@
+openapi: 3.0.3
+info:
+  title: ''
+  version: 0.0.0
+paths:
+  /api/api/insurance-providers/:
+    get:
+      operationId: api_insurance_providers_retrieve
+      description: Retrieve a list of all insurance providers.
+      summary: List all insurance providers
+      tags:
+      - InsuranceProviders
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/api/insurance-providers/{id}/:
+    get:
+      operationId: api_insurance_providers_retrieve_2
+      description: Get detailed information about a specific insurance provider.
+      summary: Retrieve an insurance provider
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - InsuranceProviders
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    put:
+      operationId: api_insurance_providers_update
+      description: Update all fields of an insurance provider record.
+      summary: Update an insurance provider
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - InsuranceProviders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InsuranceProvider'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/InsuranceProvider'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/InsuranceProvider'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InsuranceProvider'
+          description: ''
+    patch:
+      operationId: api_insurance_providers_partial_update
+      description: Update specific fields of an insurance provider record.
+      summary: Partially update an insurance provider
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - InsuranceProviders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedInsuranceProvider'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedInsuranceProvider'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedInsuranceProvider'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InsuranceProvider'
+          description: ''
+    delete:
+      operationId: api_insurance_providers_destroy
+      description: Delete an insurance provider record.
+      summary: Delete an insurance provider
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - InsuranceProviders
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/api/insurance-providers/{id}/delete/:
+    get:
+      operationId: api_insurance_providers_delete_retrieve
+      description: Get detailed information about a specific insurance provider.
+      summary: Retrieve an insurance provider
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - InsuranceProviders
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    put:
+      operationId: api_insurance_providers_delete_update
+      description: Update all fields of an insurance provider record.
+      summary: Update an insurance provider
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - InsuranceProviders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InsuranceProvider'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/InsuranceProvider'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/InsuranceProvider'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InsuranceProvider'
+          description: ''
+    patch:
+      operationId: api_insurance_providers_delete_partial_update
+      description: Update specific fields of an insurance provider record.
+      summary: Partially update an insurance provider
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - InsuranceProviders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedInsuranceProvider'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedInsuranceProvider'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedInsuranceProvider'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InsuranceProvider'
+          description: ''
+    delete:
+      operationId: api_insurance_providers_delete_destroy
+      description: Delete an insurance provider record.
+      summary: Delete an insurance provider
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - InsuranceProviders
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/api/insurance-providers/{id}/partial-update/:
+    get:
+      operationId: api_insurance_providers_partial_update_retrieve
+      description: Get detailed information about a specific insurance provider.
+      summary: Retrieve an insurance provider
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - InsuranceProviders
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    put:
+      operationId: api_insurance_providers_partial_update_update
+      description: Update all fields of an insurance provider record.
+      summary: Update an insurance provider
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - InsuranceProviders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InsuranceProvider'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/InsuranceProvider'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/InsuranceProvider'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InsuranceProvider'
+          description: ''
+    patch:
+      operationId: api_insurance_providers_partial_update_partial_update
+      description: Update specific fields of an insurance provider record.
+      summary: Partially update an insurance provider
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - InsuranceProviders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedInsuranceProvider'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedInsuranceProvider'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedInsuranceProvider'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InsuranceProvider'
+          description: ''
+    delete:
+      operationId: api_insurance_providers_partial_update_destroy
+      description: Delete an insurance provider record.
+      summary: Delete an insurance provider
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - InsuranceProviders
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/api/insurance-providers/{id}/update/:
+    get:
+      operationId: api_insurance_providers_update_retrieve
+      description: Get detailed information about a specific insurance provider.
+      summary: Retrieve an insurance provider
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - InsuranceProviders
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    put:
+      operationId: api_insurance_providers_update_update
+      description: Update all fields of an insurance provider record.
+      summary: Update an insurance provider
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - InsuranceProviders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InsuranceProvider'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/InsuranceProvider'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/InsuranceProvider'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InsuranceProvider'
+          description: ''
+    patch:
+      operationId: api_insurance_providers_update_partial_update
+      description: Update specific fields of an insurance provider record.
+      summary: Partially update an insurance provider
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - InsuranceProviders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedInsuranceProvider'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedInsuranceProvider'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedInsuranceProvider'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InsuranceProvider'
+          description: ''
+    delete:
+      operationId: api_insurance_providers_update_destroy
+      description: Delete an insurance provider record.
+      summary: Delete an insurance provider
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - InsuranceProviders
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/api/insurance-providers/create/:
+    post:
+      operationId: api_insurance_providers_create_create
+      description: Create a new insurance provider record.
+      summary: Create an insurance provider
+      tags:
+      - InsuranceProviders
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/InsuranceProvider'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/InsuranceProvider'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/InsuranceProvider'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InsuranceProvider'
+          description: ''
+  /api/api/labours/:
+    get:
+      operationId: api_labours_retrieve
+      description: Retrieve a list of all labour records.
+      summary: List all labours
+      tags:
+      - Labours
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/api/labours/{id}/:
+    get:
+      operationId: api_labours_retrieve_2
+      description: Get detailed information about a specific labour record.
+      summary: Retrieve a labour
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Labours
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/api/labours/{id}/delete/:
+    delete:
+      operationId: api_labours_delete_destroy
+      description: Delete a labour record.
+      summary: Delete a labour
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Labours
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/api/labours/{id}/update/:
+    put:
+      operationId: api_labours_update_update
+      description: Update all fields of a labour record.
+      summary: Update a labour
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Labours
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Labour'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Labour'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Labour'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Labour'
+          description: ''
+    patch:
+      operationId: api_labours_update_partial_update
+      description: Update specific fields of a labour record.
+      summary: Partially update a labour
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Labours
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedLabour'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedLabour'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedLabour'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Labour'
+          description: ''
+  /api/api/labours/create/:
+    post:
+      operationId: api_labours_create_create
+      description: Create a new labour record.
+      summary: Create a labour
+      tags:
+      - Labours
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Labour'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Labour'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Labour'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Labour'
+          description: ''
+  /api/api/vehicle-models/:
+    get:
+      operationId: api_vehicle_models_retrieve
+      description: Retrieve a list of all vehicle make/model entries.
+      summary: List all vehicle models
+      tags:
+      - VehicleModels
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/api/vehicle-models/{id}/:
+    get:
+      operationId: api_vehicle_models_retrieve_2
+      description: Get detailed information about a specific vehicle make/model entry.
+      summary: Retrieve a vehicle model entry
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - VehicleModels
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    put:
+      operationId: api_vehicle_models_update
+      description: Update all fields of a vehicle make/model entry.
+      summary: Update a vehicle model entry
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - VehicleModels
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VehicleModel'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/VehicleModel'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VehicleModel'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleModel'
+          description: ''
+    patch:
+      operationId: api_vehicle_models_partial_update
+      description: Update specific fields of a vehicle make/model entry.
+      summary: Partially update a vehicle model entry
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - VehicleModels
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedVehicleModel'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedVehicleModel'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedVehicleModel'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleModel'
+          description: ''
+    delete:
+      operationId: api_vehicle_models_destroy
+      description: Delete a vehicle make/model entry.
+      summary: Delete a vehicle model entry
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - VehicleModels
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/api/vehicle-models/{id}/delete/:
+    get:
+      operationId: api_vehicle_models_delete_retrieve
+      description: Get detailed information about a specific vehicle make/model entry.
+      summary: Retrieve a vehicle model entry
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - VehicleModels
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    put:
+      operationId: api_vehicle_models_delete_update
+      description: Update all fields of a vehicle make/model entry.
+      summary: Update a vehicle model entry
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - VehicleModels
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VehicleModel'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/VehicleModel'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VehicleModel'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleModel'
+          description: ''
+    patch:
+      operationId: api_vehicle_models_delete_partial_update
+      description: Update specific fields of a vehicle make/model entry.
+      summary: Partially update a vehicle model entry
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - VehicleModels
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedVehicleModel'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedVehicleModel'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedVehicleModel'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleModel'
+          description: ''
+    delete:
+      operationId: api_vehicle_models_delete_destroy
+      description: Delete a vehicle make/model entry.
+      summary: Delete a vehicle model entry
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - VehicleModels
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/api/vehicle-models/{id}/partial-update/:
+    get:
+      operationId: api_vehicle_models_partial_update_retrieve
+      description: Get detailed information about a specific vehicle make/model entry.
+      summary: Retrieve a vehicle model entry
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - VehicleModels
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    put:
+      operationId: api_vehicle_models_partial_update_update
+      description: Update all fields of a vehicle make/model entry.
+      summary: Update a vehicle model entry
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - VehicleModels
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VehicleModel'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/VehicleModel'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VehicleModel'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleModel'
+          description: ''
+    patch:
+      operationId: api_vehicle_models_partial_update_partial_update
+      description: Update specific fields of a vehicle make/model entry.
+      summary: Partially update a vehicle model entry
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - VehicleModels
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedVehicleModel'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedVehicleModel'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedVehicleModel'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleModel'
+          description: ''
+    delete:
+      operationId: api_vehicle_models_partial_update_destroy
+      description: Delete a vehicle make/model entry.
+      summary: Delete a vehicle model entry
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - VehicleModels
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/api/vehicle-models/{id}/update/:
+    get:
+      operationId: api_vehicle_models_update_retrieve
+      description: Get detailed information about a specific vehicle make/model entry.
+      summary: Retrieve a vehicle model entry
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - VehicleModels
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    put:
+      operationId: api_vehicle_models_update_update
+      description: Update all fields of a vehicle make/model entry.
+      summary: Update a vehicle model entry
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - VehicleModels
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VehicleModel'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/VehicleModel'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VehicleModel'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleModel'
+          description: ''
+    patch:
+      operationId: api_vehicle_models_update_partial_update
+      description: Update specific fields of a vehicle make/model entry.
+      summary: Partially update a vehicle model entry
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - VehicleModels
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedVehicleModel'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedVehicleModel'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedVehicleModel'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleModel'
+          description: ''
+    delete:
+      operationId: api_vehicle_models_update_destroy
+      description: Delete a vehicle make/model entry.
+      summary: Delete a vehicle model entry
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - VehicleModels
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/api/vehicle-models/create/:
+    post:
+      operationId: api_vehicle_models_create_create
+      description: Create a new vehicle make/model entry.
+      summary: Create a vehicle model entry
+      tags:
+      - VehicleModels
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VehicleModel'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/VehicleModel'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/VehicleModel'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VehicleModel'
+          description: ''
+  /api/cars/:
+    get:
+      operationId: cars_retrieve
+      description: Retrieve a list of all cars.
+      summary: List all cars
+      tags:
+      - Cars
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/cars/{id}/:
+    get:
+      operationId: cars_retrieve_2
+      description: Get detailed information about a specific car.
+      summary: Retrieve a car
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Cars
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/cars/{id}/delete/:
+    delete:
+      operationId: cars_delete_destroy
+      description: Delete a car record.
+      summary: Delete a car
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Cars
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/cars/{id}/update/:
+    put:
+      operationId: cars_update_update
+      description: Update all fields of a car record.
+      summary: Update a car
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Cars
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Car'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Car'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Car'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+          description: ''
+    patch:
+      operationId: cars_update_partial_update
+      description: Update specific fields of a car record.
+      summary: Partially update a car
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - Cars
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCar'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCar'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCar'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+          description: ''
+  /api/cars/create/:
+    post:
+      operationId: cars_create_create
+      description: Create a new car record.
+      summary: Create a new car
+      tags:
+      - Cars
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Car'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Car'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Car'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Car'
+          description: ''
+  /api/compat/auth/login/:
+    post:
+      operationId: compat_auth_login_create
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+  /api/compat/auth/logout/:
+    post:
+      operationId: compat_auth_logout_create
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/compat/auth/me/:
+    get:
+      operationId: compat_auth_me_retrieve
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    patch:
+      operationId: compat_auth_me_partial_update
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/compat/auth/sessions/:
+    get:
+      operationId: compat_auth_sessions_retrieve
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/compat/cars/:
+    get:
+      operationId: compat_cars_retrieve
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: compat_cars_create
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/compat/cars/{id}/:
+    get:
+      operationId: compat_cars_retrieve_2
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    patch:
+      operationId: compat_cars_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/compat/cars/search/:
+    get:
+      operationId: compat_cars_search_retrieve
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/compat/documents/by-ids/:
+    post:
+      operationId: compat_documents_by_ids_create
+      description: Batch lookup for migrated collection ids used by the admin history
+        screen.
+      summary: Resolve documents by ids
+      tags:
+      - History
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: Resolved documents
+  /api/compat/history/:
+    get:
+      operationId: compat_history_retrieve
+      description: Returns Appwrite-like history documents used by the admin change
+        log.
+      summary: List history entries
+      tags:
+      - History
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: History list
+  /api/compat/insurance-providers/:
+    get:
+      operationId: compat_insurance_providers_retrieve
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: compat_insurance_providers_create
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/compat/insurance-providers/{id}/:
+    get:
+      operationId: compat_insurance_providers_retrieve_2
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    patch:
+      operationId: compat_insurance_providers_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: compat_insurance_providers_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/compat/invoices/:
+    get:
+      operationId: compat_invoices_retrieve
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: compat_invoices_create
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/compat/invoices/{id}/:
+    delete:
+      operationId: compat_invoices_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/compat/jobcards/:
+    get:
+      operationId: compat_jobcards_retrieve
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: compat_jobcards_create
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/compat/jobcards/{jobcard_id}/invoices/:
+    get:
+      operationId: compat_jobcards_invoices_retrieve
+      parameters:
+      - in: path
+        name: jobcard_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/compat/jobcards/{jobcard_id}/invoices/next-number/:
+    get:
+      operationId: compat_jobcards_invoices_next_number_retrieve
+      description: Atomically allocate or reuse the next invoice number for the given
+        job card/spec.
+      summary: Get next invoice number
+      parameters:
+      - in: path
+        name: jobcard_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Invoices
+      security:
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: Invoice number payload
+  /api/compat/jobcards/{id}/:
+    get:
+      operationId: compat_jobcards_retrieve_2
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    patch:
+      operationId: compat_jobcards_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: compat_jobcards_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/compat/labour/:
+    get:
+      operationId: compat_labour_retrieve
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: compat_labour_create
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/compat/labour/{id}/:
+    delete:
+      operationId: compat_labour_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/compat/parts/:
+    get:
+      operationId: compat_parts_retrieve
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: compat_parts_create
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/compat/parts/{id}/:
+    patch:
+      operationId: compat_parts_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: compat_parts_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/compat/policy-providers/:
+    get:
+      operationId: compat_policy_providers_retrieve
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: compat_policy_providers_create
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/compat/policy-providers/{id}/:
+    get:
+      operationId: compat_policy_providers_retrieve_2
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    patch:
+      operationId: compat_policy_providers_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: compat_policy_providers_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/compat/temp-cars/:
+    get:
+      operationId: compat_temp_cars_retrieve
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: compat_temp_cars_create
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/compat/temp-cars/{id}/:
+    get:
+      operationId: compat_temp_cars_retrieve_2
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    patch:
+      operationId: compat_temp_cars_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: compat_temp_cars_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/compat/users/:
+    get:
+      operationId: compat_users_retrieve
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: compat_users_create
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/compat/vehicle-models/:
+    get:
+      operationId: compat_vehicle_models_retrieve
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: compat_vehicle_models_create
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    patch:
+      operationId: compat_vehicle_models_partial_update
+      tags:
+      - compat
+      security:
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/current-labours/:
+    get:
+      operationId: current_labours_retrieve
+      description: Retrieve a list of all current labour snapshots.
+      summary: List all current labours
+      tags:
+      - CurrentLabours
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/current-labours/{id}/:
+    get:
+      operationId: current_labours_retrieve_2
+      description: Get detailed information about a specific current labour snapshot.
+      summary: Retrieve a current labour snapshot
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - CurrentLabours
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/current-labours/{id}/delete/:
+    delete:
+      operationId: current_labours_delete_destroy
+      description: Delete a current labour snapshot record.
+      summary: Delete a current labour snapshot
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - CurrentLabours
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/current-labours/{id}/update/:
+    put:
+      operationId: current_labours_update_update
+      description: Update all fields of a current labour snapshot record.
+      summary: Update a current labour snapshot
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - CurrentLabours
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CurrentLabour'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CurrentLabour'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CurrentLabour'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentLabour'
+          description: ''
+    patch:
+      operationId: current_labours_update_partial_update
+      description: Update specific fields of a current labour snapshot record.
+      summary: Partially update a current labour snapshot
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - CurrentLabours
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCurrentLabour'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCurrentLabour'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCurrentLabour'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentLabour'
+          description: ''
+  /api/current-labours/create/:
+    post:
+      operationId: current_labours_create_create
+      description: Create a new current labour snapshot record.
+      summary: Create a current labour snapshot
+      tags:
+      - CurrentLabours
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CurrentLabour'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CurrentLabour'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CurrentLabour'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentLabour'
+          description: ''
+  /api/current-parts/:
+    get:
+      operationId: current_parts_retrieve
+      description: Retrieve a list of all current part snapshots.
+      summary: List all current parts
+      tags:
+      - CurrentParts
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/current-parts/{id}/:
+    get:
+      operationId: current_parts_retrieve_2
+      description: Get detailed information about a specific current part snapshot.
+      summary: Retrieve a current part snapshot
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - CurrentParts
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/current-parts/{id}/delete/:
+    delete:
+      operationId: current_parts_delete_destroy
+      description: Delete a current part snapshot record.
+      summary: Delete a current part snapshot
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - CurrentParts
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/current-parts/{id}/update/:
+    put:
+      operationId: current_parts_update_update
+      description: Update all fields of a current part snapshot record.
+      summary: Update a current part snapshot
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - CurrentParts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CurrentPart'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CurrentPart'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CurrentPart'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentPart'
+          description: ''
+    patch:
+      operationId: current_parts_update_partial_update
+      description: Update specific fields of a current part snapshot record.
+      summary: Partially update a current part snapshot
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - CurrentParts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCurrentPart'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCurrentPart'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCurrentPart'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentPart'
+          description: ''
+  /api/current-parts/create/:
+    post:
+      operationId: current_parts_create_create
+      description: Create a new current part snapshot record.
+      summary: Create a current part snapshot
+      tags:
+      - CurrentParts
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CurrentPart'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/CurrentPart'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/CurrentPart'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentPart'
+          description: ''
+  /api/inventory/movements/:
+    get:
+      operationId: inventory_movements_retrieve
+      description: Retrieve stock movement history, optionally filtered by product
+        or job_card.
+      summary: List inventory movements
+      tags:
+      - Inventory
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/invoices/{invoice_id}/:
+    get:
+      operationId: invoices_retrieve
+      description: Get detailed information about a specific invoice.
+      summary: Retrieve an invoice
+      parameters:
+      - in: path
+        name: invoice_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Invoices
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    put:
+      operationId: invoices_update
+      description: Update all fields of an invoice record that are allowed to be modified.
+      summary: Update an invoice
+      parameters:
+      - in: path
+        name: invoice_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Invoices
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    patch:
+      operationId: invoices_partial_update
+      description: Update specific fields of an invoice record that are allowed to
+        be modified.
+      summary: Partially update an invoice
+      parameters:
+      - in: path
+        name: invoice_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Invoices
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: invoices_destroy
+      description: Delete an invoice record.
+      summary: Delete an invoice
+      parameters:
+      - in: path
+        name: invoice_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Invoices
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/invoices/create/:
+    post:
+      operationId: invoices_create_create
+      description: Create a new invoice record for a job card.
+      summary: Create a new invoice
+      tags:
+      - Invoices
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/jobcards/:
+    get:
+      operationId: jobcards_retrieve
+      description: Retrieve a list of all job cards.
+      summary: List all job cards
+      tags:
+      - JobCards
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/jobcards/{jobcard_id}/finalize/:
+    post:
+      operationId: jobcards_finalize_create
+      description: Finalize a job card and update inventory based on assigned current
+        parts.
+      summary: Finalize a job card
+      parameters:
+      - in: path
+        name: jobcard_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - JobCards
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/jobcards/{jobcard_id}/invoices/:
+    get:
+      operationId: jobcards_invoices_retrieve
+      description: Retrieve a list of invoices for a specific job card.
+      summary: List invoices for a job card
+      parameters:
+      - in: path
+        name: jobcard_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Invoices
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/jobcards/{jobcard_id}/invoices/next-number/:
+    get:
+      operationId: jobcards_invoices_next_number_retrieve
+      description: Retrieve the next invoice number for a given job card and invoice
+        series/type.
+      summary: Get next invoice number
+      parameters:
+      - in: path
+        name: jobcard_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Invoices
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/jobcards/{jobcard_id}/labours/:
+    post:
+      operationId: jobcards_labours_create
+      description: Add, update, or delete current labour snapshots for a job card's
+        temp car.
+      summary: Add labours to a job card
+      parameters:
+      - in: path
+        name: jobcard_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - JobCards
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/jobcards/{jobcard_id}/parts/:
+    post:
+      operationId: jobcards_parts_create
+      description: Add, update, or delete current part snapshots for a specific job
+        card.
+      summary: Add parts to a job card
+      parameters:
+      - in: path
+        name: jobcard_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - JobCards
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/jobcards/{id}/:
+    get:
+      operationId: jobcards_retrieve_2
+      description: Get detailed information about a specific job card.
+      summary: Retrieve a job card
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - JobCards
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/jobcards/{id}/delete/:
+    delete:
+      operationId: jobcards_delete_destroy
+      description: Delete a job card record.
+      summary: Delete a job card
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - JobCards
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/jobcards/{id}/update/:
+    put:
+      operationId: jobcards_update_update
+      description: Update all fields of a job card record.
+      summary: Update a job card
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - JobCards
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobCard'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/JobCard'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/JobCard'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobCard'
+          description: ''
+    patch:
+      operationId: jobcards_update_partial_update
+      description: Update specific fields of a job card record.
+      summary: Partially update a job card
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - JobCards
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedJobCard'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedJobCard'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedJobCard'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobCard'
+          description: ''
+  /api/jobcards/create/:
+    post:
+      operationId: jobcards_create_create
+      description: Create a new job card record.
+      summary: Create a new job card
+      tags:
+      - JobCards
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/JobCard'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/JobCard'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/JobCard'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobCard'
+          description: ''
+  /api/labels/:
+    get:
+      operationId: labels_retrieve
+      tags:
+      - labels
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: labels_create
+      tags:
+      - labels
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/labels/{id}/:
+    get:
+      operationId: labels_retrieve_2
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - labels
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: No response body
+    put:
+      operationId: labels_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - labels
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: labels_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - labels
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/products/:
+    get:
+      operationId: products_retrieve
+      description: Retrieve a list of all products with optional filtering, search,
+        and ordering.
+      summary: List all products
+      tags:
+      - Products
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/products/{id}/:
+    get:
+      operationId: products_retrieve_2
+      description: Get detailed information about a specific product.
+      summary: Retrieve a product
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Products
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/products/{id}/delete/:
+    delete:
+      operationId: products_delete_destroy
+      description: Delete a product record.
+      summary: Delete a product
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Products
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/products/{id}/update/:
+    patch:
+      operationId: products_update_partial_update
+      description: Update specific fields of a product record.
+      summary: Partially update a product
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Products
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedProductUpdate'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedProductUpdate'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedProductUpdate'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductUpdate'
+          description: ''
+  /api/products/create/:
+    post:
+      operationId: products_create_create
+      description: Create a new product record (single or bulk).
+      summary: Create a new product
+      tags:
+      - Products
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/products/upload-products-csv/:
+    post:
+      operationId: products_upload_products_csv_create
+      description: Upload a CSV file to create product records in bulk.
+      summary: Upload products via CSV
+      tags:
+      - Products
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - ckb
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - ms
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/temp-cars/:
+    get:
+      operationId: temp_cars_retrieve
+      description: Retrieve a list of all temp cars.
+      summary: List all temp cars
+      tags:
+      - TempCars
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/temp-cars/{id}/:
+    get:
+      operationId: temp_cars_retrieve_2
+      description: Get detailed information about a specific temp car.
+      summary: Retrieve a temp car
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - TempCars
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/temp-cars/{id}/delete/:
+    delete:
+      operationId: temp_cars_delete_destroy
+      description: Delete a temp car record.
+      summary: Delete a temp car
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - TempCars
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/temp-cars/{id}/update/:
+    put:
+      operationId: temp_cars_update_update
+      description: Update all fields of a temp car record.
+      summary: Update a temp car
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - TempCars
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TempCar'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TempCar'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TempCar'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TempCar'
+          description: ''
+    patch:
+      operationId: temp_cars_update_partial_update
+      description: Update specific fields of a temp car record.
+      summary: Partially update a temp car
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - TempCars
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedTempCar'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedTempCar'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedTempCar'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TempCar'
+          description: ''
+  /api/temp-cars/create/:
+    post:
+      operationId: temp_cars_create_create
+      description: Create a new temp car record.
+      summary: Create a new temp car
+      tags:
+      - TempCars
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TempCar'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/TempCar'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/TempCar'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TempCar'
+          description: ''
+  /api/uploads/{asset_id}/:
+    get:
+      operationId: uploads_retrieve
+      description: Resolve an uploaded asset id to an absolute URL.
+      summary: Get uploaded asset URL
+      parameters:
+      - in: path
+        name: asset_id
+        schema:
+          type: string
+          format: uuid
+        required: true
+      tags:
+      - Uploads
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          description: Asset URL
+        '404':
+          description: Not found
+  /api/uploads/images/:
+    post:
+      operationId: uploads_images_create
+      description: Upload a file and receive a stable asset id plus absolute URL.
+      summary: Upload a file
+      tags:
+      - Uploads
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadedAsset'
+          description: ''
+        '400':
+          description: Invalid upload
+  /api/uploads/invoices/:
+    post:
+      operationId: uploads_invoices_create
+      description: Upload a file and receive a stable asset id plus absolute URL.
+      summary: Upload a file
+      tags:
+      - Uploads
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadedAsset'
+          description: ''
+        '400':
+          description: Invalid upload
+  /api/uploads/pdfs/:
+    post:
+      operationId: uploads_pdfs_create
+      description: Upload a file and receive a stable asset id plus absolute URL.
+      summary: Upload a file
+      tags:
+      - Uploads
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadedAsset'
+          description: ''
+        '400':
+          description: Invalid upload
+  /api/users/:
+    get:
+      operationId: users_retrieve
+      tags:
+      - users
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: users_create
+      tags:
+      - users
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/users/{id}/:
+    get:
+      operationId: users_retrieve_2
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - users
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    put:
+      operationId: users_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - users
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    patch:
+      operationId: users_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - users
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: users_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        required: true
+      tags:
+      - users
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    Car:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        car_number:
+          type: string
+          maxLength: 100
+        car_make:
+          type: string
+          maxLength: 100
+        car_model:
+          type: string
+          maxLength: 100
+        location:
+          type: string
+          maxLength: 200
+        purpose_of_visit:
+          type: string
+          maxLength: 200
+        all_job_cards: {}
+        cars_table_id:
+          type: string
+          nullable: true
+          maxLength: 100
+        customer_name:
+          type: string
+          maxLength: 200
+        customer_phone:
+          type: string
+          maxLength: 20
+        customer_address:
+          type: string
+          maxLength: 300
+        purpose_of_visit_and_advisors: {}
+        customer_email:
+          type: string
+          format: email
+          maxLength: 254
+        calling_status:
+          type: integer
+          minimum: 0
+      required:
+      - car_number
+      - id
+    CurrentLabour:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        temp_car:
+          type: integer
+        labour_id:
+          type: string
+          maxLength: 100
+        labour_name:
+          type: string
+          maxLength: 255
+        labour_code:
+          type: string
+          maxLength: 50
+        hsn_code:
+          type: string
+          nullable: true
+          maxLength: 20
+        mrp:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        gst_percentage:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+        cgst:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+        sgst:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+        quantity:
+          type: integer
+        sub_total:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        cgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        sgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        total_tax:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        total_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        discount_percentage:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          nullable: true
+        discount_sub_total:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        discount_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_percentage:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_sub_total:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_cgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_sgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_total_tax:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_discount_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        customer_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        customer_sub_total:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        customer_cgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        customer_sgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        customer_total_tax:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        customer_discount_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - cgst
+      - cgst_amount
+      - created_at
+      - gst_percentage
+      - id
+      - labour_code
+      - labour_id
+      - labour_name
+      - mrp
+      - sgst
+      - sgst_amount
+      - sub_total
+      - temp_car
+      - total_amount
+      - total_tax
+      - updated_at
+    CurrentPart:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        job_card:
+          type: string
+          format: uuid
+        product:
+          type: string
+          format: uuid
+          description: Master product record
+        part_id:
+          type: string
+          maxLength: 100
+        part_name:
+          type: string
+          maxLength: 255
+        part_number:
+          type: string
+          maxLength: 50
+        hsn:
+          type: string
+          nullable: true
+          maxLength: 20
+        quantity:
+          type: integer
+        mrp:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+        discount_percentage:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+          nullable: true
+        discounted_subtotal:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+          nullable: true
+        discount_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_percentage:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_subtotal:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+          nullable: true
+        sub_total:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+        total_tax:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+        amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+        gst:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+        cgst:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+        sgst:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+        cgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        sgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        customer_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+          nullable: true
+        customer_sub_total:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+          nullable: true
+        customer_cgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        customer_sgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        customer_discount_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+          nullable: true
+        customer_total_tax:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_sub_total:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_cgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_sgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_total_tax:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_discount_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - amount
+      - cgst
+      - created_at
+      - gst
+      - id
+      - job_card
+      - mrp
+      - part_id
+      - part_name
+      - part_number
+      - product
+      - sgst
+      - sub_total
+      - total_tax
+      - updated_at
+    InsuranceProvider:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        insurer:
+          type: string
+          maxLength: 255
+        address:
+          type: string
+        gst:
+          type: string
+          title: GST Number
+          maxLength: 50
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - insurer
+      - updated_at
+    JobCard:
+      type: object
+      description: |-
+        Output is shaped to match the Appwrite `JobCard` type from `src/lib/definitions.tsx`.
+        Input validation still uses model field names (snake_case).
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        car_id:
+          type: string
+          description: External/business-facing jobcard identifier
+          maxLength: 100
+        temp_car:
+          type: integer
+          nullable: true
+        diagnosis: {}
+        send_to_parts_manager:
+          type: boolean
+        car_number:
+          type: string
+          maxLength: 100
+        job_card_status:
+          type: integer
+        customer_name:
+          type: string
+          maxLength: 255
+        customer_phone:
+          type: string
+          maxLength: 15
+        customer_address:
+          type: string
+          nullable: true
+        customer_email:
+          type: string
+          format: email
+          nullable: true
+          maxLength: 254
+        gstin:
+          type: string
+          nullable: true
+          maxLength: 20
+        parts: {}
+        labour: {}
+        images: {}
+        job_card_number:
+          type: integer
+          readOnly: true
+        car_fuel:
+          type: string
+          nullable: true
+          maxLength: 50
+        bat_odometer:
+          type: string
+          nullable: true
+          maxLength: 50
+        insurance_details:
+          type: string
+          nullable: true
+        sub_total:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        discount_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        taxes: {}
+        job_card_pdf:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        gate_pass_pdf:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        purpose_of_visit:
+          type: string
+          nullable: true
+          maxLength: 255
+        service_advisor_id:
+          type: string
+          nullable: true
+          maxLength: 100
+        observation_remarks:
+          type: string
+          nullable: true
+        calling_status:
+          type: integer
+        inventory_consumed_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        inventory_consumed_by:
+          type: string
+          format: uuid
+          readOnly: true
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - car_id
+      - car_number
+      - created_at
+      - customer_name
+      - customer_phone
+      - id
+      - inventory_consumed_at
+      - inventory_consumed_by
+      - job_card_number
+      - job_card_status
+      - updated_at
+    KindEnum:
+      enum:
+      - image
+      - invoice
+      - pdf
+      type: string
+      description: |-
+        * `image` - Image
+        * `invoice` - Invoice
+        * `pdf` - PDF
+    Labour:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        labour_name:
+          type: string
+          maxLength: 255
+        labour_code:
+          type: string
+          nullable: true
+          maxLength: 50
+        hsn:
+          type: string
+          maxLength: 20
+        category:
+          type: string
+          nullable: true
+          maxLength: 100
+        mrp:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        gst:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          nullable: true
+        cgst:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          nullable: true
+        sgst:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - hsn
+      - id
+      - labour_name
+      - mrp
+      - updated_at
+    PatchedCar:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        car_number:
+          type: string
+          maxLength: 100
+        car_make:
+          type: string
+          maxLength: 100
+        car_model:
+          type: string
+          maxLength: 100
+        location:
+          type: string
+          maxLength: 200
+        purpose_of_visit:
+          type: string
+          maxLength: 200
+        all_job_cards: {}
+        cars_table_id:
+          type: string
+          nullable: true
+          maxLength: 100
+        customer_name:
+          type: string
+          maxLength: 200
+        customer_phone:
+          type: string
+          maxLength: 20
+        customer_address:
+          type: string
+          maxLength: 300
+        purpose_of_visit_and_advisors: {}
+        customer_email:
+          type: string
+          format: email
+          maxLength: 254
+        calling_status:
+          type: integer
+          minimum: 0
+    PatchedCurrentLabour:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        temp_car:
+          type: integer
+        labour_id:
+          type: string
+          maxLength: 100
+        labour_name:
+          type: string
+          maxLength: 255
+        labour_code:
+          type: string
+          maxLength: 50
+        hsn_code:
+          type: string
+          nullable: true
+          maxLength: 20
+        mrp:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        gst_percentage:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+        cgst:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+        sgst:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+        quantity:
+          type: integer
+        sub_total:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        cgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        sgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        total_tax:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        total_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        discount_percentage:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          nullable: true
+        discount_sub_total:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        discount_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_percentage:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_sub_total:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_cgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_sgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_total_tax:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_discount_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        customer_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        customer_sub_total:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        customer_cgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        customer_sgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        customer_total_tax:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        customer_discount_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedCurrentPart:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        job_card:
+          type: string
+          format: uuid
+        product:
+          type: string
+          format: uuid
+          description: Master product record
+        part_id:
+          type: string
+          maxLength: 100
+        part_name:
+          type: string
+          maxLength: 255
+        part_number:
+          type: string
+          maxLength: 50
+        hsn:
+          type: string
+          nullable: true
+          maxLength: 20
+        quantity:
+          type: integer
+        mrp:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+        discount_percentage:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+          nullable: true
+        discounted_subtotal:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+          nullable: true
+        discount_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_percentage:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_subtotal:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+          nullable: true
+        sub_total:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+        total_tax:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+        amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+        gst:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+        cgst:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+        sgst:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+        cgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        sgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        customer_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+          nullable: true
+        customer_sub_total:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+          nullable: true
+        customer_cgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        customer_sgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        customer_discount_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+          nullable: true
+        customer_total_tax:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_sub_total:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_cgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_sgst_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_total_tax:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+          nullable: true
+        insurance_discount_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,28}(?:\.\d{0,2})?$
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedInsuranceProvider:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        insurer:
+          type: string
+          maxLength: 255
+        address:
+          type: string
+        gst:
+          type: string
+          title: GST Number
+          maxLength: 50
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedJobCard:
+      type: object
+      description: |-
+        Output is shaped to match the Appwrite `JobCard` type from `src/lib/definitions.tsx`.
+        Input validation still uses model field names (snake_case).
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        car_id:
+          type: string
+          description: External/business-facing jobcard identifier
+          maxLength: 100
+        temp_car:
+          type: integer
+          nullable: true
+        diagnosis: {}
+        send_to_parts_manager:
+          type: boolean
+        car_number:
+          type: string
+          maxLength: 100
+        job_card_status:
+          type: integer
+        customer_name:
+          type: string
+          maxLength: 255
+        customer_phone:
+          type: string
+          maxLength: 15
+        customer_address:
+          type: string
+          nullable: true
+        customer_email:
+          type: string
+          format: email
+          nullable: true
+          maxLength: 254
+        gstin:
+          type: string
+          nullable: true
+          maxLength: 20
+        parts: {}
+        labour: {}
+        images: {}
+        job_card_number:
+          type: integer
+          readOnly: true
+        car_fuel:
+          type: string
+          nullable: true
+          maxLength: 50
+        bat_odometer:
+          type: string
+          nullable: true
+          maxLength: 50
+        insurance_details:
+          type: string
+          nullable: true
+        sub_total:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        discount_amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        amount:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,10}(?:\.\d{0,2})?$
+        taxes: {}
+        job_card_pdf:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        gate_pass_pdf:
+          type: string
+          format: uri
+          nullable: true
+          maxLength: 200
+        purpose_of_visit:
+          type: string
+          nullable: true
+          maxLength: 255
+        service_advisor_id:
+          type: string
+          nullable: true
+          maxLength: 100
+        observation_remarks:
+          type: string
+          nullable: true
+        calling_status:
+          type: integer
+        inventory_consumed_at:
+          type: string
+          format: date-time
+          readOnly: true
+          nullable: true
+        inventory_consumed_by:
+          type: string
+          format: uuid
+          readOnly: true
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedLabour:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        labour_name:
+          type: string
+          maxLength: 255
+        labour_code:
+          type: string
+          nullable: true
+          maxLength: 50
+        hsn:
+          type: string
+          maxLength: 20
+        category:
+          type: string
+          nullable: true
+          maxLength: 100
+        mrp:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        gst:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          nullable: true
+        cgst:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          nullable: true
+        sgst:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+          nullable: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedProductUpdate:
+      type: object
+      description: Serializer for updating a product.
+      properties:
+        name:
+          type: string
+          maxLength: 100
+        sku:
+          type: string
+          nullable: true
+          maxLength: 50
+        hsn:
+          type: string
+          nullable: true
+          maxLength: 50
+        category:
+          type: string
+          nullable: true
+          maxLength: 50
+        quantity:
+          type: integer
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        description:
+          type: string
+          nullable: true
+        itemCode:
+          type: string
+          nullable: true
+          maxLength: 50
+        itemLocation:
+          type: string
+          nullable: true
+          maxLength: 500
+        msp:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
+          nullable: true
+        mrp:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
+          nullable: true
+        gst:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
+          nullable: true
+        cgst:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
+          nullable: true
+        sgst:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
+          nullable: true
+        igst:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
+          nullable: true
+        vendorCode:
+          type: string
+          nullable: true
+          maxLength: 50
+        vendorName:
+          type: string
+          nullable: true
+          maxLength: 100
+        purchasePrice:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
+          nullable: true
+        purchaseLocation:
+          type: string
+          nullable: true
+          maxLength: 500
+        purchaseOrderDate:
+          type: string
+          format: date
+          nullable: true
+        purchaseOrderId:
+          type: string
+          nullable: true
+          maxLength: 50
+        warrantyPeriod:
+          type: string
+          nullable: true
+          maxLength: 50
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedTempCar:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        car:
+          allOf:
+          - $ref: '#/components/schemas/Car'
+          readOnly: true
+        car_id:
+          type: integer
+          writeOnly: true
+        job_card_id:
+          type: string
+          maxLength: 100
+        car_status:
+          type: integer
+          minimum: 0
+        cars_table_id:
+          type: string
+          maxLength: 100
+        purpose_of_visit_and_advisors: {}
+        all_job_card_ids: {}
+    PatchedVehicleModel:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        make:
+          type: string
+          maxLength: 255
+        models:
+          description: A list of model names, e.g. ['A4','Q5','TT']
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+    ProductUpdate:
+      type: object
+      description: Serializer for updating a product.
+      properties:
+        name:
+          type: string
+          maxLength: 100
+        sku:
+          type: string
+          nullable: true
+          maxLength: 50
+        hsn:
+          type: string
+          nullable: true
+          maxLength: 50
+        category:
+          type: string
+          nullable: true
+          maxLength: 50
+        quantity:
+          type: integer
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        description:
+          type: string
+          nullable: true
+        itemCode:
+          type: string
+          nullable: true
+          maxLength: 50
+        itemLocation:
+          type: string
+          nullable: true
+          maxLength: 500
+        msp:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
+          nullable: true
+        mrp:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
+          nullable: true
+        gst:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
+          nullable: true
+        cgst:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
+          nullable: true
+        sgst:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
+          nullable: true
+        igst:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
+          nullable: true
+        vendorCode:
+          type: string
+          nullable: true
+          maxLength: 50
+        vendorName:
+          type: string
+          nullable: true
+          maxLength: 100
+        purchasePrice:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,18}(?:\.\d{0,2})?$
+          nullable: true
+        purchaseLocation:
+          type: string
+          nullable: true
+          maxLength: 500
+        purchaseOrderDate:
+          type: string
+          format: date
+          nullable: true
+        purchaseOrderId:
+          type: string
+          nullable: true
+          maxLength: 50
+        warrantyPeriod:
+          type: string
+          nullable: true
+          maxLength: 50
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - name
+      - price
+      - updated_at
+    TempCar:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        car:
+          allOf:
+          - $ref: '#/components/schemas/Car'
+          readOnly: true
+        car_id:
+          type: integer
+          writeOnly: true
+        job_card_id:
+          type: string
+          maxLength: 100
+        car_status:
+          type: integer
+          minimum: 0
+        cars_table_id:
+          type: string
+          maxLength: 100
+        purpose_of_visit_and_advisors: {}
+        all_job_card_ids: {}
+      required:
+      - car
+      - car_id
+      - id
+    UploadedAsset:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        kind:
+          allOf:
+          - $ref: '#/components/schemas/KindEnum'
+          readOnly: true
+        original_name:
+          type: string
+          readOnly: true
+        content_type:
+          type: string
+          readOnly: true
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        href:
+          type: string
+          readOnly: true
+      required:
+      - content_type
+      - created_at
+      - href
+      - id
+      - kind
+      - original_name
+    VehicleModel:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        make:
+          type: string
+          maxLength: 255
+        models:
+          description: A list of model names, e.g. ['A4','Q5','TT']
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - id
+      - make
+      - updated_at
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid

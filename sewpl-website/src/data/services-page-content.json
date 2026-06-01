@@ -9,6 +9,7 @@
   },
   "serviceSection": {
     "processesTitle": "Processes",
-    "capabilitiesTitle": "Capabilities"
+    "capabilitiesTitle": "Capabilities",
+    "cardLinkLabel": "Learn More"
   }
 }

@@ -78,8 +78,8 @@
       "specifications": {
         "Table Size": "600 x 500mm",
         "X/Y/Z Travel": "650/520/475mm",
-        "A-Axis Rotation": "-120° to +30°",
-        "C-Axis Rotation": "360° continuous",
+        "A-Axis Rotation": "-120 deg to +30 deg",
+        "C-Axis Rotation": "360 deg continuous",
         "Spindle Speed": "100-15000 RPM",
         "Spindle Power": "18.5 kW",
         "Tool Magazine": "32 tools",
@@ -181,8 +181,8 @@
         "Spindle Speeds": "45-1500 RPM (18 steps)",
         "Spindle Taper": "ISO 40",
         "Motor Power": "5.5 kW",
-        "Head Swivel": "±45°",
-        "Table Swivel": "±45°",
+        "Head Swivel": "+/-45 deg",
+        "Table Swivel": "+/-45 deg",
         "Power Feed": "X, Y, Z axes"
       },
       "features": [

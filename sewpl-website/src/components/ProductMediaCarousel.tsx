@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { ChevronLeft, ChevronRight, Image as ImageIcon, Play } from 'lucide-react';
 import EditableMedia from './EditableMedia';
@@ -15,7 +15,8 @@ function isVideo(src: string) {
 }
 
 export default function ProductMediaCarousel({ media, productName }: ProductMediaCarouselProps) {
-  const items = media.filter(Boolean);
+  const items = useMemo(() => media.map((src) => src.trim()).filter(Boolean), [media]);
+  const itemsKey = items.join('|');
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: items.length > 1, align: 'start' });
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [canScrollPrev, setCanScrollPrev] = useState(false);
@@ -23,15 +24,17 @@ export default function ProductMediaCarousel({ media, productName }: ProductMedi
 
   const onSelect = useCallback(() => {
     if (!emblaApi) return;
+    const isLooping = items.length > 1;
     setSelectedIndex(emblaApi.selectedScrollSnap());
-    setCanScrollPrev(emblaApi.canScrollPrev());
-    setCanScrollNext(emblaApi.canScrollNext());
-  }, [emblaApi]);
+    setCanScrollPrev(isLooping || emblaApi.canScrollPrev());
+    setCanScrollNext(isLooping || emblaApi.canScrollNext());
+  }, [emblaApi, items.length]);
 
   useEffect(() => {
     if (!emblaApi) return;
     emblaApi.reInit({ loop: items.length > 1, align: 'start' });
-  }, [emblaApi, items.length]);
+    queueMicrotask(onSelect);
+  }, [emblaApi, items.length, itemsKey, onSelect]);
 
   useEffect(() => {
     if (!emblaApi) return;
@@ -65,8 +68,8 @@ export default function ProductMediaCarousel({ media, productName }: ProductMedi
                 <EditableMedia
                   src={src}
                   alt={`${productName} ${index + 1}`}
-                  className="h-full w-full object-cover"
-                  videoClassName="h-full w-full object-cover"
+                  className="h-full w-full object-contain"
+                  videoClassName="h-full w-full object-contain"
                   fallback={
                     <div className="flex h-full w-full items-center justify-center text-slate-400">
                       <div className="text-center">
@@ -106,26 +109,26 @@ export default function ProductMediaCarousel({ media, productName }: ProductMedi
       </div>
 
       {items.length > 1 && (
-        <div className="mt-4 grid grid-cols-4 gap-3 sm:grid-cols-5">
+        <div className="mt-4 flex gap-3 overflow-x-auto pb-2">
           {items.map((src, index) => (
             <button
               type="button"
               key={`${src}-thumb-${index}`}
               onClick={() => emblaApi?.scrollTo(index)}
-              className={`relative aspect-square overflow-hidden rounded-lg border bg-slate-100 ${
+              className={`relative h-20 w-20 flex-none overflow-hidden rounded-lg border bg-slate-100 sm:h-24 sm:w-24 ${
                 selectedIndex === index ? 'border-slate-900 ring-2 ring-slate-900/10' : 'border-slate-200 hover:border-slate-400'
               }`}
               aria-label={`Show product media ${index + 1}`}
             >
               {isVideo(src) ? (
                 <>
-                  <video src={src} className="h-full w-full object-cover" muted playsInline />
+                  <video src={src} className="h-full w-full object-contain" muted playsInline />
                   <span className="absolute inset-0 flex items-center justify-center bg-slate-900/20 text-white">
                     <Play className="h-5 w-5 fill-white" />
                   </span>
                 </>
               ) : (
-                <EditableMedia src={src} alt={`${productName} thumbnail ${index + 1}`} className="h-full w-full object-cover" fallback={<ImageIcon className="m-auto h-6 w-6 text-slate-300" />} />
+                <EditableMedia src={src} alt={`${productName} thumbnail ${index + 1}`} className="h-full w-full object-contain" fallback={<ImageIcon className="m-auto h-6 w-6 text-slate-300" />} />
               )}
             </button>
           ))}

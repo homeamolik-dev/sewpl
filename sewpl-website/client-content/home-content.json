@@ -1,7 +1,7 @@
 {
   "hero": {
     "badgePrefix": "Trusted Since",
-    "title": "Save Engineering works Private Limited",
+    "title": "Save Engineering Works Pvt. Ltd.",
     "highlightedTitle": "Precision Tool Room and Machine Manufacturing",
     "description": "Save Engineering Works Private limited (SEWPL) is an ISO 9000:2015 Certified Company that has a precise Tool room, which makes components for various industries from defence to automobile. SEWPL is also a leading Machine manufacturer of precise metal working machines like, Double Disc Grinders, Flat lapping machines, Roll forming and other Special purpose Machines",
     "primaryButtonLabel": "Explore Products",
@@ -15,12 +15,14 @@
   "servicesSection": {
     "eyebrow": "What We Do",
     "title": "Our Services",
-    "description": "Comprehensive engineering solutions tailored to your manufacturing needs"
+    "description": "Comprehensive engineering solutions tailored to your manufacturing needs",
+    "cardLinkLabel": "Learn More"
   },
   "featuredProductsSection": {
     "eyebrow": "Products",
     "title": "Featured Machines",
     "viewAllLabel": "View All Products",
+    "viewDetailsLabel": "View Details",
     "featuredCount": "4"
   },
   "capabilitiesSection": {

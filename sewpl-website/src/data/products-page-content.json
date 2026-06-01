@@ -1,0 +1,27 @@
+{
+  "hero": {
+    "eyebrow": "Our Products",
+    "title": "Industrial Machines",
+    "description": "Explore our range of precision CNC machines and industrial equipment."
+  },
+  "filters": {
+    "searchPlaceholder": "Search products...",
+    "allLabel": "All",
+    "clearFilterLabel": "Clear filter",
+    "filtersLabel": "Filters",
+    "showingPrefix": "Showing",
+    "showingSuffix": "products",
+    "emptyMessage": "No products found matching your criteria.",
+    "clearAllLabel": "Clear all filters"
+  },
+  "cards": {
+    "viewDetailsLabel": "View Details"
+  },
+  "detail": {
+    "backLabel": "Back to Products",
+    "requestQuoteLabel": "Request Quote",
+    "callLabel": "Call Us",
+    "specificationsTitle": "Specifications",
+    "featuresTitle": "Features"
+  }
+}

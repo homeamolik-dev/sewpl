@@ -22,6 +22,10 @@ export default function AboutPage() {
   });
   const liveCompanyData = content['company.json'];
   const liveAboutContent = content['about-content.json'];
+  const customersSection = liveAboutContent.customersSection ?? {
+    title: 'Our Customers',
+    customers: [],
+  };
 
   return (
     <>
@@ -133,7 +137,9 @@ export default function AboutPage() {
             <AnimatedSection>
               <div className="aspect-square bg-slate-200 rounded-2xl overflow-hidden relative">
                 {liveAboutContent.whyChooseUsSection.mediaUrl ? (
-                  <EditableMedia src={liveAboutContent.whyChooseUsSection.mediaUrl} alt={liveAboutContent.whyChooseUsSection.imageLabel} className="absolute inset-0 h-full w-full object-cover" />
+                  <div className="absolute inset-0 flex items-center justify-center bg-white p-8">
+                    <EditableMedia src={liveAboutContent.whyChooseUsSection.mediaUrl} alt={liveAboutContent.whyChooseUsSection.imageLabel} className="max-h-full max-w-full object-contain" videoClassName="max-h-full max-w-full object-contain" />
+                  </div>
                 ) : (
                   <div className="absolute inset-0 flex items-center justify-center">
                   <div className="text-center text-slate-400">
@@ -166,6 +172,25 @@ export default function AboutPage() {
               </div>
             </AnimatedSection>
           </div>
+        </div>
+      </section>
+
+      <section className="py-16 bg-slate-50">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <AnimatedSection>
+            <h2 className="text-center text-2xl font-bold text-slate-900 mb-8">{customersSection.title}</h2>
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+              {customersSection.customers.map((customer, index) => (
+                <div key={`${customer.name}-${index}`} className="flex aspect-[5/3] items-center justify-center rounded-lg border border-slate-300 bg-blue-50 p-3 text-center text-sm font-medium text-slate-900">
+                  {customer.logoUrl ? (
+                    <EditableMedia src={customer.logoUrl} alt={customer.name} className="max-h-full max-w-full object-contain" />
+                  ) : (
+                    <span>{customer.name}</span>
+                  )}
+                </div>
+              ))}
+            </div>
+          </AnimatedSection>
         </div>
       </section>
     </>

@@ -3,7 +3,6 @@
 import { motion } from 'framer-motion';
 import { CheckCircle } from 'lucide-react';
 import AnimatedSection from '@/components/AnimatedSection';
-import EditableMedia from '@/components/EditableMedia';
 import FacilityCarousel from '@/components/FacilityCarousel';
 import servicesData from '@/data/services.json';
 import servicesPageContent from '@/data/services-page-content.json';
@@ -68,7 +67,7 @@ export default function ServicesPage() {
             <section key={service.id} id={service.slug} className={index % 2 === 0 ? 'py-20 bg-slate-50' : 'py-20 bg-white'}>
               <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <AnimatedSection>
-                  <div className={service.mediaUrl ? 'grid gap-10 lg:grid-cols-[minmax(0,1fr)_360px] lg:items-start' : 'max-w-3xl mx-auto'}>
+                  <div className="max-w-3xl mx-auto">
                     <div>
                       <h2 className="text-3xl font-bold text-slate-900 mb-4">{service.name}</h2>
                       <p className="text-slate-600 mb-8">{service.description}</p>
@@ -100,14 +99,6 @@ export default function ServicesPage() {
                         </div>
                       )}
                     </div>
-
-                    {service.mediaUrl && (
-                      <div className="overflow-hidden rounded-2xl bg-slate-100 lg:sticky lg:top-24">
-                        <div className="aspect-[4/3]">
-                          <EditableMedia src={service.mediaUrl} alt={service.name} />
-                        </div>
-                      </div>
-                    )}
                   </div>
                 </AnimatedSection>
               </div>

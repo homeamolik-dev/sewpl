@@ -45,6 +45,11 @@ type Product = {
   featured?: boolean;
 };
 
+type LinkItem = {
+  label: string;
+  href: string;
+};
+
 type ProductsContent = {
   products: Product[];
   categories: {
@@ -138,6 +143,13 @@ type HomeContent = {
   ctaSection: Record<string, string>;
 };
 
+type ProductsPageContent = {
+  hero: Record<string, string>;
+  filters: Record<string, string>;
+  cards: Record<string, string>;
+  detail: Record<string, string>;
+};
+
 type AboutContent = {
   hero: {
     eyebrow: string;
@@ -155,11 +167,58 @@ type AboutContent = {
     mediaUrl: string;
     items: { title: string; description: string }[];
   };
+  customersSection?: {
+    title: string;
+    customers: { name: string; logoUrl: string }[];
+  };
+};
+
+type SiteGlobalContent = {
+  metadata: Record<string, string>;
+  branding: Record<string, string>;
+  navigation: {
+    mainLinks: LinkItem[];
+    productsLabel: string;
+    allProductsLabel: string;
+    quoteButtonLabel: string;
+  };
+  footer: {
+    quickLinksTitle: string;
+    productsTitle: string;
+    servicesTitle: string;
+    contactTitle: string;
+    productViewAllLabel: string;
+    serviceLinks: LinkItem[];
+    policyLinks: LinkItem[];
+    copyrightText: string;
+  };
+  sharedLabels: Record<string, string>;
+};
+
+type ServicesPageContent = {
+  hero: Record<string, string>;
+  facilitySection: Record<string, string>;
+  serviceSection: Record<string, string>;
+};
+
+type ContactPageContent = {
+  hero: Record<string, string>;
+  formSection: Record<string, string>;
+  infoSection: Record<string, string>;
+  departmentsSection: Record<string, string>;
+  mapSection: Record<string, string>;
+};
+
+type ContactFormContent = {
+  fields: Record<string, { label: string; placeholder: string; options?: string[] }>;
+  statusMessages: Record<string, string>;
+  buttons: Record<string, string>;
 };
 
 const FILE_LABELS: Record<string, string> = {
   'site-global.json': 'Global site settings',
   'home-content.json': 'Homepage',
+  'products-page-content.json': 'Products page',
   'about-content.json': 'About page',
   'company.json': 'Company details',
   'products.json': 'Products and categories',
@@ -479,11 +538,24 @@ function KeyValueEditor({
   onChange: (items: Record<string, string>) => void;
 }) {
   const idCounter = useRef(0);
+  const initializedForItems = useRef(items);
   const [rows, setRows] = useState(() => Object.entries(items).map(([key, value], index) => ({
     id: `initial-${index}`,
     key,
     value,
   })));
+
+  useEffect(() => {
+    if (initializedForItems.current === items) return;
+    initializedForItems.current = items;
+    queueMicrotask(() => {
+      setRows(Object.entries(items).map(([key, value], index) => ({
+        id: `synced-${index}`,
+        key,
+        value,
+      })));
+    });
+  }, [items]);
 
   function commit(nextRows: typeof rows) {
     const nextItems = Object.fromEntries(
@@ -491,15 +563,14 @@ function KeyValueEditor({
         .map((row) => [row.key.trim(), row.value] as const)
         .filter(([key]) => key.length > 0),
     );
+    initializedForItems.current = nextItems;
     onChange(nextItems);
   }
 
   function updateRows(updater: (current: typeof rows) => typeof rows) {
-    setRows((current) => {
-      const nextRows = updater(current);
-      commit(nextRows);
-      return nextRows;
-    });
+    const nextRows = updater(rows);
+    setRows(nextRows);
+    commit(nextRows);
   }
 
   return (
@@ -539,7 +610,11 @@ function KeyValueEditor({
                 />
               </label>
             </div>
-            <button type="button" onClick={() => updateRows((current) => current.filter((item) => item.id !== row.id))} className="mt-3 inline-flex h-10 items-center gap-2 rounded-lg border border-red-200 bg-white px-3 text-sm font-medium text-red-700 hover:bg-red-50">
+            <button type="button" onClick={() => {
+              const nextRows = rows.filter((item) => item.id !== row.id);
+              setRows(nextRows);
+              commit(nextRows);
+            }} className="mt-3 inline-flex h-10 items-center gap-2 rounded-lg border border-red-200 bg-white px-3 text-sm font-medium text-red-700 hover:bg-red-50">
               <Trash2 className="h-4 w-4" /> Delete row
             </button>
           </div>
@@ -577,6 +652,40 @@ function ProcessEditor({
             </div>
             <label className="block text-sm font-medium text-slate-700">Title<input value={item.name} onChange={(event) => onChange(items.map((value, itemIndex) => itemIndex === index ? { ...value, name: event.target.value } : value))} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" /></label>
             <label className="mt-3 block text-sm font-medium text-slate-700">Description<textarea value={item.description} onChange={(event) => onChange(items.map((value, itemIndex) => itemIndex === index ? { ...value, description: event.target.value } : value))} rows={3} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" /></label>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function LinkListEditor({
+  title,
+  items,
+  onChange,
+  addLabel = 'Add link',
+}: {
+  title: string;
+  items: LinkItem[];
+  onChange: (items: LinkItem[]) => void;
+  addLabel?: string;
+}) {
+  return (
+    <div className="rounded-lg border border-slate-200 p-4">
+      <div className="mb-3 flex items-center justify-between gap-3">
+        <h3 className="font-semibold text-slate-950">{title}</h3>
+        <button type="button" onClick={() => onChange([...items, { label: 'New link', href: '/' }])} className="inline-flex items-center gap-2 rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700">
+          <Plus className="h-4 w-4" /> {addLabel}
+        </button>
+      </div>
+      <div className="space-y-3">
+        {items.map((item, index) => (
+          <div key={index} className="grid gap-2 rounded-lg border border-slate-200 bg-slate-50 p-3 md:grid-cols-[1fr_1.5fr_auto]">
+            <input value={item.label} onChange={(event) => onChange(items.map((link, itemIndex) => itemIndex === index ? { ...link, label: event.target.value } : link))} placeholder="Label" className="rounded-lg border border-slate-300 px-3 py-2 text-sm" />
+            <input value={item.href} onChange={(event) => onChange(items.map((link, itemIndex) => itemIndex === index ? { ...link, href: event.target.value } : link))} placeholder="/path" className="rounded-lg border border-slate-300 px-3 py-2 text-sm" />
+            <button type="button" onClick={() => onChange(items.filter((_, itemIndex) => itemIndex !== index))} className="rounded-lg p-2 text-red-600 hover:bg-red-50">
+              <Trash2 className="h-4 w-4" />
+            </button>
           </div>
         ))}
       </div>
@@ -687,7 +796,16 @@ export default function AdminPage() {
   const selectedService = servicesContent?.services.find((service) => service.id === selectedServiceId) ?? servicesContent?.services[0];
   const companyContent = content['company.json'] as CompanyContent | undefined;
   const homeContent = content['home-content.json'] as HomeContent | undefined;
+  const productsPageContent = content['products-page-content.json'] as ProductsPageContent | undefined;
   const aboutContent = content['about-content.json'] as AboutContent | undefined;
+  const siteGlobalContent = content['site-global.json'] as SiteGlobalContent | undefined;
+  const servicesPageContent = content['services-page-content.json'] as ServicesPageContent | undefined;
+  const contactPageContent = content['contact-page-content.json'] as ContactPageContent | undefined;
+  const contactFormContent = content['contact-form-content.json'] as ContactFormContent | undefined;
+  const aboutCustomersSection = aboutContent?.customersSection ?? {
+    title: 'Our Customers',
+    customers: [],
+  };
 
   const selectedFileValue = content[selectedFile];
   const advancedFileOptions = files;
@@ -777,19 +895,36 @@ export default function AdminPage() {
 
   async function saveServicesContent() {
     if (!servicesContent) return;
-    const emptySlideIndex = servicesContent.facility.images.findIndex((image) => !image.src.trim());
-    if (emptySlideIndex !== -1) {
-      setStatus(`Facility carousel slide ${emptySlideIndex + 1} has no media. Choose a file or delete that slide before saving.`);
-      return;
-    }
+    const cleanedServicesContent = {
+      ...servicesContent,
+      services: servicesContent.services.map((service) => ({ ...service, mediaUrl: '' })),
+      facility: {
+        ...servicesContent.facility,
+        images: servicesContent.facility.images
+          .map((image) => ({
+            src: image.src.trim(),
+            alt: image.alt.trim(),
+            caption: image.caption.trim(),
+          }))
+          .filter((image) => image.src),
+      },
+    };
 
-    await saveFile('services.json', servicesContent as unknown as JsonValue);
+    updateServices(cleanedServicesContent);
+    await saveFile('services.json', cleanedServicesContent as unknown as JsonValue);
   }
 
   function updateSelectedFile(path: (string | number)[], value: JsonValue) {
     setContent((previous) => ({
       ...previous,
       [selectedFile]: setAtPath(previous[selectedFile], path, value),
+    }));
+  }
+
+  function updateSelectedFileFor(fileName: string, value: unknown) {
+    setContent((previous) => ({
+      ...previous,
+      [fileName]: value as JsonValue,
     }));
   }
 
@@ -982,8 +1117,137 @@ export default function AdminPage() {
 	          ))}
 	        </div>
 
-	        {tab === 'pages' && homeContent && aboutContent && (
+	        {tab === 'pages' && homeContent && aboutContent && productsPageContent && siteGlobalContent && servicesPageContent && contactPageContent && contactFormContent && (
             <div className="space-y-6">
+              <section className="rounded-xl border border-slate-200 bg-white p-5">
+                <div className="mb-5 flex flex-col gap-3 border-b border-slate-200 pb-5 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <h2 className="text-xl font-bold text-slate-950">Global Navigation & Footer</h2>
+                    <p className="text-sm text-slate-500">Branding, nav labels, footer labels, shared contact labels, and footer links.</p>
+                  </div>
+                  <button type="button" onClick={() => saveFile('site-global.json', siteGlobalContent as unknown as JsonValue)} disabled={saving} className="inline-flex items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-60">
+                    {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />} Save global settings
+                  </button>
+                </div>
+                <div className="grid gap-6 lg:grid-cols-2">
+                  <KeyValueEditor title="Metadata" keyLabel="Field" valueLabel="Text" items={siteGlobalContent.metadata} onChange={(metadata) => updateSelectedFileFor('site-global.json', { ...siteGlobalContent, metadata })} />
+                  <KeyValueEditor title="Branding" keyLabel="Field" valueLabel="Text" items={siteGlobalContent.branding} onChange={(branding) => updateSelectedFileFor('site-global.json', { ...siteGlobalContent, branding })} />
+                  <div className="rounded-lg border border-slate-200 p-4">
+                    <h3 className="mb-4 font-semibold text-slate-950">Navigation Labels</h3>
+                    {['productsLabel', 'allProductsLabel', 'quoteButtonLabel'].map((key) => (
+                      <label key={key} className="mb-3 block text-sm font-medium text-slate-700">
+                        {key}
+                        <input value={siteGlobalContent.navigation[key as keyof Omit<SiteGlobalContent['navigation'], 'mainLinks'>]} onChange={(event) => updateSelectedFileFor('site-global.json', { ...siteGlobalContent, navigation: { ...siteGlobalContent.navigation, [key]: event.target.value } })} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" />
+                      </label>
+                    ))}
+                  </div>
+                  <LinkListEditor title="Main nav links" items={siteGlobalContent.navigation.mainLinks} onChange={(mainLinks) => updateSelectedFileFor('site-global.json', { ...siteGlobalContent, navigation: { ...siteGlobalContent.navigation, mainLinks } })} />
+                  <KeyValueEditor title="Footer Labels" keyLabel="Field" valueLabel="Text" items={{
+                    quickLinksTitle: siteGlobalContent.footer.quickLinksTitle,
+                    productsTitle: siteGlobalContent.footer.productsTitle,
+                    servicesTitle: siteGlobalContent.footer.servicesTitle,
+                    contactTitle: siteGlobalContent.footer.contactTitle,
+                    productViewAllLabel: siteGlobalContent.footer.productViewAllLabel,
+                    copyrightText: siteGlobalContent.footer.copyrightText,
+                  }} onChange={(footerLabels) => updateSelectedFileFor('site-global.json', { ...siteGlobalContent, footer: { ...siteGlobalContent.footer, ...footerLabels } })} />
+                  <KeyValueEditor title="Shared Labels" keyLabel="Field" valueLabel="Text" items={siteGlobalContent.sharedLabels} onChange={(sharedLabels) => updateSelectedFileFor('site-global.json', { ...siteGlobalContent, sharedLabels })} />
+                  <LinkListEditor title="Footer service links" items={siteGlobalContent.footer.serviceLinks} onChange={(serviceLinks) => updateSelectedFileFor('site-global.json', { ...siteGlobalContent, footer: { ...siteGlobalContent.footer, serviceLinks } })} />
+                  <LinkListEditor title="Footer policy links" items={siteGlobalContent.footer.policyLinks} onChange={(policyLinks) => updateSelectedFileFor('site-global.json', { ...siteGlobalContent, footer: { ...siteGlobalContent.footer, policyLinks } })} />
+                </div>
+              </section>
+
+              <section className="rounded-xl border border-slate-200 bg-white p-5">
+                <div className="mb-5 flex flex-col gap-3 border-b border-slate-200 pb-5 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <h2 className="text-xl font-bold text-slate-950">Products Page</h2>
+                    <p className="text-sm text-slate-500">Hero copy, search/filter labels, and empty-state copy.</p>
+                  </div>
+                  <button type="button" onClick={() => saveFile('products-page-content.json', productsPageContent as unknown as JsonValue)} disabled={saving} className="inline-flex items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-60">
+                    {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />} Save products page
+                  </button>
+                </div>
+                <div className="grid gap-6 lg:grid-cols-2">
+                  <KeyValueEditor title="Hero" keyLabel="Field" valueLabel="Text" items={productsPageContent.hero} onChange={(hero) => updateSelectedFileFor('products-page-content.json', { ...productsPageContent, hero })} />
+                  <KeyValueEditor title="Filter Labels" keyLabel="Field" valueLabel="Text" items={productsPageContent.filters} onChange={(filters) => updateSelectedFileFor('products-page-content.json', { ...productsPageContent, filters })} />
+                  <KeyValueEditor title="Product Card Labels" keyLabel="Field" valueLabel="Text" items={productsPageContent.cards} onChange={(cards) => updateSelectedFileFor('products-page-content.json', { ...productsPageContent, cards })} />
+                  <KeyValueEditor title="Product Detail Labels" keyLabel="Field" valueLabel="Text" items={productsPageContent.detail} onChange={(detail) => updateSelectedFileFor('products-page-content.json', { ...productsPageContent, detail })} />
+                </div>
+              </section>
+
+              <section className="rounded-xl border border-slate-200 bg-white p-5">
+                <div className="mb-5 flex flex-col gap-3 border-b border-slate-200 pb-5 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <h2 className="text-xl font-bold text-slate-950">Services Page Labels</h2>
+                    <p className="text-sm text-slate-500">Services hero, facility section title, process title, and capability title.</p>
+                  </div>
+                  <button type="button" onClick={() => saveFile('services-page-content.json', servicesPageContent as unknown as JsonValue)} disabled={saving} className="inline-flex items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-60">
+                    {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />} Save services labels
+                  </button>
+                </div>
+                <div className="grid gap-6 lg:grid-cols-3">
+                  <KeyValueEditor title="Hero" keyLabel="Field" valueLabel="Text" items={servicesPageContent.hero} onChange={(hero) => updateSelectedFileFor('services-page-content.json', { ...servicesPageContent, hero })} />
+                  <KeyValueEditor title="Facility Section" keyLabel="Field" valueLabel="Text" items={servicesPageContent.facilitySection} onChange={(facilitySection) => updateSelectedFileFor('services-page-content.json', { ...servicesPageContent, facilitySection })} />
+                  <KeyValueEditor title="Service Section" keyLabel="Field" valueLabel="Text" items={servicesPageContent.serviceSection} onChange={(serviceSection) => updateSelectedFileFor('services-page-content.json', { ...servicesPageContent, serviceSection })} />
+                </div>
+              </section>
+
+              <section className="rounded-xl border border-slate-200 bg-white p-5">
+                <div className="mb-5 flex flex-col gap-3 border-b border-slate-200 pb-5 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <h2 className="text-xl font-bold text-slate-950">Contact Page & Form</h2>
+                    <p className="text-sm text-slate-500">Contact page copy, form labels, subject options, status messages, and button labels.</p>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    <button type="button" onClick={() => saveFile('contact-page-content.json', contactPageContent as unknown as JsonValue)} disabled={saving} className="inline-flex items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-60">
+                      {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />} Save contact page
+                    </button>
+                    <button type="button" onClick={() => saveFile('contact-form-content.json', contactFormContent as unknown as JsonValue)} disabled={saving} className="inline-flex items-center justify-center gap-2 rounded-lg bg-slate-900 px-4 py-2 text-sm font-medium text-white disabled:opacity-60">
+                      {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />} Save contact form
+                    </button>
+                  </div>
+                </div>
+                <div className="grid gap-6 lg:grid-cols-2">
+                  <KeyValueEditor title="Contact Hero" keyLabel="Field" valueLabel="Text" items={contactPageContent.hero} onChange={(hero) => updateSelectedFileFor('contact-page-content.json', { ...contactPageContent, hero })} />
+                  <KeyValueEditor title="Contact Section Titles" keyLabel="Field" valueLabel="Text" items={{
+                    formTitle: contactPageContent.formSection.title,
+                    infoTitle: contactPageContent.infoSection.title,
+                    departmentsTitle: contactPageContent.departmentsSection.title,
+                    mapTitle: contactPageContent.mapSection.title,
+                    mapPlaceholderTitle: contactPageContent.mapSection.placeholderTitle,
+                    mapPlaceholderDescription: contactPageContent.mapSection.placeholderDescription,
+                  }} onChange={(labels) => updateSelectedFileFor('contact-page-content.json', {
+                    ...contactPageContent,
+                    formSection: { title: labels.formTitle },
+                    infoSection: { title: labels.infoTitle },
+                    departmentsSection: { title: labels.departmentsTitle },
+                    mapSection: {
+                      title: labels.mapTitle,
+                      placeholderTitle: labels.mapPlaceholderTitle,
+                      placeholderDescription: labels.mapPlaceholderDescription,
+                    },
+                  })} />
+                  <div className="rounded-lg border border-slate-200 p-4 lg:col-span-2">
+                    <h3 className="mb-4 font-semibold text-slate-950">Form Fields</h3>
+                    <div className="grid gap-4 lg:grid-cols-2">
+                      {Object.entries(contactFormContent.fields).map(([fieldKey, field]) => (
+                        <div key={fieldKey} className="rounded-lg border border-slate-200 bg-slate-50 p-3">
+                          <h4 className="mb-3 text-sm font-semibold capitalize text-slate-900">{fieldKey}</h4>
+                          <label className="block text-sm font-medium text-slate-700">Label<input value={field.label} onChange={(event) => updateSelectedFileFor('contact-form-content.json', { ...contactFormContent, fields: { ...contactFormContent.fields, [fieldKey]: { ...field, label: event.target.value } } })} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" /></label>
+                          <label className="mt-3 block text-sm font-medium text-slate-700">Placeholder<input value={field.placeholder} onChange={(event) => updateSelectedFileFor('contact-form-content.json', { ...contactFormContent, fields: { ...contactFormContent.fields, [fieldKey]: { ...field, placeholder: event.target.value } } })} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" /></label>
+                          {field.options && (
+                            <div className="mt-3">
+                              <TextListEditor title="Subject options" items={field.options} onChange={(options) => updateSelectedFileFor('contact-form-content.json', { ...contactFormContent, fields: { ...contactFormContent.fields, [fieldKey]: { ...field, options } } })} addLabel="Add option" />
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                  <KeyValueEditor title="Form Status Messages" keyLabel="Field" valueLabel="Text" items={contactFormContent.statusMessages} onChange={(statusMessages) => updateSelectedFileFor('contact-form-content.json', { ...contactFormContent, statusMessages })} />
+                  <KeyValueEditor title="Form Buttons" keyLabel="Field" valueLabel="Text" items={contactFormContent.buttons} onChange={(buttons) => updateSelectedFileFor('contact-form-content.json', { ...contactFormContent, buttons })} />
+                </div>
+              </section>
+
               <section className="rounded-xl border border-slate-200 bg-white p-5">
                 <div className="mb-5 flex flex-col gap-3 border-b border-slate-200 pb-5 sm:flex-row sm:items-center sm:justify-between">
                   <div>
@@ -1012,7 +1276,7 @@ export default function AdminPage() {
                   <div className="space-y-6">
                     <div className="rounded-lg border border-slate-200 p-4">
                       <h3 className="mb-4 font-semibold text-slate-950">Services Section</h3>
-                      {['eyebrow', 'title', 'description'].map((key) => (
+                      {['eyebrow', 'title', 'description', 'cardLinkLabel'].map((key) => (
                         <label key={key} className="mb-3 block text-sm font-medium text-slate-700">
                           {key}
                           <input value={homeContent.servicesSection[key] || ''} onChange={(event) => updateHome({ ...homeContent, servicesSection: { ...homeContent.servicesSection, [key]: event.target.value } })} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" />
@@ -1104,6 +1368,38 @@ export default function AdminPage() {
                     <ProcessEditor title="Why choose us cards" items={aboutContent.whyChooseUsSection.items.map((item) => ({ name: item.title, description: item.description }))} onChange={(items) => updateAbout({ ...aboutContent, whyChooseUsSection: { ...aboutContent.whyChooseUsSection, items: items.map((item) => ({ title: item.name, description: item.description })) } })} />
                   </div>
                 </div>
+
+                <div className="mt-6 rounded-lg border border-slate-200 p-4">
+                  <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                    <h3 className="font-semibold text-slate-950">Customers Section</h3>
+                    <button type="button" onClick={() => updateAbout({ ...aboutContent, customersSection: { ...aboutCustomersSection, customers: [...aboutCustomersSection.customers, { name: 'Company Logo', logoUrl: '' }] } })} className="inline-flex items-center gap-2 rounded-lg border border-slate-300 px-3 py-2 text-sm font-medium text-slate-700">
+                      <Plus className="h-4 w-4" /> Add customer
+                    </button>
+                  </div>
+                  <label className="block text-sm font-medium text-slate-700">
+                    Section title
+                    <input value={aboutCustomersSection.title} onChange={(event) => updateAbout({ ...aboutContent, customersSection: { ...aboutCustomersSection, title: event.target.value } })} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" />
+                  </label>
+                  <div className="mt-4 grid gap-4 lg:grid-cols-2">
+                    {aboutCustomersSection.customers.map((customer, index) => (
+                      <div key={index} className="rounded-lg border border-slate-200 bg-slate-50 p-3">
+                        <div className="mb-3 flex items-center justify-between gap-3">
+                          <span className="text-sm font-semibold text-slate-900">Customer {index + 1}</span>
+                          <button type="button" onClick={() => updateAbout({ ...aboutContent, customersSection: { ...aboutCustomersSection, customers: aboutCustomersSection.customers.filter((_, itemIndex) => itemIndex !== index) } })} className="rounded-lg p-2 text-red-600 hover:bg-red-50">
+                            <Trash2 className="h-4 w-4" />
+                          </button>
+                        </div>
+                        <label className="block text-sm font-medium text-slate-700">
+                          Name / placeholder text
+                          <input value={customer.name} onChange={(event) => updateAbout({ ...aboutContent, customersSection: { ...aboutCustomersSection, customers: aboutCustomersSection.customers.map((item, itemIndex) => itemIndex === index ? { ...item, name: event.target.value } : item) } })} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" />
+                        </label>
+                        <div className="mt-3">
+                          <MediaField label="Customer logo" value={customer.logoUrl} media={media} uploading={uploading} onUpload={uploadFile} onChange={(logoUrl) => updateAbout({ ...aboutContent, customersSection: { ...aboutCustomersSection, customers: aboutCustomersSection.customers.map((item, itemIndex) => itemIndex === index ? { ...item, logoUrl } : item) } })} onDeleteMedia={deleteMediaItem} deletingMediaUrl={deletingMediaUrl} getUsageCount={(url) => findMediaUsages(content, url).length} />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </section>
             </div>
           )}
@@ -1167,7 +1463,7 @@ export default function AdminPage() {
                       specifications: {},
                       features: [],
                       images: [],
-                      price: 'Contact for Quote',
+                      price: '',
                       inStock: true,
                       featured: false,
                     };
@@ -1210,7 +1506,6 @@ export default function AdminPage() {
                     <label className="block text-sm font-medium text-slate-700">Name<input value={selectedProduct.name} onChange={(event) => updateProduct(selectedProduct.id, { name: event.target.value })} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" /></label>
                     <label className="block text-sm font-medium text-slate-700">Slug<input value={selectedProduct.slug} onChange={(event) => updateProduct(selectedProduct.id, { slug: slugify(event.target.value) })} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" /></label>
                     <label className="block text-sm font-medium text-slate-700">Category<select value={selectedProduct.category} onChange={(event) => updateProduct(selectedProduct.id, { category: event.target.value })} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2">{productsContent.categories.map((category) => <option key={category.id} value={category.name}>{category.name}</option>)}</select></label>
-                    <label className="block text-sm font-medium text-slate-700">Price<input value={selectedProduct.price} onChange={(event) => updateProduct(selectedProduct.id, { price: event.target.value })} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" /></label>
                   </div>
 
                   <label className="block text-sm font-medium text-slate-700">Short description<textarea value={selectedProduct.shortDescription} onChange={(event) => updateProduct(selectedProduct.id, { shortDescription: event.target.value })} rows={2} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" /></label>
@@ -1218,7 +1513,6 @@ export default function AdminPage() {
 
                   <div className="flex flex-wrap gap-4">
                     <label className="inline-flex items-center gap-2 text-sm font-medium text-slate-700"><input type="checkbox" checked={Boolean(selectedProduct.featured)} onChange={(event) => updateProduct(selectedProduct.id, { featured: event.target.checked })} /> Featured on homepage</label>
-                    <label className="inline-flex items-center gap-2 text-sm font-medium text-slate-700"><input type="checkbox" checked={selectedProduct.inStock} onChange={(event) => updateProduct(selectedProduct.id, { inStock: event.target.checked })} /> In stock</label>
                   </div>
 
 	                  <div className="space-y-4">
@@ -1372,8 +1666,6 @@ export default function AdminPage() {
                     </div>
                     <label className="block text-sm font-medium text-slate-700">Short description<textarea value={selectedService.shortDescription} onChange={(event) => updateService(selectedService.id, { shortDescription: event.target.value })} rows={2} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" /></label>
                     <label className="block text-sm font-medium text-slate-700">Full description<textarea value={selectedService.description} onChange={(event) => updateService(selectedService.id, { description: event.target.value })} rows={5} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" /></label>
-
-	                    <MediaField label="Service photo/video" value={selectedService.mediaUrl || ''} media={media} uploading={uploading} onUpload={uploadFile} onChange={(mediaUrl) => updateService(selectedService.id, { mediaUrl })} onDeleteMedia={deleteMediaItem} deletingMediaUrl={deletingMediaUrl} getUsageCount={(url) => findMediaUsages(content, url).length} />
 
 	                    <div className="grid gap-4 md:grid-cols-2">
 	                      <ProcessEditor title="Processes / machining facilities" items={selectedService.processes ?? selectedService['Machining Facilities'] ?? []} onChange={(items) => updateService(selectedService.id, selectedService['Machining Facilities'] ? { 'Machining Facilities': items } : { processes: items })} />

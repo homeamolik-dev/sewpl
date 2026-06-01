@@ -8,6 +8,7 @@ export const CONTENT_FILES = [
   'contact-form-content.json',
   'contact-page-content.json',
   'home-content.json',
+  'products-page-content.json',
   'products.json',
   'services-page-content.json',
   'services.json',

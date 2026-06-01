@@ -9,9 +9,11 @@ import contactPageContent from '@/data/contact-page-content.json';
 import siteGlobal from '@/data/site-global.json';
 import { useContentData } from '@/hooks/useContentData';
 
-function getMapEmbedSrc(embed: string) {
+function getMapEmbedSrc(embed: string, fallbackLink: string) {
   const trimmed = embed.trim();
-  if (!trimmed || trimmed.startsWith('<!--')) return '';
+  if (!trimmed || trimmed.startsWith('<!--')) {
+    return fallbackLink ? `https://maps.google.com/maps?q=${encodeURIComponent(fallbackLink)}&output=embed` : '';
+  }
   const srcMatch = trimmed.match(/src=["']([^"']+)["']/i);
   return srcMatch?.[1] || trimmed;
 }
@@ -32,10 +34,11 @@ export default function ContactPage() {
   const liveCompanyData = content['company.json'];
   const liveContactPageContent = content['contact-page-content.json'];
   const liveSiteGlobal = content['site-global.json'];
-  const mapEmbedSrc = getMapEmbedSrc(liveCompanyData.contact.googleMapsEmbed);
-  const departments = Object.entries(liveCompanyData.contact.email)
-    .filter(([key, email]) => key !== 'general' && Boolean(email))
-    .map(([key, email]) => ({ name: labelFromKey(key), email, icon: Users }));
+  const mapEmbedSrc = getMapEmbedSrc(liveCompanyData.contact.googleMapsEmbed, liveCompanyData.contact.googleMapsLink);
+  const publicEmailKeys = ['general', 'sales', 'accounts'] as const;
+  const departments = publicEmailKeys
+    .map((key) => ({ name: labelFromKey(key), email: liveCompanyData.contact.email[key], icon: Users }))
+    .filter((department) => Boolean(department.email));
   const workingHours = Object.entries(liveCompanyData.contact.workingHours).filter(([, hours]) => Boolean(hours));
 
   return (

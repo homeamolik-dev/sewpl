@@ -12,17 +12,18 @@ interface Product {
   category: string;
   shortDescription: string;
   images: string[];
-  price: string;
-  inStock: boolean;
+  price?: string;
+  inStock?: boolean;
   featured?: boolean;
 }
 
 interface ProductCardProps {
   product: Product;
   index?: number;
+  viewDetailsLabel?: string;
 }
 
-export default function ProductCard({ product, index = 0 }: ProductCardProps) {
+export default function ProductCard({ product, index = 0, viewDetailsLabel = 'View Details' }: ProductCardProps) {
   const primaryMedia = product.images.find(Boolean);
   const placeholder = (
     <div className="absolute inset-0 flex items-center justify-center">
@@ -46,7 +47,7 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
         <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden hover:shadow-lg hover:border-slate-300 transition-all duration-300">
           {/* Image Container */}
           <div className="relative aspect-[4/3] bg-slate-100 overflow-hidden">
-            {primaryMedia ? <EditableMedia src={primaryMedia} alt={product.name} className="absolute inset-0 h-full w-full object-cover" fallback={placeholder} /> : placeholder}
+            {primaryMedia ? <EditableMedia src={primaryMedia} alt={product.name} className="absolute inset-0 h-full w-full object-contain" fallback={placeholder} /> : placeholder}
 
             {/* Category Badge */}
             <div className="absolute top-3 left-3">
@@ -77,12 +78,9 @@ export default function ProductCard({ product, index = 0 }: ProductCardProps) {
               {product.shortDescription}
             </p>
 
-            <div className="flex items-center justify-between">
-              <span className={`text-sm font-medium ${product.inStock ? 'text-green-600' : 'text-slate-400'}`}>
-                {product.inStock ? 'Available' : 'Made to Order'}
-              </span>
+            <div className="flex items-center justify-end">
               <span className="inline-flex items-center gap-1 text-sm font-medium text-slate-600 group-hover:text-slate-900 transition-colors">
-                View Details
+                {viewDetailsLabel}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </span>
             </div>

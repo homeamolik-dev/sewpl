@@ -12,7 +12,6 @@ const allowedTypes: Record<string, { ext: string; maxSize: number; type: 'image'
   'image/png': { ext: '.png', maxSize: MAX_IMAGE_SIZE, type: 'image' },
   'image/webp': { ext: '.webp', maxSize: MAX_IMAGE_SIZE, type: 'image' },
   'image/gif': { ext: '.gif', maxSize: MAX_IMAGE_SIZE, type: 'image' },
-  'image/svg+xml': { ext: '.svg', maxSize: MAX_IMAGE_SIZE, type: 'image' },
   'video/mp4': { ext: '.mp4', maxSize: MAX_VIDEO_SIZE, type: 'video' },
   'video/webm': { ext: '.webm', maxSize: MAX_VIDEO_SIZE, type: 'video' },
   'video/quicktime': { ext: '.mov', maxSize: MAX_VIDEO_SIZE, type: 'video' },
@@ -49,7 +48,7 @@ export async function POST(request: Request) {
 
   const rule = allowedTypes[file.type];
   if (!rule) {
-    return NextResponse.json({ error: 'Only JPG, PNG, WebP, GIF, SVG, MP4, WebM, and MOV files are allowed' }, { status: 400 });
+    return NextResponse.json({ error: 'Only JPG, PNG, WebP, GIF, MP4, WebM, and MOV files are allowed' }, { status: 400 });
   }
 
   if (file.size > rule.maxSize) {

@@ -42,5 +42,28 @@
         "description": "Fair pricing with transparent quotations and no hidden costs."
       }
     ]
+  },
+  "customersSection": {
+    "title": "Our Customers",
+    "customers": [
+      { "name": "Company Logo", "logoUrl": "" },
+      { "name": "Company Logo", "logoUrl": "" },
+      { "name": "Company Logo", "logoUrl": "" },
+      { "name": "Company Logo", "logoUrl": "" },
+      { "name": "Company Logo", "logoUrl": "" },
+      { "name": "Company Logo", "logoUrl": "" },
+      { "name": "Company Logo", "logoUrl": "" },
+      { "name": "Company Logo", "logoUrl": "" },
+      { "name": "Company Logo", "logoUrl": "" },
+      { "name": "Company Logo", "logoUrl": "" },
+      { "name": "Company Logo", "logoUrl": "" },
+      { "name": "Company Logo", "logoUrl": "" },
+      { "name": "Company Logo", "logoUrl": "" },
+      { "name": "Company Logo", "logoUrl": "" },
+      { "name": "Company Logo", "logoUrl": "" },
+      { "name": "Company Logo", "logoUrl": "" },
+      { "name": "Company Logo", "logoUrl": "" },
+      { "name": "Company Logo", "logoUrl": "" }
+    ]
   }
 }
