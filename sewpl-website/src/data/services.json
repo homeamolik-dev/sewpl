@@ -51,7 +51,7 @@
       "description": "We design and manufacture custom industrial machines tailored to your specific production requirements. Our engineering team works closely with clients from concept to commissioning.",
       "mediaUrl": "",
       "icon": "factory",
-      "processes": [
+      "Machining Facilities": [
         {
           "name": "Design, Drawing and Development",
           "description": "Complete machine parts and assembly design and drawing using CAD/CAM softwares like AutoCAD and Solidworks with FEA analysis for optimal performance."
@@ -88,7 +88,7 @@
       "description": "Our maintenance services ensure your machinery operates at optimal efficiency. We offer preventive maintenance programs, emergency repairs, and spare parts support.",
       "mediaUrl": "",
       "icon": "wrench",
-      "processes": [
+      "Machining Facilities": [
         {
           "name": "Preventive Maintenance",
           "description": "Scheduled maintenance programs to prevent unexpected breakdowns and extend machine life."

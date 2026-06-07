@@ -297,7 +297,7 @@ function emptyService(index: number): ServiceItem {
     description: '',
     mediaUrl: '',
     icon: 'cog',
-    processes: [],
+    'Machining Facilities': [],
     capabilities: [],
   };
 }
@@ -897,7 +897,14 @@ export default function AdminPage() {
     if (!servicesContent) return;
     const cleanedServicesContent = {
       ...servicesContent,
-      services: servicesContent.services.map((service) => ({ ...service, mediaUrl: '' })),
+      services: servicesContent.services.map((service) => {
+        const { processes, ...rest } = service;
+        return {
+          ...rest,
+          mediaUrl: '',
+          'Machining Facilities': service['Machining Facilities'] ?? processes ?? [],
+        };
+      }),
       facility: {
         ...servicesContent.facility,
         images: servicesContent.facility.images
@@ -1668,7 +1675,7 @@ export default function AdminPage() {
                     <label className="block text-sm font-medium text-slate-700">Full description<textarea value={selectedService.description} onChange={(event) => updateService(selectedService.id, { description: event.target.value })} rows={5} className="mt-1 w-full rounded-lg border border-slate-300 px-3 py-2" /></label>
 
 	                    <div className="grid gap-4 md:grid-cols-2">
-	                      <ProcessEditor title="Processes / machining facilities" items={selectedService.processes ?? selectedService['Machining Facilities'] ?? []} onChange={(items) => updateService(selectedService.id, selectedService['Machining Facilities'] ? { 'Machining Facilities': items } : { processes: items })} />
+	                      <ProcessEditor title="Machining Facilities" items={selectedService['Machining Facilities'] ?? selectedService.processes ?? []} onChange={(items) => updateService(selectedService.id, { 'Machining Facilities': items })} />
 	                      <TextListEditor title="Capabilities" items={selectedService.capabilities ?? []} onChange={(capabilities) => updateService(selectedService.id, { capabilities })} addLabel="Add capability" />
 	                    </div>
 

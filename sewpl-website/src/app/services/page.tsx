@@ -61,7 +61,7 @@ export default function ServicesPage() {
 
       {liveServicesData.services.map((service, index) => (
         (() => {
-          const serviceProcesses = (service as ServiceWithClientFields).processes ?? (service as ServiceWithClientFields)['Machining Facilities'];
+          const serviceProcesses = (service as ServiceWithClientFields)['Machining Facilities'] ?? (service as ServiceWithClientFields).processes;
 
           return (
             <section key={service.id} id={service.slug} className={index % 2 === 0 ? 'py-20 bg-slate-50' : 'py-20 bg-white'}>

@@ -9,13 +9,24 @@ import contactPageContent from '@/data/contact-page-content.json';
 import siteGlobal from '@/data/site-global.json';
 import { useContentData } from '@/hooks/useContentData';
 
-function getMapEmbedSrc(embed: string, fallbackLink: string) {
+function getMapEmbedSrc(embed: string, fallbackQuery: string) {
   const trimmed = embed.trim();
   if (!trimmed || trimmed.startsWith('<!--')) {
-    return fallbackLink ? `https://maps.google.com/maps?q=${encodeURIComponent(fallbackLink)}&output=embed` : '';
+    return fallbackQuery ? `https://maps.google.com/maps?q=${encodeURIComponent(fallbackQuery)}&output=embed` : '';
   }
   const srcMatch = trimmed.match(/src=["']([^"']+)["']/i);
   return srcMatch?.[1] || trimmed;
+}
+
+function getAddressText(address: typeof companyData.contact.address) {
+  return [
+    address.line1,
+    address.line2,
+    address.city,
+    address.state,
+    address.pincode,
+    address.country,
+  ].filter(Boolean).join(' ');
 }
 
 function labelFromKey(key: string) {
@@ -34,7 +45,8 @@ export default function ContactPage() {
   const liveCompanyData = content['company.json'];
   const liveContactPageContent = content['contact-page-content.json'];
   const liveSiteGlobal = content['site-global.json'];
-  const mapEmbedSrc = getMapEmbedSrc(liveCompanyData.contact.googleMapsEmbed, liveCompanyData.contact.googleMapsLink);
+  const addressText = getAddressText(liveCompanyData.contact.address);
+  const mapEmbedSrc = getMapEmbedSrc(liveCompanyData.contact.googleMapsEmbed, addressText);
   const publicEmailKeys = ['general', 'sales', 'accounts'] as const;
   const departments = publicEmailKeys
     .map((key) => ({ name: labelFromKey(key), email: liveCompanyData.contact.email[key], icon: Users }))
